@@ -1,2 +1,2 @@
 # MCI-DeM: Aim 2, Study 3
-This repository contains syntax files for MCI DeM Study 3. These files pretain to the creation of master and analytic datasets, as well as the analysis of patient-partner treatment preferences by MCI status and race. 
+This repository contains syntax files for MCI DeM Aim 2, Study 3: The influence of mild cognitive impairment on patient and surrogate preferences for acute myocardial infarction and ischemic stroke treatment. These files pertain to dataset creation and statistical analysis.
