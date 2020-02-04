@@ -16,6 +16,8 @@ This repository contains files pertaining to Aim 2, Study 3 of MCI DeM.
 
 1. `ANALYTIC-PLAN.docx` details the analytic plan for MCI DeM Aim 2, Study 3. This file was created by Rachael Whitney.
 
+   * `ANALYTIC-PLAN.md` Analysis plan converted to .md format
+
 2. `DATA-DICTIONARY.csv` details the variables included in the MCI DeM Aim 2, Study 3 master dataset. This file was created by Rachael Whitney. 
 
 3. `UNIVARIATE-STATS.csv` will be provided later
