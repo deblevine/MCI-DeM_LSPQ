@@ -12,7 +12,7 @@ This repository contains files pertaining to Aim 2, Study 3 of MCI DeM.
 
 1. "MASTER" generates the MCI DeM Aim 2, Study 3 master dataset. This dataset contains patient-partner survey data, frozen in February 2020. This file was created by Rachael Whitney.
 
-## .DOCX Files
+## .MD Files
 
 1. "ANALYTIC-PLAN" details the analytic plan for MCI DeM Aim 2, Study 3. This file was created by Rachael Whitney.
 
