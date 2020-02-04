@@ -18,18 +18,23 @@ Updated by Rachael Whitney, PhD: 01/22/2020
 
 TASK: Generate a 2020 MCI DeM master file containing patient-partner survey data. 
 
-FILE 1 IN USE: MCIDEMPatientSurveys-ExportForAnalysis_DATA_NOHDRS_2020-01-08_0937.csv
-was imported using MCIDEMPatientSurveys-ExportForAnalysis_STATA_2020-01-08_0937.do
-and saved as MCIDEMPatientSurveys_STATA_200108.dta. This file contains survey data.
-
-FILE 2 IN USE: MCIDEMPatientSurveys_DATA_NOHDRS_2020-01-22_1316.csv was 
-imported using MCIDEMPatientSurveys_STATA_2020-01-22_1316.do and saved as 
-MCIDEMPatientSurveys_STATA_2020-01-22_1316.dta. This file contains data on
-patient MCI status and MoCA scores. 
-
 Variables were renamed using code written by Mohammed Kabeto 
 (MCIDEMPatientPartner_surveydata_renaming.do). New variables were created and
 data was restructured using code written by Rachael Torres Whitney. 
+
+---INPUT FILES---
+MCIDEMPatientSurveys-ExportForAnalysis_DATA_NOHDRS_2020-01-08_0937.csv was imported 
+using MCIDEMPatientSurveys-ExportForAnalysis_STATA_2020-01-08_0937_RELABEL200204.do
+and saved as MCIDEMPatientSurveys_STATA_200108.dta. This file contains survey data.
+
+MCIDEMPatientSurveys_DATA_NOHDRS_2020-01-22_1316.csv was imported using 
+MCIDEMPatientSurveys_STATA_2020-01-22_1316.do and saved as 
+MCIDEMPatientSurveys_STATA_2020-01-22_1316.dta. This file contains data on
+patient MCI status and MoCA scores. 
+
+---OUTPUT FILES---
+2020 Freeze:     MCIDeM_AIM2_STUDY3_MASTER_200204.dta
+
 ********************************************************************************
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 ////////////////////////////////////////////////////////////////////////////////
