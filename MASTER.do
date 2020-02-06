@@ -557,7 +557,7 @@ drop *studypartnersurvey; /* Duplicate variable */;
 quietly{;
 label define dsdm 1 "I make decision" 2 "I make final decision" 3 "My doctor and I make decision" 4 "My doctor makes final decision" 5 "My doctor makes decision";
 label define education 1 "8th grade or less" 2 "Some high school" 3 "High school graduate or GED" 4 "Trade school" 5 "Some college or 2-year degree" 6 "4-year degree" 7 "Graduate degree";
-label define marital 1 "Married " 2 "Not married but live with partner" 3 "Divorced or separated" 4 "Widowed" 5 "Never married";
+label define marital 1 "Married " 2 "Live with partner" 3 "Divorced or separated" 4 "Widowed" 5 "Never married";
 label define phq 0 "Not at all" 1 "Several days" 2 "More than half the days" 3 "Nearly every day";
 label define health 1 "Excellent" 2 "Very good" 3 "Good" 4 "Fair";
 label define gender 0 "Female" 1 "Male";
