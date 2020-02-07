@@ -120,7 +120,7 @@ drop x;
 *GENERATES PATIENT COG ASSESSMENT STATUS FOR MISSING DYAD MEMBER;
 egen x = total(cog_assessment_12mo), by(dyadid) missing;
 replace cog_assessment_12mo = x if cog_assessment_12mo==.;
-recode cog_assessment_12mo (.=1); /* Error in data entry, checked by Bailey Reale */
+recode cog_assessment_12mo (. 0=1); /* Error in data entry, checked by Bailey Reale */;
 drop x dyadid pnid;
 /* NOTE
 8 participants are part of an incomplete dyad due to lack of survey data. The 
