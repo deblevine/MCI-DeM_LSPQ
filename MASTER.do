@@ -337,6 +337,17 @@ replace pttype = 1 if age==. & age_pr!=. & pttype==.;
 drop pnid redcap_data_access_group patientsurvey;
 };
 
+*** COMPLETE DYAD;
+quietly{;
+egen complete_dyad = count(new_c7_c8_study_part_v_2), by(dyadid);
+recode complete_dyad (1=0) (2=1);
+/* NOTE
+Not all participants were part of a complete dyad, due to some failing to return
+the survey. This variable identifies dyads as being incomplete (complete_dyad=0)
+or complete (complete_dyad=1).
+*/
+};
+
 *** RACE;
 quietly{;
 *PATIENT ABOUT SELF;
