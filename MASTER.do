@@ -691,7 +691,7 @@ foreach var in `dyad' {;
 label values `var';
 };
 *RELATIONSHIP;
-label define relation 1 "Live-in companion" 2 "Spouse" 3 "Child" 4 "Sibling" 5 "Parent" 6 "Friend" 7 "Other";
+label define relation 1 "Live-in partner" 2 "Spouse" 3 "Child" 4 "Sibling" 5 "Parent" 6 "Friend" 7 "Other";
 label values relationship_dyad relation;
 *FACE-TO-FACE-INTERACTION;
 label define see 1 "I live with the person" 2 "Daily" 3 "Several times a week" 4 "Once a week" 5 "One to three times a month" 6 "Less than once a month";
