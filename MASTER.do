@@ -698,7 +698,7 @@ label define see 1 "I live with the person" 2 "Daily" 3 "Several times a week" 4
 label values frequency_seen_dyad see;
 rename frequency_seen_dyad freq_see_dyad;
 *SPEAKING INTERACTION;
-label define speak 1 "Daily" 2 "Several times a week" 3 "Once a week" 4 "One to three times a month" 5 "Other" 6 "Not applicable";
+label define speak 1 "Daily" 2 "Several times a week" 3 "Once a week" 4 "One to three times a month" 5 "Less than once a month" 6 "Not applicable";
 label values speak_with_dyad speak;
 rename speak_with_dyad freq_speak_dyad;
 };
