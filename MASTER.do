@@ -331,18 +331,12 @@ lab var pnid "Person Number ID";
 gen site = substr(mci_dem_dyadsubject_id, 1, 4);
 lab var site "Study site";
 drop lengthst mci_dem_dyadsubject_id;
-};
-
-*** PARTICIPANT TYPE IDENTIFIER; 
-quietly{;
-gen pttype = 0 if patientsurvey==1;
-replace pttype = 1 if studypartnersurvey==1;
+*PTTYPE;
+gen pttype=1 if pnid=="20";
+replace pttype=0 if pnid=="10";
 lab var pttype "Participant Type";
 lab define pt 0 "Patient" 1 "Partner";
 lab values pttype pt;
-replace pttype = 0 if age!=. & age_pr==. & pttype==.;
-replace pttype = 1 if age==. & age_pr!=. & pttype==.;
-drop pnid redcap_data_access_group patientsurvey;
 };
 
 *** COMPLETE DYAD;
