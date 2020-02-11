@@ -56,7 +56,8 @@ egen x = total(patient_status), by(dyadid) missing;
 label values patient_status x mci;
 drop patient_status;
 rename x patient_status;
-keep if eligibility_status==1;
+replace recruit_status = 1 if mci_dem_dyadsubject_id=="UMDL1950013410" | mci_dem_dyadsubject_id=="UMDL1950013420"; /* REDCap Error confirmed by Bailey Reale */
+keep if eligibility_status==1 & recruit_status==1;
 keep mci_dem_dyadsubject_id patient_status moca dyadid cog_assessment_12mo englishspeaking;
 save `tracker';
 /* NOTE
