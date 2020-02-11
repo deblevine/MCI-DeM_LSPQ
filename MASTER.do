@@ -139,6 +139,13 @@ Missing partner:
 	UMDL1950093
 	UMDL19500106
 	UMDL1950058
+
+For two dyads, the patient and partner did not return the survey. These dyads
+are dropped from the analytic dataset. 
+
+Missing patient & partner:
+	UMDL19500136
+	UMDL19500139
 */
 };
 
