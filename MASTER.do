@@ -720,7 +720,7 @@ rename speak_with_dyad freq_speak_dyad;
 quietly {;
 order dyadsubjid dyadid site pttype mci_status_pt *_pt *_ptr *_apt *_dyad;
 duplicates drop dyadid, force; /* Transforms to a wide file, by dyadid */
-drop pttype dyadsubjid redcap_data_access_group patientsurvey; /* Unnecessary with this format */
+drop pttype dyadsubjid redcap_data_access_group patientsurvey pnid; /* Unnecessary with this format */
 };
 
 ********* 2020 MCI DeM AIM 2 STUDY 3 MASTER FREEZE;
