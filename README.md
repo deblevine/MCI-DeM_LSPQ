@@ -18,6 +18,8 @@ This repository contains files pertaining to Aim 2, Study 3 of MCI DeM.
 
 1. `ANALYTIC-PLAN_LSPQ.docx` details the analytic plan for the MCI DeM Aim 2, Study 3, LSPQ manuscript. This file was created by Rachael Whitney with input from Deborah Levine, Andrzej Galecki and Mohammed Kabeto. 
 
-   * `ANALYTIC-PLAN_LSPQ.md` Analysis plan converted to .md format (see https://word2md.com/)
+   * `ANALYTIC-PLAN_LSPQ.md` Analysis plan converted to .md format (see https://word2md.com/).
 
-2. `DATA-DICTIONARY.csv` details the variables included in the MCI DeM Aim 2, Study 3 master dataset. This file was created by Rachael Whitney. 
+2. `VARIABLE_DETAILS.xlsx` details the variables included in the MCI DeM Aim 2, Study 3 master dataset. Survey sections are saved as seperate sheets within the Excel file. This file was created by Rachael Whitney. 
+
+3. `DATA-DICTIONARY.csv` details the variables included in the MCI DeM Aim 2, Study 3 master dataset. This file was created by Rachael Whitney. 
