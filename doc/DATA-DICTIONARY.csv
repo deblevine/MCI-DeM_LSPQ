@@ -1,0 +1,352 @@
+VARIABLE,PROVIDED BY,ABOUT,SCENARIO,QUESTION,ORIGINAL VALUES,UPDATED VALUES
+dyadid,N/A,Dyad,N/A,N/A,N/A,N/A
+moca_pt,N/A,Patient,N/A,N/A,N/A,N/A
+site,N/A,Dyad,N/A,N/A,UMDL | DUDL,N/A
+complete_dyad,N/A,Dyad,N/A,N/A,0. Incomplete. | 1. Complete.,N/A
+mci_status_pt,N/A,Patient,N/A,N/A,0. No MCI. | 1. MCI.,N/A
+cog_assessment_12mo_pt,N/A,Patient,N/A,N/A,0. No cognitive assessment. | 1. Cognitive assessment.,N/A
+englishspeaking_pt,N/A,Patient,N/A,N/A,"0. No, does not read and/or speak English. | 1. Yes, reads and speaks English.",0. No | 1. Yes
+ch_antibiotics_pt,Patient,Patient,Current health,"A1. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?","1. I definitely want antibiotics. | 2. I probably want antibiotics. | 3. I am unsure. | 4. I probably do not want antibiotics. | 5. I definitely do not want antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ch_cpr_pt,Patient,Patient,Current health,"A2. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation? ","1. I definitely want CPR. | 2. I probably want CPR. | 3. I am unsure. | 4. I probably do not want CPR. | 5. I definitely do not want CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ch_gallbladder_pt,Patient,Patient,Current health,"A3. If your gallbladder became inflamed and infected, would you want surgery to remove it?","1. I definitely want surgery. | 2. I probably want surgery. | 3. I am unsure. | 4. I probably do not want surgery. | 5. I definitely do not want surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ch_artificial_fd_pt,Patient,Patient,Current health,"A4. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?",1. I definitely want artificial feeding and fluids. | 2. I probably want artificial feeding and fluids. | 3. I am unsure. | 4. I probably do not want artificial feeding and fluids. | 5. I definitely do not want artificial feeding and fluids.,1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+emph_antibiotics_pt,Patient,Patient,Emphysema ,"A5. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?","1. I definitely want antibiotics. | 2. I probably want antibiotics. | 3. I am unsure. | 4. I probably do not want antibiotics. | 5. I definitely do not want antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+emph_cpr_pt,Patient,Patient,Emphysema,"A6. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation? ","1. I definitely want CPR. | 2. I probably want CPR. | 3. I am unsure. | 4. I probably do not want CPR. | 5. I definitely do not want CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+emph_gallbladder_pt,Patient,Patient,Emphysema,"A7. If your gallbladder became inflamed and infected, would you want surgery to remove it?","1. I definitely want surgery. | 2. I probably want surgery. | 3. I am unsure. | 4. I probably do not want surgery. | 5. I definitely do not want surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+emph_artificial_fd_pt,Patient,Patient,Emphysema,"A8. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?","1. I definitely want artificial feeding and fluids. | 2. I probably want artificial feeding and fluids. | 3. I am unsure. | 4. I probably do not want artificial feeding and fluids. | 5. I definitely do not want artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_antibiotics_pt,Patient,Patient,Stroke,"A9. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?","1. I definitely want antibiotics. | 2. I probably want antibiotics. | 3. I am unsure. | 4. I probably do not want antibiotics. | 5. I definitely do not want antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_cpr_pt,Patient,Patient,Stroke,"A10. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation? ","1. I definitely want CPR. | 2. I probably want CPR. | 3. I am unsure. | 4. I probably do not want CPR. | 5. I definitely do not want CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_gallbladder_pt,Patient,Patient,Stroke,"A11. If your gallbladder became inflamed and infected, would you want surgery to remove it?","1. I definitely want surgery. | 2. I probably want surgery. | 3. I am unsure. | 4. I probably do not want surgery. | 5. I definitely do not want surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_artificial_fd_pt,Patient,Patient,Stroke,"A12. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?","1. I definitely want artificial feeding and fluids. | 2. I probably want artificial feeding and fluids. | 3. I am unsure. | 4. I probably do not want artificial feeding and fluids. | 5. I definitely do not want artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cancer_antibiotics_pt,Patient,Patient,Cancer,"A13. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?","1. I definitely want antibiotics. | 2. I probably want antibiotics. | 3. I am unsure. | 4. I probably do not want antibiotics. | 5. I definitely do not want antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cancer_cpr_pt,Patient,Patient,Cancer,"A14. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation? ","1. I definitely want CPR. | 2. I probably want CPR. | 3. I am unsure. | 4. I probably do not want CPR. | 5. I definitely do not want CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cancer_gallbladder_pt,Patient,Patient,Cancer,"A15. If your gallbladder became inflamed and infected, would you want surgery to remove it?","1. I definitely want surgery. | 2. I probably want surgery. | 3. I am unsure. | 4. I probably do not want surgery. | 5. I definitely do not want surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cancer_artificial_fd_pt,Patient,Patient,Cancer,"A16. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?","1. I definitely want artificial feeding and fluids. | 2. I probably want artificial feeding and fluids. | 3. I am unsure. | 4. I probably do not want artificial feeding and fluids. | 5. I definitely do not want artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+hattack_antibiotics_pt,Patient,Patient,Heart attack,"A17. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?","1. I definitely want antibiotics. | 2. I probably want antibiotics. | 3. I am unsure. | 4. I probably do not want antibiotics. | 5. I definitely do not want antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+hattack_cpr_pt,Patient,Patient,Heart attack,"A18. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation? ","1. I definitely want CPR. | 2. I probably want CPR. | 3. I am unsure. | 4. I probably do not want CPR. | 5. I definitely do not want CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+hattack_gallbladder_pt,Patient,Patient,Heart attack,"A19. If your gallbladder became inflamed and infected, would you want surgery to remove it?","1. I definitely want surgery. | 2. I probably want surgery. | 3. I am unsure. | 4. I probably do not want surgery. | 5. I definitely do not want surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+hattack_artificial_fd_pt,Patient,Patient,Heart attack,"A20. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?","1. I definitely want artificial feeding and fluids. | 2. I probably want artificial feeding and fluids. | 3. I am unsure. | 4. I probably do not want artificial feeding and fluids. | 5. I definitely do not want artificial feeding and fluids. 
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ad_antibiotics_pt,Patient,Patient,Alzhiemers disease,"A21. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?","1. I definitely want antibiotics. | 2. I probably want antibiotics. | 3. I am unsure. | 4. I probably do not want antibiotics. | 5. I definitely do not want antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ad_cpr_pt,Patient,Patient,Alzhiemers disease,"A22. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation? ","1. I definitely want CPR. | 2. I probably want CPR. | 3. I am unsure. | 4. I probably do not want CPR. | 5. I definitely do not want CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ad_gallbladder_pt,Patient,Patient,Alzhiemers disease,"A23. If your gallbladder became inflamed and infected, would you want surgery to remove it?","1. I definitely want surgery. | 2. I probably want surgery. | 3. I am unsure. | 4. I probably do not want surgery. | 5. I definitely do not want surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ad_artificial_fd_pt,Patient,Patient,Alzhiemers disease,"A24. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?","1. I definitely want artificial feeding and fluids. | 2. I probably want artificial feeding and fluids. | 3. I am unsure. | 4. I probably do not want artificial feeding and fluids. | 5. I definitely do not want artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+lspq_pt,Patient,Patient,N/A,N/A,N/A,N/A
+decision_pt,Patient,Patient,N/A,B1. Please check the one statement that best describes what you believe would be ideal.,1. I prefer to make the decision about which treatment I will receive. | 2. I prefer to make the final decision about my treatment after seriously considering my doctor's opinion. | 3. I prefer that my doctor and I share responsibility for deciding which treatment is best for me. | 4. I prefer that my doctor makes that final decision about which treatment will be used but seriously considers my opinion. | 5. I prefer to leave all decisions regarding treatment to my doctor.,1. I make decision. | 2. I make final decision. | 3. My doctor and I make decision. | 4. My doctor makes final decision. | 5. My doctor makes decision.
+angioplasty_pt,Patient,Patient,Heart attack,C1. How involved would you want to be in the decision on whether or not to have a medical procedure (called an angioplasty) to treat the heart attack?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+surgery_pt,Patient,Patient,Heart attack,C2. How involved would you want to be in the decision on whether or not to have open-heart surgery (called bypass surgery) to improve blood flow to the heart after you had a heart attack?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+heart_rehab_pt,Patient,Patient,Heart attack,C3. How involved would you want to be in the decision on whether or not to do a heart rehabilitation program in a clinic to improve your health and well-being after you had a heart attack?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cholesterol_med_pt,Patient,Patient,Heart attack,C4. How involved would you want to be in the decision on whether or not to start a cholesterol medicine to reduce the chance of having another heart attack?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+clotbusting_med_pt,Patient,Patient,Stroke,C5. How involved would you want to be in the decision on whether or not to have clot-busting medicine injected into a vein to treat the stroke?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+sx_on_neck_artery_pt,Patient,Patient,Stroke,C6. How involved would you want to be in the decision on whether or not to have surgery on a neck artery to improve blood flow to the brain after you had a stroke?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_rehab_pt,Patient,Patient,Stroke,C7. How involved would you want to be in the decision on whether or not to do stroke rehabilitation in a hospital or facility to improve your walking and balance after you had a stroke?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+blood_thinning_med_pt,Patient,Patient,Stroke,C8. How involved would you want to be in the decision on whether or not to start blood-thinning medicine to reduce the chance of having another stroke?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+falls_f2yrs_pt,Patient,Patient,N/A,D1. I feel that I'm going to have a fall in the next 2 years. ,1. Disagree strongly. | 2. Disagree. | 3. Neither agree nor disagree. | 4. Agree. | 5. Agree strongly.,N/A
+heart_attack_f2yrs_pt,Patient,Patient,N/A,D2. I feel that I'm going to have a heart attack in the next 2 years. ,1. Disagree strongly. | 2. Disagree. | 3. Neither agree nor disagree. | 4. Agree. | 5. Agree strongly.,N/A
+stroke_f2yrs_pt,Patient,Patient,N/A,D3. I feel that I'm going to have a stroke in the next 2 years. ,1. Disagree strongly. | 2. Disagree. | 3. Neither agree nor disagree. | 4. Agree. | 5. Agree strongly.,N/A
+dementia_f2yrs_pt,Patient,Patient,N/A,D4. I feel that I'm going to develop dementia in the next 2 years. ,1. Disagree strongly. | 2. Disagree. | 3. Neither agree nor disagree. | 4. Agree. | 5. Agree strongly.,N/A
+health_pt,Patient,Patient,N/A,"E1. In general, how is your health?","1. Excellent. | 2. Very good. | 3. Good. | 4. Fair. | 5. Poor.
+",N/A
+stroke_pt,Patient,Patient,N/A,E2. Has a doctor ever told you that you had a stroke?,"0. No. | 1. Yes.
+",N/A
+heart_disease_pt,Patient,Patient,N/A,"E3. Has a doctor ever told you that you had a heart attack, coronary heart disease, angina, congestive health failure, or other heart problems?
+","0. No. | 1. Yes.
+",N/A
+lung_disease_pt,Patient,Patient,N/A,"E4. Has a doctor ever told you that you have chronic lung disease such as chronic bronchitis, COPD, or emphysema?
+","0. No.
+1. Yes.
+",N/A
+cancer_pt,Patient,Patient,N/A,"E5. Has a doctor ever told you that you have cancer or a malignant tumor, excluding minor skin cancer?","0. No.
+1. Yes.
+",N/A
+arthritis_pt,Patient,Patient,N/A,E6. Has a doctor ever told you that you have arthritis or rheumatism?,"0. No.
+1. Yes.
+",N/A
+little_interest_pt,Patient,Patient,N/A,"E7. Over the past 2 weeks, how often have you been bothered by little interest or pleasure in doing things?","0. Not at all. | 1. Several days. | 2. More than half the days. | 3. Nearly every day.
+",N/A
+depressed_pt,Patient,Patient,N/A,"E8. Over the past 2 weeks, how often have you been bothered by feeling down, depressed, or hopeless?",0. Not at all. | 1. Several days. | 2. More than half the days. | 3. Nearly every day.,N/A
+phq2_pt,Patient,Patient,N/A,N/A,N/A,N/A
+walking_pt,Patient,Patient,N/A,"E9. Because of a health or memory problem, do you have difficulty with any of the following activities? Walking several blocks.","0. No.
+1. Yes.
+",N/A
+dressing_pt,Patient,Patient,N/A,"E10. Because of a health or memory problem, do you have difficulty with any of the following activities? Dressing, including putting on shoes and socks.
+","0. No.
+1. Yes.
+",N/A
+bathing_pt,Patient,Patient,N/A,"E11. Because of a health or memory problem, do you have difficulty with any of the following activities? Bathing or showering.
+","0. No.
+1. Yes.
+",N/A
+eating_pt,Patient,Patient,N/A,"E12. Because of a health or memory problem, do you have difficulty with any of the following activities? Eating, such as cutting up food.
+","0. No.
+1. Yes.
+",N/A
+bed_pt,Patient,Patient,N/A,"E13. Because of a health or memory problem, do you have difficulty with any of the following activities? Getting in or out of bed.
+","0. No.
+1. Yes.
+",N/A
+toileting_pt,Patient,Patient,N/A,"E14. Because of a health or memory problem, do you have difficulty with any of the following activities? Using the toilet, including getting up and down.
+","0. No.
+1. Yes.
+",N/A
+adl_pt,Patient,Patient,N/A,N/A,N/A,N/A
+age_pt,Patient,Patient,N/A,F1. What is your age?,N/A,N/A
+gender_pt,Patient,Patient,N/A,F2. What is your gender,0. Female. | 1. Male.,N/A
+race_pt,Patient,Patient,N/A,N/A,0. White | 1. Black,N/A
+hispanic_pt,Patient,Patient,N/A,F3. Are you Hispanic or Latino?,"0. No.
+1. Yes.
+",N/A
+race_1_pt,Patient,Patient,N/A,F4. What is your race? American Indian/Alaska Native (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_2_pt,Patient,Patient,N/A,F4. What is your race? Asian (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_3_pt,Patient,Patient,N/A,F4. What is your race? Black/African American (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_4_pt,Patient,Patient,N/A,F4. What is your race? Native Hawaiian/Other Pacific Islander (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_5_pt,Patient,Patient,N/A,F4. What is your race? White (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_6_pt,Patient,Patient,N/A,F4. What is your race? Other (select all that apply),"0. No.
+1. Yes.
+",N/A
+marital_statu_pt,Patient,Patient,N/A,F5. What is your current marital status? Check one box.,"1. Married. | 2. Living with someone as a couple, but not married.  | 3. Divorced or separated. | 4. Widowed. | 5. Never married.
+",1. Married. | 2. Live with partner. | 3. Divorced or separated. | 4. Widowed. | 5. Never married.
+children_pt,Patient,Patient,N/A,"F6. Do you have any children -- please include biological, stepchildren, and adopted children?
+","0. No.
+1. Yes.
+",N/A
+children_lives_with_pt,Patient,Patient,N/A,F7. Do you have at least one adult child that lives with you?,"0. No.
+1. Yes.
+",N/A
+children_30_mi_pt,Patient,Patient,N/A,"F8. Do any of your adult children who do not live with you live within 30 miles of you?
+","0. No.
+1. Yes.
+",N/A
+education_pt,Patient,Patient,N/A,F9. What is the highest grade of school that you completed? Check one box.,"1. 8th grade or less. | 2. Some high school, but did not graduate. | 3. High school graduate or GED. | 4. Trade school. | 5. Some college or 2-year college degree. | 6. 4-year college degree. | 7. More than 4-year college degree.
+",1. 8th grade or less. | 2. Some high school. | 3. High school graduate or GED. | 4. Trade school. | 5. Some college or 2-year degree. | 6. 4-year degree. | 7. Graduate degree.
+dementia_cfamily_pt,Patient,Patient,N/A,F10. Has a close family member or friend had dementia?  ,"0. No.
+1. Yes.
+",N/A
+stroke_cfamily_pt,Patient,Patient,N/A,F11. Has a close family member or friend had a stroke?,"0. No.
+1. Yes.
+",N/A
+heart_attack_cfamily_pt,Patient,Patient,N/A,F12. Has a close family member or friend had a heart attack?,"0. No.
+1. Yes.
+",N/A
+ch_antibiotics_apt,Partner,Patient,Current health,"A1. If your study partner developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?","1. I definitely would want them to use antibiotics. | 2. I probably would want them to use antibiotics. | 3. I am unsure. | 4. I probably would not want them to use antibiotics. | 5. I definitely would not want them to use antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ch_cpr_apt,Partner,Patient,Current health,"A2. If your study partner's heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?","1. I definitely would want them to receive CPR. | 2. I probably would want them to receive CPR. |  3. I am unsure. |  4. I probably would not want them to receive CPR. |  5. I definitely would not want them to receive CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ch_gallbladder_apt,Partner,Patient,Current health,"A3. If your study partner's gallbladder became inflamed and infected, would you want them to have surgery to remove it?","1. I definitely would want them to have surgery. | 2. I probably would want them to have surgery. | 3. I am unsure. | 4. I probably would not want them to have surgery. | 5. I definitely would not want them to have surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ch_artificial_fd_apt,Partner,Patient,Current health,"A4. If your study partner's condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?","1. I definitely would want them to get artificial feeding and fluids. | 2. I probably would want them to get artificial feeding and fluids. | 3. I am unsure. | 4. I probably would not want them to get artificial feeding and fluids. | 5. I definitely would not want them to get artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+emph_antibiotics_apt,Partner,Patient,Emphysema ,"A5. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?","1. I definitely would want them to use antibiotics. | 2. I probably would want them to use antibiotics. | 3. I am unsure. | 4. I probably would not want them to use antibiotics. | 5. I definitely would not want them to use antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+emph_cpr_apt,Partner,Patient,Emphysema,"A6. If your study partner's heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?","1. I definitely would want them to receive CPR. | 2. I probably would want them to receive CPR. |  3. I am unsure. |  4. I probably would not want them to receive CPR. |  5. I definitely would not want them to receive CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+emph_gallbladder_apt,Partner,Patient,Emphysema,"A7. If your study partner's gallbladder became inflamed and infected, would you want them to have surgery to remove it?","1. I definitely would want them to have surgery. | 2. I probably would want them to have surgery. | 3. I am unsure. | 4. I probably would not want them to have surgery. | 5. I definitely would not want them to have surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+emph_artificial_fd_apt,Partner,Patient,Emphysema,"A8. If your study partner's condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?","1. I definitely would want them to get artificial feeding and fluids. | 2. I probably would want them to get artificial feeding and fluids. | 3. I am unsure. | 4. I probably would not want them to get artificial feeding and fluids. | 5. I definitely would not want them to get artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_antibiotics_apt,Partner,Patient,Stroke,"A9. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?","1. I definitely would want them to use antibiotics. | 2. I probably would want them to use antibiotics. | 3. I am unsure. | 4. I probably would not want them to use antibiotics. | 5. I definitely would not want them to use antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_cpr_apt,Partner,Patient,Stroke,"A10. If your study partner's heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?","1. I definitely would want them to receive CPR. | 2. I probably would want them to receive CPR. |  3. I am unsure. |  4. I probably would not want them to receive CPR. |  5. I definitely would not want them to receive CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_gallbladder_apt,Partner,Patient,Stroke,"A11. If your study partner's gallbladder became inflamed and infected, would you want them to have surgery to remove it?","1. I definitely would want them to have surgery. | 2. I probably would want them to have surgery. | 3. I am unsure. | 4. I probably would not want them to have surgery. | 5. I definitely would not want them to have surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_artificial_fd_apt,Partner,Patient,Stroke,"A12. If your study partner's condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?","1. I definitely would want them to get artificial feeding and fluids. | 2. I probably would want them to get artificial feeding and fluids. | 3. I am unsure. | 4. I probably would not want them to get artificial feeding and fluids. | 5. I definitely would not want them to get artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cancer_antibiotics_apt,Partner,Patient,Cancer,"A13. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?","1. I definitely would want them to use antibiotics. | 2. I probably would want them to use antibiotics. | 3. I am unsure. | 4. I probably would not want them to use antibiotics. | 5. I definitely would not want them to use antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cancer_cpr_apt,Partner,Patient,Cancer,"A14. If your study partner's heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?
+","1. I definitely would want them to receive CPR. | 2. I probably would want them to receive CPR. |  3. I am unsure. |  4. I probably would not want them to receive CPR. |  5. I definitely would not want them to receive CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cancer_gallbladder_apt,Partner,Patient,Cancer,"A15. If your study partner's gallbladder became inflamed and infected, would you want them to have surgery to remove it?","1. I definitely would want them to have surgery. | 2. I probably would want them to have surgery. | 3. I am unsure. | 4. I probably would not want them to have surgery. | 5. I definitely would not want them to have surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cancer_artificial_fd_apt,Partner,Patient,Cancer,"A16. If your study partner's condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?","1. I definitely would want them to get artificial feeding and fluids. | 2. I probably would want them to get artificial feeding and fluids. | 3. I am unsure. | 4. I probably would not want them to get artificial feeding and fluids. | 5. I definitely would not want them to get artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+hattack_antibiotics_apt,Partner,Patient,Heart attack,"A17. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?","1. I definitely would want them to use antibiotics. | 2. I probably would want them to use antibiotics. | 3. I am unsure. | 4. I probably would not want them to use antibiotics. | 5. I definitely would not want them to use antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+hattack_cpr_apt,Partner,Patient,Heart attack,"A18. If your study partner's heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?","1. I definitely would want them to receive CPR. | 2. I probably would want them to receive CPR. |  3. I am unsure. |  4. I probably would not want them to receive CPR. |  5. I definitely would not want them to receive CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+hattack_gallbladder_apt,Partner,Patient,Heart attack,"A19. If your study partner's gallbladder became inflamed and infected, would you want them to have surgery to remove it?","1. I definitely would want them to have surgery. | 2. I probably would want them to have surgery. | 3. I am unsure. | 4. I probably would not want them to have surgery. | 5. I definitely would not want them to have surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+hattack_artificial_fd_apt,Partner,Patient,Heart attack,"A20. If your study partner's condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?","1. I definitely would want them to get artificial feeding and fluids. | 2. I probably would want them to get artificial feeding and fluids. | 3. I am unsure. | 4. I probably would not want them to get artificial feeding and fluids. | 5. I definitely would not want them to get artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ad_antibiotics_apt,Partner,Patient,Alzhiemers disease,"A21. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?","1. I definitely would want them to use antibiotics. | 2. I probably would want them to use antibiotics. | 3. I am unsure. | 4. I probably would not want them to use antibiotics. | 5. I definitely would not want them to use antibiotics.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ad_cpr_apt,Partner,Patient,Alzhiemers disease,"A22. If your study partner's heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?","1. I definitely would want them to receive CPR. | 2. I probably would want them to receive CPR. |  3. I am unsure. |  4. I probably would not want them to receive CPR. |  5. I definitely would not want them to receive CPR.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ad_gallbladder_apt,Partner,Patient,Alzhiemers disease,"A23. If your study partner's gallbladder became inflamed and infected, would you want them to have surgery to remove it?","1. I definitely would want them to have surgery. | 2. I probably would want them to have surgery. | 3. I am unsure. | 4. I probably would not want them to have surgery. | 5. I definitely would not want them to have surgery.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+ad_artificial_fd_apt,Partner,Patient,Alzhiemers disease,"A24. If your study partner's condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?","1. I definitely would want them to get artificial feeding and fluids. | 2. I probably would want them to get artificial feeding and fluids. | 3. I am unsure. | 4. I probably would not want them to get artificial feeding and fluids. | 5. I definitely would not want them to get artificial feeding and fluids.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+lspq_apt,Partner,Patient,N/A,N/A,N/A,N/A
+decision_ptr,Partner,Partner,N/A,B1. Please check the one statement that best describes what you believe would be ideal.,1. I prefer to make the decision about which treatment I will receive. | 2. I prefer to make the final decision about my treatment after seriously considering my doctor's opinion. | 3. I prefer that my doctor and I share responsibility for deciding which treatment is best for me. | 4. I prefer that my doctor makes that final decision about which treatment will be used but seriously considers my opinion. | 5. I prefer to leave all decisions regarding treatment to my doctor.,1. I make decision. | 2. I make final decision. | 3. My doctor and I make decision. | 4. My doctor makes final decision. | 5. My doctor makes decision.
+angioplasty_apt,Partner,Patient,Heart attack,C1. How involved would you want to be in the decision on whether or not they have a medical procedure (called an angioplasty) to treat the heart attack?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+surgery_apt,Partner,Patient,Heart attack,C2. How involved would you want to be in the decision on whether or not they have open-heart surgery (called bypass surgery) to improve blood flow to the heart after they had a heart attack?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+heart_rehab_apt,Partner,Patient,Heart attack,C3. How involved would you want to be in the decision on whether or not they do a heart rehabilitation program in a clinic to improve your health and well-being after a heart attack?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+cholesterol_med_apt,Partner,Patient,Heart attack,C4. How involved would you want to be in the decision on whether or not they start a cholesterol medicine to reduce the chance of them having another heart attack?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+clotbusting_med_apt,Partner,Patient,Stroke,C5. How involved would you want to be in the decision on whether or not they have clot-busting medicine injected into a vein to treat the stroke?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+sx_on_neck_artery_apt,Partner,Patient,Stroke,C6. How involved would you want to be in the decision on whether or not they have surgery on a neck artery to improve blood flow to the brain after you had a stroke?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+stroke_rehab_apt,Partner,Patient,Stroke,C7. How involved would you want to be in the decision on whether or not they do stroke rehabilitation in a hospital or facility to improve their walking and balance after they had a stroke?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+blood_thinning_med_apt,Partner,Patient,Stroke,C8. How involved would you want to be in the decision on whether or not they start blood-thinning medicine to reduce their chances of having another stroke?,"1. I definitely want to be involved in making the decision. | 2. I probably want to be involved in making the decision. |  3. I am unsure. | 4. I probably do not want to be involved in making the decision. | 5. I definitely do not want to be involved in making the decision.
+",1. Definitely want. | 2. Probably want. | 3. Unsure. | 4. Probably do not want. | 5. Definitely do not want.
+falls_f2yrs_apt,Partner,Patient,N/A,D1. I feel that my study partner is going to have a fall in the next 2 years. ,1. Disagree strongly. | 2. Disagree. | 3. Neither agree nor disagree. | 4. Agree. | 5. Agree strongly.,N/A
+heart_attack_f2yrs_apt,Partner,Patient,N/A,D2. I feel that my study partner is going to have a heart attack in the next 2 years. ,1. Disagree strongly. | 2. Disagree. | 3. Neither agree nor disagree. | 4. Agree. | 5. Agree strongly.,N/A
+stroke_f2yrs_apt,Partner,Patient,N/A,D3. I feel that my study partner is going to have a stroke in the next 2 years. ,1. Disagree strongly. | 2. Disagree. | 3. Neither agree nor disagree. | 4. Agree. | 5. Agree strongly.,N/A
+dementia_f2yrs_apt,Partner,Patient,N/A,D4. I feel that my study partner is going to develop dementia in the next 2 years. ,1. Disagree strongly. | 2. Disagree. | 3. Neither agree nor disagree. | 4. Agree. | 5. Agree strongly.,N/A
+memory_apt,Partner,Patient,N/A,E1. Please mark the one description that most closely applies to your study partner. Memory. ,"0. Normal memory. | 1. Occasionally forget things that they were told recently. Does not cause many problems. | 2. Mild consistent forgetfulness. Remembers recent events but often forgets parts. | 
+3. Moderate memory loss. Worse for recent events. May not remember something they were just told. Causes problems with everyday activities. | 4. Substantial memory loss. Quickly forgets recent or newly learned things. Can only remember things that they have known for a long time. | 5. Does not remember basic facts like the day of the week, when last meal was eaten, or what the next meal will be. | 6. Does not remember even the most basic things.
+
+",0. Normal memory. | 1. Occasionally forgets. | 2. Mild consistent forgetfulness. | 3. Moderate memory loss. | 4. Substantial memory loss. | 5. Cannot remember basic facts. | 6. Cannot remember most basic things.
+speech_and_language_apt,Partner,Patient,N/A,E2. Please mark the one description that most closely applies to your study partner. Speech and Language.,0. Normal ability to talk and to understand others. | 1. Sometimes cannot find a word but able to carry on conversations. | 2. Often forgets words. May use the wrong word in its place. Some trouble expressing thoughts and giving answers. | 3. Usually answers questions using sentences but rarely starts a conversation. | 4. Answers questions but responses are often hard to understand or don't make sense. Usually able to follow simply instructions. | 5. Speech often does not make sense. Cannot answer questions or follow instructions. | 6. Does not respond most of the time.,0. Normal language. | 1. Sometimes cannot find word. | 2. Often forgets words. | 3. Rarely starts conversations. | 4. Hard to understand. | 5. Cannot answer questions. | 6. Does not respond.
+reg_of_fam_members_apt,Partner,Patient,N/A,E3. Please mark the one description that most closely applies to your study partner. Recognition of Family Members.,"0. Normal. Recognizes people and generally knows who they are. | 1. Usually recognizes grandchildren, cousins, or relatives who are not seen frequently but may not recall how they are related. | 2.Usually does not recognize family members who are not seen frequently. Is often confused about how family members such as grandchildren, nieces, or nephews are related to them. | 3. Sometimes does not recognize close family members or others whom they frequently see. May not recognize their children, brothers, or sisters who are not seen on a regular basis. | 4. Frequently does not recognize spouse or caregiver. | 5. No recognition or awareness of the presence of others.
+",0. Normal recognition. | 1. Usually recognizes relatives. | 2. Usually cannot recognize relatives. | 3. Sometimes cannot recognize close family. | 4. Frequently cannot recognize caregiver. | 5. No recognition of others.
+orientation_to_time_apt,Partner,Patient,N/A,E4. Please mark the one description that most closely applies to your study partner. Orientation to Time.,"0. Normal awareness of time of day and day of week. | 1. Some confusion about what time it is or what day of the week but not severe enough to interfere with everyday activities. | 2. Frequently confused about time of day. | 3. Almost always confused about time of day. | 4. Seems completely unaware of time.
+",0. Normal awareness. | 1. Some confusion. | 2. Frequently confused about time. | 3. Usually confused about time. | 4. Completely unaware of time.
+orientation_to_place_apt,Partner,Patient,N/A,E5. Please mark the one description that most closely applies to your study partner. Orientation to Place.,"0. Normal awareness of where they are, even in new places. | 1. Sometimes disoriented in new places. | 2. Frequently disoriented in new places. | 3. Usually disoriented, even in familiar places. May forget that they are already at home. | 4. Almost always confused about place.
+","0. Normal awareness. | 1. Sometimes disoriented. | 2. Frequently disoriented. 
+3. Usually disoriented. | 4. Almost always confused."
+decisions_apt,Partner,Patient,N/A,E6. Please mark the one description that most closely applies to your study partner. Ability to Make Decisions.,0. Normal. As able to make decisions as before. | 1. Only some difficulty making decisions that arise in day-to-day life. | 2. Moderate difficulty. Gets confused when things get complicated or plans change. | 3. Rarely makes any important decisions. Gets confused easily. | 4. Not able to understand what is happening most of the time.,0. Normal. | 1. Some difficulty. | 2. Moderate difficulty. | 3. Rarely makes decisions. | 4. Unaware of what is happening.
+social_and_community_apt,Partner,Patient,N/A,E7. Please mark the one description that most closely applies to your study partner. Social and Community Activities.,"0. Normal. Acts the same as before with people. | 1. Only mild problems that are not really important but clearly acts differently from previous years. | 2. Can still take part in community activities without help. May appear normal to people who don't know them. | 3. Often has trouble dealing with people outside the home without help from caregiver. Usually can participate in quiet home activities with friends. The problem is clear to anyone who sees them. | 4. No longer takes part in any real way in activities at home involving other people. Can only deal with the primary caregiver. | 5. Little or no response even to primary caregiver.
+
+",0. Normal. | 1. Mild problems. | 2. Can participate without help. | 3. Cannot participate without help. | 4. Only interacts with caregiver. | 5. Cannot interact with caregiver.
+activities_and_respons_apt,Partner,Patient,N/A,E8. Please mark the one description that most closely applies to your study partner. Home Activities and Responsibilities.,"0. Normal. No decline in ability to do things around the house. | 1. Some problems with home activities. May have more trouble with money management (paying bills) and fixing things. Can still go to a store, cook, or clean. Still watches TV or reads a newspaper with interest and understanding. | 2. Makes mistakes with easy tasks like going to a store, cooking, or cleaning. Losing interest in the newspaper, TV, or radio. Often can't follow a long conversation on a single topic. | 3. Not able to shop, cook, or clean without a lot of help. Does not understand the newspaper or the TV. Cannot follow a conversation. | 4. No longer does any home-based activities.",0. Normal. | 1. Trouble with difficult tasks. | 2. Trouble with easy tasks. | 3. Cannot perform tasks without help. | 4. No longer performs tasks.
+personal_care_apt,Partner,Patient,N/A,E9. Please mark the one description that most closely applies to your study partner. Personal Care - Cleanliness.,"0. Normal. Takes care of self as well as they used to. | 1. Sometimes forgets to wash, shave, comb hair, or may dress in wrong type of clothes. Not as neat as they used to be. | 2. Requires help with dressing, washing, and personal grooming. | 3. Totally dependent on help for personal care.
+",0. Normal. | 1. Sometimes forgets. | 2. Requires help. | 3. Totally dependent on help.
+eatinglevl_apt,Partner,Patient,N/A,E10. Please mark the one description that most closely applies to your study partner. Eating.,"0. Normal. Does not need help in eating food that is served to them. | 1. May need help cutting food or have trouble with some foods but basically able to eat by themselves. | 2. Generally able to geed themselves but may require some help. May lose interest during the meal. | 3. Need to be fed. May have trouble swallowing.
+",0. Normal. | 1. Sometimes needs help. | 2. Requires help. | 3. Totally dependent on help.
+urination_and_bowels_apt,Partner,Patient,N/A,E11. Please mark the one description that most closely applies to your study partner. Control of Urination and Bowels.,0. Normal. Does not have problems controlling urination or bowels except for physical problems. | 1. Rarely fails to control urination (generally less than one accident per month). | 2. Occasional failure to control urination (about once a week or less). | 3. Frequently fails to control urination (about once a week or less). | 4. Generally fails to control urination and frequently cannot control bowels.,0. Normal. | 1. Rarely fails to control. | 2. Occasional failure to control. | 3. Frequently fails to control. | 4. Generally fails to control.
+place_to_place_apt,Partner,Patient,N/A,E12. Please mark the one description that most closely applies to your study partner. Ability to Get from Place to Place.,"0. Normal. Able to get around on their own. (May have physical problems that require a cane or walker.) | 1. Sometimes gets confused when driving or taking public transportation, especially in new places. Able to walk places alone. | 2. Cannot drive or take public transportation alone, even in familiar places. Can walk alone outside for short distances. Might get lost if walking too far from home. | 3. Cannot be left outside alone. Can get around the house without getting lost of confused. | 4. Gets confused and needs help finding their way around the house. | 5. Almost always in a bed or chair. May be able to walk a few steps with help but lacks sense of direction. | 6. Always in bed. Unable to sit or stand.
+",0. Normal. | 1. Can to walk alone outside. | 2. Can walk alone outside for short distances. | 3. Cannot be left outside alone. | 4. Gets confused around the house. | 5. Almost always in a bed or chair. | 6. Always in bed.
+dsrs_apt,Partner,Patient,N/A,N/A,N/A,N/A
+health_ptr,Partner,Partner,N/A,"F1. In general, how is your health?","1. Excellent. | 2. Very good. | 3. Good. | 4. Fair. | 5. Poor.
+",N/A
+stroke_ptr,Partner,Partner,N/A,F2. Has a doctor ever told you that you had a stroke?,"0. No. | 1. Yes.
+",N/A
+heart_disease_ptr,Partner,Partner,N/A,"F3. Has a doctor ever told you that you had a heart attack, coronary heart disease, angina, congestive health failure, or other heart problems?
+","0. No. | 1. Yes.
+",N/A
+lung_disease_ptr,Partner,Partner,N/A,"F4. Has a doctor ever told you that you have chronic lung disease such as chronic bronchitis, COPD, or emphysema?
+","0. No.
+1. Yes.
+",N/A
+cancer_ptr,Partner,Partner,N/A,"F5. Has a doctor ever told you that you have cancer or a malignant tumor, excluding minor skin cancer?","0. No.
+1. Yes.
+",N/A
+arthritis_ptr,Partner,Partner,N/A,F6. Has a doctor ever told you that you have arthritis or rheumatism?,"0. No.
+1. Yes.
+",N/A
+little_interest_ptr,Partner,Partner,N/A,"F7. Over the past 2 weeks, how often have you been bothered by little interest or pleasure in doing things?","0. Not at all. | 1. Several days. | 2. More than half the days. | 3. Nearly every day.
+",N/A
+depressed_ptr,Partner,Partner,N/A,"F8. Over the past 2 weeks, how often have you been bothered by feeling down, depressed, or hopeless?","0. Not at all. | 1. Several days. | 2. More than half the days. | 3. Nearly every day.
+",N/A
+phq2_ptr,Partner,Partner,N/A,NEW. PHQ-2 (depressed mood),N/A,N/A
+walking_ptr,Partner,Partner,N/A,"F9. Because of a health or memory problem, do you have difficulty with any of the following activities? Walking several blocks.
+","0. No.
+1. Yes.
+",N/A
+dressing_ptr,Partner,Partner,N/A,"F10. Because of a health or memory problem, do you have difficulty with any of the following activities? Dressing, including putting on shoes and socks.
+","0. No.
+1. Yes.
+",N/A
+bathing_ptr,Partner,Partner,N/A,"F11. Because of a health or memory problem, do you have difficulty with any of the following activities? Bathing or showering.
+","0. No.
+1. Yes.
+",N/A
+eating_ptr,Partner,Partner,N/A,"F12. Because of a health or memory problem, do you have difficulty with any of the following activities? Eating, such as cutting up food.
+","0. No.
+1. Yes.
+",N/A
+bed_ptr,Partner,Partner,N/A,"F13. Because of a health or memory problem, do you have difficulty with any of the following activities? Getting in or out of bed.
+","0. No.
+1. Yes.
+",N/A
+toileting_ptr,Partner,Partner,N/A,"F14. Because of a health or memory problem, do you have difficulty with any of the following activities? Using the toilet, including getting up and down.
+","0. No.
+1. Yes.
+",N/A
+adl_ptr,Partner,Partner,N/A,N/A,N/A,N/A
+age_ptr,Partner,Partner,N/A,G1. What is your age?,N/A,N/A
+gender_ptr,Partner,Partner,N/A,G2. What is your gender,0. Female. | 1. Male.,N/A
+race_ptr,Partner,Partner,N/A,N/A,0. White | 1. Black | 2. Other,N/A
+hispanic_ptr,Partner,Partner,N/A,G3. Are you Hispanic or Latino?,"0. No.
+1. Yes.
+",N/A
+race_1_ptr,Partner,Partner,N/A,G4. What is your race? American Indian/Alaska Native (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_2_ptr,Partner,Partner,N/A,G4. What is your race? Asian (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_3_ptr,Partner,Partner,N/A,G4. What is your race? Black/African American (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_4_ptr,Partner,Partner,N/A,G4. What is your race? Native Hawaiian/Other Pacific Islander (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_5_ptr,Partner,Partner,N/A,G4. What is your race? White (select all that apply),"0. No.
+1. Yes.
+",N/A
+race_6_ptr,Partner,Partner,N/A,G4. What is your race? Other (select all that apply),"0. No.
+1. Yes.
+",N/A
+marital_statu_ptr,Partner,Partner,N/A,G5. What is your current marital status? Check one box.,"1. Married. | 2. Living with someone as a couple, but not married. | 3. Divorced or separated. | 4. Widowed. | 5. Never married.
+",1. Married. | 2. Live with partner. | 3. Divorced or separated. | 4. Widowed. | 5. Never married.
+relationship_dyad,Partner,Dyad,N/A,G6. What is your relationship to the study partner? (Mark one box.),8. Live-in companion.  | 9. Spouse. | 10. Child. | 11. Sibling. | 12. Parent. | 13. Friend. | 14. Guardian. | 15. Neighbor. | 16. Other (Specify). ,1. Companion. | 2. Spouse. | 3. Child. | 4. Sibling. | 5. Parent. | 6. Friend. | 7. Other.
+relationship_yrs_dyad,Partner,Dyad,N/A,"G7. How long have you known the study partner?
+",N/A,N/A
+freq_see_dyad,Partner,Dyad,N/A,"G8. On average, in the past year, how often did you see the study partner? ","1. I live with the person | 2. Daily | 3. Several times a week | 4. Once a week | 5. One to three times a month | 6. Less than once a month 
+7. Never | 8. Other (Specify)
+",1. I live with the person. | 2. Daily. | 3. Several times a week. | 4. Once a week. | 5. One to three times a month. | 6. Less than once a month.
+freq_speak_dyad,Partner,Dyad,N/A,"G9. If you see the study partner less than once a week, how often do you speak with them? ","1. Daily | 2. Several times a week | 3. Once a week | 4. One to three times a month | 5. Less than once a month | 6. Never | 7. Other (Specify) | 8. Not applicable. I see them once a week or more
+",1. Daily. | 2. Several times a week. | 3. Once a week. | 4. One to three times a month. | 5. Less than once a month. | 6. Not applicable.
+education_ptr,Partner,Partner,N/A,G10. What is the highest grade of school that you completed? Check one box.,"1. 8th grade or less. | 2. Some high school, but did not graduate. | 3. High school graduate or GED. | 4. Trade school. | 5. Some college or 2-year college degree. | 6. 4-year college degree. | 7. More than 4-year college degree.
+",1. 8th grade or less. | 2. Some high school. | 3. High school graduate or GED. | 4. Trade school. | 5. Some college or 2-year degree. | 6. 4-year degree. | 7. Graduate degree.
+dementia_cfamily_ptr,Partner,Partner,N/A,G11. Has a close family member or friend had dementia?  ,0. No. | 1. Yes.,N/A
+stroke_cfamily_ptr,Partner,Partner,N/A,G12. Has a close family member or friend had a stroke?,0. No. | 1. Yes.,N/A
+heart_attack_cfamily_ptr,Partner,Partner,N/A,G13. Has a close family member or friend had a heart attack?,0. No. | 1. Yes.,N/A
