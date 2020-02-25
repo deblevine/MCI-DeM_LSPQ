@@ -453,11 +453,15 @@ totaling them. Higher scores indicate greater desire for treatment.
 *** DSRS SCORE;
 quietly{;
 *PARTNER ABOUT PATIENT;
-egen dsrs_abp = rowtotal(memory_abp speech_and_language_abp reg_of_fam_members_abp orientation_to_time_abp orientation_to_place_abp decisions_abp social_and_community_abp activities_and_respons_abp personal_care_abp eatinglevl_abp urination_and_bowels_abp place_to_place_abp), missing, if pttype==1;
+egen dsrs = rowtotal(memory_abp speech_and_language_abp reg_of_fam_members_abp orientation_to_time_abp orientation_to_place_abp decisions_abp social_and_community_abp activities_and_respons_abp personal_care_abp eatinglevl_abp urination_and_bowels_abp place_to_place_abp), missing, if pttype==1;
+gen dsrs_abp = dsrs-12;
 /* NOTE
 The Dementia Severity Rating Scale (DSRS) is an informant-rated questionnaire
 that assesses the functional abilities of persons undergoing dementia evaluation. 
 DSRS score is calculated by totaling the informant's responses to 12 questions. 
+The smallest value in these questions is 1, but should take the value of 0 in 
+order to calculate DSRS. To account for this, 12 points are subtracted from them
+DSRS score calculated above.
 */
 };
 
@@ -531,6 +535,14 @@ recode hispanic_`t' (2=0);
 recode depressed_`t' little_interest_`t' (1=0) (2=1) (3=2) (4=3);
 *FAMILY HISTORY;
 recode dementia_cfamily_`t' stroke_cfamily_`t' heart_attack_cfamily_`t' (2=0);
+};
+};
+
+*** _APT VARIABLES ONLY;
+quietly{;
+local dsrs "memory_apt speech_and_language_apt reg_of_fam_members_apt orientation_to_time_apt orientation_to_place_apt decisions_apt social_and_community_apt activities_and_respons_apt personal_care_apt eatinglevl_apt urination_and_bowels_apt place_to_place_apt"; 
+foreach d in `dsrs' {;
+recode `d' (1=0) (2=1) (3=2) (4=3) (5=4) (6=5) (7=6);
 };
 };
 
@@ -671,29 +683,29 @@ label values cog_assessment_12mo_pt yn;
 
 *** _APT VARIABLES ONLY;
 quietly{;
-label define memory_apt 1 "Normal memory" 2 "Occasionally forgets" 3 "Mild consistent forgetfulness" 4 "Moderate memory loss" 5 "Substantial memory loss" 6 "Cannot remember basic facts" 7 "Cannot remember most basic things"; 
+label define memory_apt 0 "Normal memory" 1 "Occasionally forgets" 2 "Mild consistent forgetfulness" 3 "Moderate memory loss" 4 "Substantial memory loss" 5 "Cannot remember basic facts" 6 "Cannot remember most basic things"; 
 label values memory_apt memory_apt;
-label define speech_and_language_apt 1 "Normal language" 2 "Sometimes cannot find word" 3 "Often forgets words" 4 "Rarely starts conversations" 5 "Hard to understand" 6 "Cannot answer questions" 7 "Does not respond"; 
+label define speech_and_language_apt 0 "Normal language" 1 "Sometimes cannot find word" 2 "Often forgets words" 3 "Rarely starts conversations" 4 "Hard to understand" 5 "Cannot answer questions" 6 "Does not respond"; 
 label values speech_and_language_apt speech_and_language_apt; 
-label define reg_of_fam_members_apt 1 "Normal recognition" 2 "Usually recognizes relatives" 3 "Usually cannot recognize relatives" 4 "Sometimes cannot recognize close family" 5 "Frequently cannot recognize caregiver" 6 "No recognition of others"; 
+label define reg_of_fam_members_apt 0 "Normal recognition" 1 "Usually recognizes relatives" 2 "Usually cannot recognize relatives" 3 "Sometimes cannot recognize close family" 4 "Frequently cannot recognize caregiver" 5 "No recognition of others"; 
 label values reg_of_fam_members_apt reg_of_fam_members_apt;
-label define orientation_to_time_apt 1 "Normal awareness" 2 "Some confusion" 3 "Frequently confused about time" 4 "Usually confused about time" 5 "Completely unaware of time";
+label define orientation_to_time_apt 0 "Normal awareness" 1 "Some confusion" 2 "Frequently confused about time" 3 "Usually confused about time" 4 "Completely unaware of time";
 label values orientation_to_time_apt orientation_to_time_apt; 
-label define orientation_to_place_apt 1 "Normal awareness" 2 "Sometimes disoriented" 3 "Frequently disoriented" 4 "Usually disoriented" 5 "Almost always confused";
+label define orientation_to_place_apt 0 "Normal awareness" 1 "Sometimes disoriented" 2 "Frequently disoriented" 3 "Usually disoriented" 4 "Almost always confused";
 label values orientation_to_place_apt orientation_to_place_apt; 
-label define decisions_apt 1 "Normal" 2 "Some difficulty" 3 "Moderate difficulty" 4 "Rarely makes decisions" 5 "Unaware of what is happening";
+label define decisions_apt 0 "Normal" 1 "Some difficulty" 2 "Moderate difficulty" 3 "Rarely makes decisions" 4 "Unaware of what is happening";
 label values decisions_apt decisions_apt; 
-label define social_and_community_apt 1 "Normal" 2 "Mild problems" 3 "Can participate without help" 4 "Cannot participate without help" 5 "Only interacts with caregiver" 6 "Cannot interact with caregiver";
+label define social_and_community_apt 0 "Normal" 1 "Mild problems" 2 "Can participate without help" 3 "Cannot participate without help" 4 "Only interacts with caregiver" 5 "Cannot interact with caregiver";
 label values social_and_community_apt social_and_community_apt;
-label define activities_and_respons_apt 1 "Normal" 2 "Trouble with difficult tasks" 3 "Trouble with easy tasks" 4 "Cannot perform tasks without help" 5 "No longer performs tasks"; 
+label define activities_and_respons_apt 0 "Normal" 1 "Trouble with difficult tasks" 2 "Trouble with easy tasks" 3 "Cannot perform tasks without help" 4 "No longer performs tasks"; 
 label values activities_and_respons_apt activities_and_respons_apt; 
-label define personal_care_apt 1 "Normal" 2 "Sometimes forgets" 3 "Requires help" 4 "Totally dependent on help";
+label define personal_care_apt 0 "Normal" 1 "Sometimes forgets" 2 "Requires help" 3 "Totally dependent on help";
 label values personal_care_apt personal_care_apt; 
-label define eatinglevl_apt 1 "Normal" 2 "Sometimes needs help" 3 "Requires help" 4 "Totally dependent on help";
+label define eatinglevl_apt 0 "Normal" 1 "Sometimes needs help" 2 "Requires help" 3 "Totally dependent on help";
 label values eatinglevl_apt eatinglevl_apt; 
-label define urination_and_bowels_apt 1 "Normal" 2 "Rarely fails to control" 3 "Occasional failure to control." 4 "Frequently fails to control." 5 "Generally fails to control";
+label define urination_and_bowels_apt 0 "Normal" 1 "Rarely fails to control" 2 "Occasional failure to control." 3 "Frequently fails to control." 4 "Generally fails to control";
 label values urination_and_bowels_apt urination_and_bowels_apt;
-label define place_to_place_apt 1 "Normal" 2 "Can to walk alone outside" 3 "Can walk alone outside for short distances" 4 "Cannot be left outside alone" 5 "Gets confused around the house" 6 "Almost always in a bed or chair" 7 "Always in bed";
+label define place_to_place_apt 0 "Normal" 1 "Can to walk alone outside" 2 "Can walk alone outside for short distances" 3 "Cannot be left outside alone" 4 "Gets confused around the house" 5 "Almost always in a bed or chair" 6 "Always in bed";
 label values place_to_place_apt place_to_place_apt;
 };
 
