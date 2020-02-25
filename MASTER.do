@@ -93,6 +93,8 @@ gen pnid = substr(mci_dem_dyadsubject_id, lengthst-1, lengthst);
 keep if eligibility_status==1;
 keep if mci_dem_dyadsubject_id=="UMDL195009410" | mci_dem_dyadsubject_id=="UMDL195005120" | mci_dem_dyadsubject_id=="UMDL195002010" | mci_dem_dyadsubject_id=="UMDL1950013810" | mci_dem_dyadsubject_id=="UMDL195003520" | mci_dem_dyadsubject_id=="UMDL195009320" | mci_dem_dyadsubject_id=="UMDL1950010620" | mci_dem_dyadsubject_id=="UMDL195005820";
 keep mci_dem_dyadsubject_id sex age sp_age race relationship_sp otherrelationship_specify moca dyadid pnid englishspeaking cog_assessment_12mo;
+*RELATIONSHIP VALUES;
+recode relationship_sp (1=9) (2=10) (5=13) (9=16);
 *MISSING DYAD MEMBER DATA;
 rename age f_1_age; 
 rename sp_age g_1_age_v2;
