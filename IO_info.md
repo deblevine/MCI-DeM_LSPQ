@@ -19,13 +19,15 @@ Location of the input datasets on S drive
 
 1. Data: `MCIDEMPatientSurveys_STATA_2020-01-22_1316.dta`
    
-   Path: `&path1\Data Analysis\Data from REDCap\Patient Surveys_Mailing & Phone Call Tracking'
+   Path: `&path1\Data Analysis\Data from REDCap\Patient Surveys_Mailing & Phone Call Tracking`
 
 2. Data: ??
+
    Path: ???
    
 # Output dataset(s)
 
 1. Data: `MCIDeM_AIM2_STUDY3_LSPQ_RTW200210.dta`
-   Path: `path1\Data Analysis\LSPQ Study\Data Analysis`
+
+   Path: `&path1\Data Analysis\LSPQ Study\Data Analysis`
    
