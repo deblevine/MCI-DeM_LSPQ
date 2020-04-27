@@ -1,1 +1,129 @@
+# delimit; 
+clear all; 
+set more off; 
+set maxvar 32767;
+capture log close;
+set seed 378297;
 
+/* 
+////////////////////////////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+***************************** ANALYTIC INFORMATION *****************************
+MCI DeM Aim 2, Study 3: Tx preferences 
+Deb Levine, MD MPH, University of Michigan
+Created by Rachael Whitney, PhD: 02/06/2020
+Updated by Rachael Whitney, PhD: 04/16/2020
+
+STUDY AIM. Determine the influence of MCI on patient and study partner preferences 
+for AMI and ischemic stroke treatment. STUDY HYPOTHESIS. MCI patients and study 
+partners prefer less intensive treatment than patients with no MCI. 
+
+Analyses in this syntax file employ the data from the 2020 master file freeze and 
+follow the plan outlined in "MCI DeM_Study 3_Analytic Plan_RTW200102.docx". Variables
+used in these analyses are detailed in the analytic plan. General note: variables 
+end in suffixes that provide information about respondent type (patient or partner) 
+and the person being referenced (self or dyad-mate):
+
+	Variable contains patient information provided by the patient: _pt
+	Variable contains patient information provided by the partner: _apt		
+	Variable contains partner information provided by the partner: _ptr
+	Variable contains dyad information provided by the partner: _dyad
+
+---FILES IN USE---
+INPUT, 2020 MASTER:	    MCIDeM_AIM2_STUDY3_MASTER_200206.dta
+OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
+********************************************************************************
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+**************************************************************** PROGRAM MACROS;
+*** DIRECTORY;
+local cd "S:\Intmed_Rsrch2\GenMed\Restricted\BP COG\atg_tests\Data_archive_test\MCI-DEM-TEST-RTW-prj";
+*** DATE;
+local date "200416";
+*** IN PATH;
+local inpath = "`cd'\00_S3_Master-Data\stata_aux\dataout\MCIDeM_AIM2_STUDY3_MASTER_200206.dta";
+*** OUT PATH;
+local outpath = "`cd'\01_S3_LSPQ-Study\stata_aux\dataout\MCIDeM_AIM2_STUDY3_LSPQ_RTW`date'.dta";
+
+*************************************************************** DATA MANAGEMENT;
+***** DATA FILES;
+*MASTER;
+use "`inpath'", clear;
+*TEMP;
+tempfile master;
+tempfile strobe;
+save `strobe';
+
+***** EXCLUSIONS;
+quietly{;
+drop if cog_assessment_12mo_pt!=1;
+keep if age_pt>=65 & age_pt!=.;
+keep if englishspeaking_pt==1;
+keep if mci_status_pt!=.;
+keep if complete_dyad==1;
+drop if race_pt==.; 
+*drop if age_ptr==.;
+/* INCLUSION CRITERIA
+1. Patient diagnosis of MCI or no MCI
+2. Patient age >=65 years
+3. Patient race White or Black
+4. Patient received cog testing within 12 months of baseline
+5. Patient reads and speaks English
+6. Patient has a study partner age >=18 that reads and speaks English, knows the
+   patient well and can answer questions about them regarding medical treatment
+*/
+};
+
+***** ALTERED VARIABLES;
+quietly {;
+label define educ 1 "No college" 2 "Some college" 3 "4-Year degree" 4 "Graduate degree";
+label define depression 0 "No indication" 1 "Some indication" 2 "Depression likely";
+local define adl 0 "No difficulty" 1 "Difficulty";
+local type "pt ptr";
+foreach t in `type' {;
+*** EDUCATION;
+recode education_`t' (1 2 3 = 1) (4 5 = 2) (6 = 3) (7 = 4);
+label values education_`t' educ;
+*** PHQ-2;
+recode phq2_`t' (1 2 = 1) (3 4 5 6 = 2);
+label values phq2_`t' depression;
+*** ADLS;
+recode adl_`t' (1 2 3 4 5 6 = 1);
+label values adl_`t' adl;
+};
+*** SITE;
+gen x = site=="UMDL";
+drop site;
+rename x site;
+label define site 0 "DUDL" 1 "UMDL";
+label values site site;
+*** LSPQ REVERSE CODING;
+gen lspq_reverse_pt = 24-lspq_pt;
+gen lspq_reverse_apt = 24-lspq_apt;
+*** LSPQ ZERO INFLATION;
+gen zero_pt = lspq_reverse_pt==0;
+gen zero_apt = lspq_reverse_apt==0;
+*** DSRS QUARTILE;
+summ dsrs_apt, detail;
+gen dsrs_quartile_apt = 0 if dsrs_apt<=`r(p25)' & dsrs_apt!=.;
+replace dsrs_quartile_apt = 1 if dsrs_quartile_apt==. & dsrs_apt<=`r(p50)' & dsrs_apt!=.;
+replace dsrs_quartile_apt = 2 if dsrs_quartile_apt==. & dsrs_apt<=`r(p75)' & dsrs_apt!=.;
+replace dsrs_quartile_apt = 3 if dsrs_quartile_apt==. & dsrs_apt!=.;
+*** SDM PREFERENCES;
+local person "_pt _apt";
+foreach p in `person'{;
+*AMI;
+egen x = rowtotal(angioplasty`p' surgery`p' heart_rehab`p' cholesterol_med`p') if angioplasty`p'!=. & surgery`p'!=. & heart_rehab`p'!=. & cholesterol_med`p';
+gen ami_sdm`p' = x-4;
+drop x;
+*STROKE;
+egen x = rowtotal(clotbusting_med`p' sx_on_neck_artery`p' stroke_rehab`p' blood_thinning_med`p') if clotbusting_med`p'!=. & sx_on_neck_artery`p'!=. & stroke_rehab`p'!=. & blood_thinning_med`p';
+gen stk_sdm`p' = x-4;
+drop x;
+};
+};
+
+************************************************************** ANALYTIC DATASET;
+save "`outpath'", replace;
