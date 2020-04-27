@@ -12,7 +12,13 @@ This repository contains files pertaining to Aim 2, Study 3 of MCI DeM.
 
 1. `MASTER.do` generates the MCI DeM Aim 2, Study 3 master dataset. This dataset contains patient-partner survey data, frozen in February 2020. This file was created by Rachael Whitney.
 
-2. `LSPQ.do` performs the analyses outlined in `ANALYTIC-PLAN.md'. Tables and figures for publication are generated where appropriate. 
+2. `/LSPQ/00LSPQ_DATASET.do` generates the dataset for analyses outlined in `ANALYTIC-PLAN.md'.
+
+3. `/LSPQ/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN.md'.   
+
+4. `/LSPQ/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN.md'.   
+
+5. `/LSPQ/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN.md'.   
 
 ## Documentation
 
