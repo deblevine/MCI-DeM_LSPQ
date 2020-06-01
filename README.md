@@ -10,13 +10,11 @@ This repository contains files pertaining to Aim 2, Study 3 of MCI DeM.
 
 ## .DO Files
 
-1. `00MCIDEMPatientSurveys-ExportForAnalysis.do` imports REDCap data and assigns labels.
+1. `/MASTER/00MCIDEMPatientSurveys-ExportForAnalysis.do` imports REDCap data and assigns labels.
 
-2. 
+2. `/MASTER/01MCIDEMPatientSurveys` imports REDCap data and assigns labels.
 
-3. 
-
-generates the MCI DeM Aim 2, Study 3 master dataset. This dataset contains patient-partner survey data, frozen in February 2020. This file was created by Rachael Whitney.
+3. `/MASTER/02MCIDeM_Study3_Master` generates the MCI DeM Aim 2, Study 3 master dataset. This dataset contains patient-partner survey data, frozen in February 2020. This file was created by Rachael Whitney.
 
 4. `/LSPQ/00LSPQ_DATASET.do` generates the dataset for analyses outlined in `ANALYTIC-PLAN.md'.
 
