@@ -1,0 +1,605 @@
+# delimit; 
+clear all; 
+set more off; 
+set maxvar 32767;
+capture log close;
+set seed 378297;
+
+/* 
+////////////////////////////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+***************************** ANALYTIC INFORMATION *****************************
+MCI DeM Aim 2, Study 3: Tx preferences 
+Deb Levine, MD MPH, University of Michigan
+Created by Rachael Whitney, PhD: 02/06/2020
+Updated by Rachael Whitney, PhD: 04/16/2020
+
+STUDY AIM. Determine the influence of MCI on patient and study partner preferences 
+for AMI and ischemic stroke treatment. STUDY HYPOTHESIS. MCI patients and study 
+partners prefer less intensive treatment than patients with no MCI. 
+
+Analyses in this syntax file employ the data from the 2020 master file freeze and 
+follow the plan outlined in "MCI DeM_Study 3_Analytic Plan_RTW200102.docx". Variables
+used in these analyses are detailed in the analytic plan. General note: variables 
+end in suffixes that provide information about respondent type (patient or partner) 
+and the person being referenced (self or dyad-mate):
+
+	Variable contains patient information provided by the patient: _pt
+	Variable contains patient information provided by the partner: _apt		
+	Variable contains partner information provided by the partner: _ptr
+	Variable contains dyad information provided by the partner: _dyad
+
+---FILES IN USE---
+INPUT, 2020 MASTER:	    MCIDeM_AIM2_STUDY3_MASTER_200206.dta
+OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
+********************************************************************************
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+**************************************************************** PROGRAM MACROS;
+*** DIRECTORY;
+local cd "S:\Intmed_Rsrch2\GenMed\Restricted\BP COG\atg_tests\Data_archive_test\MCI-DEM-TEST-RTW-prj";
+*** DATE;
+local date "200521";
+*** LOG;
+local log "`cd'\01_S3_LSPQ-Study\stata_aux\reports\LSPQ_MAIN-ANALYSES_RTW`date'.log";
+*** PATH;
+local inpath = "`cd'\01_S3_LSPQ-Study\stata_aux\dataout\MCIDeM_AIM2_STUDY3_LSPQ_RTW`date'.dta";
+*** OTHER;
+local letter "A B C D E F G";
+
+*************************************************************** DATA MANAGEMENT;
+***** DATA FILES;
+*MASTER;
+*log using "`log'", replace;
+use "`inpath'", clear;
+
+**************************************************************** MODEL BUILDING;
+***** METHOD: STEPWISE REGRESSION;
+quietly{;
+*** MACROS;
+local dems_pt "age_pt gender_pt education_pt";
+local dems_ptr "age_ptr gender_ptr education_ptr";
+local health_pt "phq2_pt adl_pt health_pt moca_pt stroke_pt heart_disease_pt lung_disease_pt cancer_pt arthritis_pt";
+local health_ptr "phq2_ptr adl_ptr health_ptr stroke_ptr heart_disease_ptr lung_disease_ptr cancer_ptr arthritis_ptr";
+local experience_pt "dementia_cfamily_pt stroke_cfamily_pt heart_attack_cfamily_pt";
+local experience_ptr "dementia_cfamily_ptr stroke_cfamily_ptr heart_attack_cfamily_ptr";
+local social_pt "marital_statu2_pt children_pt children_lives_with_pt children_30_mi_pt";
+local dyad "relationship_dyad relationship_yrs_dyad freq_see_dyad freq_speak_dyad";
+
+*** ANALYSES;
+*M2 DEMOGRAPHIC;
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_pt (mci_status_pt race_pt `dems_pt') `dems_ptr'  site;
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_apt (mci_status_pt race_ptr `dems_ptr') `dems_pt'  site;
+*M3 HEALTH EXPERIENCE;
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_pt (mci_status_pt) `health_pt' `health_ptr' dsrs_apt `experience_pt' `experience_ptr';
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_apt (mci_status_pt) `health_pt' `health_ptr' dsrs_apt `experience_pt' `experience_ptr';
+*M4 SOCIAL SUPPORT;
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_pt (mci_status_pt) `social_pt' marital_statu2_ptr `dyad';
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_apt (mci_status_pt) `social_pt' marital_statu2_ptr `dyad';
+/* NOTES 
+FINAL MODEL PT
+	M1 ZERO ORDER:			mci_status_pt 
+	M2 DEMOGRAPHIC: 		M1 + race_pt age_pt gender_pt education_pt gender_ptr
+	M3 HEALTH EXPERIENCE:	M2 + stroke_cfamily_pt health_ptr
+	M4 SOCIAL SUPPORT:  	M3 + children_lives_with_pt
+FINAL MODEL PTR
+	M1 ZERO ORDER:			mci_status_pt 
+	M2 DEMOGRAPHIC: 		M1 + race_ptr age_ptr gender_ptr education_ptr education_pt
+	M3 HEALTH EXPERIENCE:	M2 + stroke_ptr health_ptr	
+	M4 SOCIAL SUPPORT:  	M3 + relationship_dyad children_lives_with_pt
+*/
+};
+
+*********************************************** ANALYSIS: TREATMENT PREFERENCES;
+***** PRIMARY 1;
+*** MACROS;
+local m2_pt "age_pt race_pt education_pt gender_pt gender_ptr";
+local m3_pt "health_ptr stroke_cfamily_pt";
+local m4_pt "children_lives_with_pt";
+
+*** M1 ZERO ORDER;
+quietly{;
+zinb lspq_reverse_pt mci_status_pt, inflate(mci_status_pt) zip vce(robust);
+matrix x = r(table);
+
+*TABLE;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 1") modify; 
+putexcel A1 = "Table 1. Zero order analysis of patient-reported LSPQ* score, by MCI status.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:G3 = "Zero-inflated negative binomial model", merge bold top left border(top, thin, black);
+putexcel B4:D4 = "Negative binomial component", merge bold top left;
+putexcel E4:G4 = "Zero-inflated component", merge bold top left;
+putexcel B5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel C5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel E5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel F5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel G5 = "P", italic left border(bottom, thin, black); 
+foreach l in `letter'{;
+putexcel `l'6 = " ", border(bottom, thin, black);
+};
+putexcel A6 = "Patient MCI";
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+local C`i' = string(exp(x[2,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+putexcel C`row' = "`C`i''";
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local cell = `e(df_m)'+1+`i';
+local E`row' = string(exp(x[1,`cell']), "%9.2f");
+local F`row' = string(exp(x[2,`cell']), "%9.2f");
+putexcel E`row' = "`E`row''";
+putexcel F`row' = "`F`row''";
+local p = x[4,`cell'];
+if `p'>0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`row' = "0.99", left; };
+if `p'==0.049 {; putexcel G`row' = "0.049", left; };
+if `p'<0.001 {; putexcel G`row' = "<0.001", left; };
+};
+};
+
+*** M2 DEMOGRAPHIC;
+quietly{;
+zinb lspq_reverse_pt mci_status_pt `m2_pt', inflate(mci_status_pt `m2_pt') zip vce(robust);
+matrix x = r(table);
+*TABLE;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 2") modify; 
+putexcel A1 = "Table 2. Demographic-adjusted analysis of patient-reported LSPQ* score, by MCI status.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:G3 = "Zero-inflated negative binomial model", merge bold top left border(top, thin, black);
+putexcel B4:D4 = "Negative binomial component", merge bold top left;
+putexcel E4:G4 = "Zero-inflated component", merge bold top left;
+putexcel B5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel C5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel E5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel F5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel G5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "MCI status";
+putexcel A7 = "Patient age";
+putexcel A8 = "Patient race";
+putexcel A9 = "Patient education";
+putexcel A10 = "Patient gender";
+foreach l in `letter'{;
+putexcel `l'11 = " ", border(bottom, thin, black);
+};
+putexcel A11 = "Partner gender";
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+local C`i' = string(exp(x[2,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+putexcel C`row' = "`C`i''";
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local cell = `e(df_m)'+1+`i';
+local E`row' = string(exp(x[1,`cell']), "%9.2f");
+local F`row' = string(exp(x[2,`cell']), "%9.2f");
+putexcel E`row' = "`E`row''";
+putexcel F`row' = "`F`row''";
+local p = x[4,`cell'];
+if `p'>0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`row' = "0.99", left; };
+if `p'==0.049 {; putexcel G`row' = "0.049", left; };
+if `p'<0.001 {; putexcel G`row' = "<0.001", left; };
+};
+};
+
+*** M3 HEALTH EXPERIENCE;
+quietly{;
+zinb lspq_reverse_pt mci_status_pt `m2_pt' `m3_pt', inflate(mci_status_pt `m2_pt' `m3_pt') zip vce(robust);
+matrix x = r(table);
+*TABLE;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 3") modify; 
+putexcel A1 = "Table 3. Health experience-adjusted analysis of patient-reported LSPQ* score, by MCI status.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:G3 = "Zero-inflated negative binomial model", merge bold top left border(top, thin, black);
+putexcel B4:D4 = "Negative binomial component", merge bold top left;
+putexcel E4:G4 = "Zero-inflated component", merge bold top left;
+putexcel B5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel C5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel E5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel F5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel G5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "MCI status";
+putexcel A7 = "Patient age";
+putexcel A8 = "Patient race";
+putexcel A9 = "Patient education";
+putexcel A10 = "Patient gender";
+putexcel A11 = "Partner gender";
+putexcel A12 = "Partner health"; 
+foreach l in `letter'{;
+putexcel `l'13 = " ", border(bottom, thin, black);
+};
+putexcel A13 = "Patient stroke contact";
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+local C`i' = string(exp(x[2,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+putexcel C`row' = "`C`i''";
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local cell = `e(df_m)'+1+`i';
+local E`row' = string(exp(x[1,`cell']), "%9.2f");
+local F`row' = string(exp(x[2,`cell']), "%9.2f");
+putexcel E`row' = "`E`row''";
+putexcel F`row' = "`F`row''";
+local p = x[4,`cell'];
+if `p'>0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`row' = "0.99", left; };
+if `p'==0.049 {; putexcel G`row' = "0.049", left; };
+if `p'<0.001 {; putexcel G`row' = "<0.001", left; };
+};
+};
+
+*** M4 SOCIAL SUPPORT;
+quietly{;
+zinb lspq_reverse_pt mci_status_pt `m2_pt' `m3_pt' `m4_pt', inflate(mci_status_pt `m2_pt' `m3_pt' `m4_pt') zip vce(robust);
+matrix x = r(table);
+*TABLE;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 4") modify; 
+putexcel A1 = "Table 4. Social support-adjusted analysis of patient-reported LSPQ* score, by MCI status.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:G3 = "Zero-inflated negative binomial model", merge bold top left border(top, thin, black);
+putexcel B4:D4 = "Negative binomial component", merge bold top left;
+putexcel E4:G4 = "Zero-inflated component", merge bold top left;
+putexcel B5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel C5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel E5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel F5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel G5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "MCI status";
+putexcel A7 = "Patient age";
+putexcel A8 = "Patient race";
+putexcel A9 = "Patient education";
+putexcel A10 = "Patient gender";
+putexcel A11 = "Partner gender";
+putexcel A12 = "Partner health"; 
+putexcel A13 = "Patient stroke contact";
+foreach l in `letter'{;
+putexcel `l'14 = " ", border(bottom, thin, black);
+};
+putexcel A14 = "Patient lives with child";
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+local C`i' = string(exp(x[2,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+putexcel C`row' = "`C`i''";
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local cell = `e(df_m)'+1+`i';
+local E`row' = string(exp(x[1,`cell']), "%9.2f");
+local F`row' = string(exp(x[2,`cell']), "%9.2f");
+putexcel E`row' = "`E`row''";
+putexcel F`row' = "`F`row''";
+local p = x[4,`cell'];
+if `p'>0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`row' = "0.99", left; };
+if `p'==0.049 {; putexcel G`row' = "0.049", left; };
+if `p'<0.001 {; putexcel G`row' = "<0.001", left; };
+};
+};
+
+*** VISUALIZATION;
+*OLD FIGURE;
+mata;
+B=xl();
+B.load_book("`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF");
+B.delete_sheet("Patient LSPQ");
+end;
+
+*NEW FIGURE;
+quietly{;
+tab race_pt, matcell(x);
+local black = x[2,1];
+local white = x[1,1];
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Patient LSPQ") modify;
+hist lspq_reverse_pt, xtitle("LSPQ score") ytitle("Percentage") title("Black (n=`black')") xlabel(0(4)24) ylabel(0(20)80) percent, if race_pt==1;
+graph save "black.png", replace;
+hist lspq_reverse_pt, xtitle("LSPQ score") ytitle("Percentage") title("White (n=`white')") xlabel(0(4)24) ylabel(0(20)80) percent, if race_pt==0;
+graph save "white.png", replace;
+graph combine "black.png" "white.png", title("Distribution of patient LSPQ scores, by race");
+graph export pt-lspq.png, replace width(1441) height(1048);
+putexcel A1 = picture(pt-lspq.png);
+};
+
+***** SECONDARY 1;
+*** MACROS;
+local m2_ptr "age_ptr race_ptr gender_ptr education_ptr education_pt";
+local m3_ptr "health_ptr stroke_ptr";
+local m4_ptr "children_lives_with_pt relationship_dyad";
+
+*** M1 ZERO ORDER;
+quietly{;
+zinb lspq_reverse_apt mci_status_pt, inflate(mci_status_pt) zip vce(robust);
+matrix x = r(table);
+*TABLE;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 5") modify; 
+putexcel A1 = "Table 5. Zero order analysis of partner-reported LSPQ* score, by MCI status.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:G3 = "Zero-inflated negative binomial model", merge bold top left border(top, thin, black);
+putexcel B4:D4 = "Negative binomial component", merge bold top left;
+putexcel E4:G4 = "Zero-inflated component", merge bold top left;
+putexcel B5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel C5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel E5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel F5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel G5 = "P", italic left border(bottom, thin, black); 
+foreach l in `letter'{;
+putexcel `l'6 = " ", border(bottom, thin, black);
+};
+putexcel A6 = "Patient MCI";
+
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+local C`i' = string(exp(x[2,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+putexcel C`row' = "`C`i''";
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local cell = `e(df_m)'+1+`i';
+local E`row' = string(exp(x[1,`cell']), "%9.2f");
+local F`row' = string(exp(x[2,`cell']), "%9.2f");
+putexcel E`row' = "`E`row''";
+putexcel F`row' = "`F`row''";
+local p = x[4,`cell'];
+if `p'>0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`row' = "0.99", left; };
+if `p'==0.049 {; putexcel G`row' = "0.049", left; };
+if `p'<0.001 {; putexcel G`row' = "<0.001", left; };
+};
+};
+
+*** M2 DEMOGRAPHIC;
+quietly{;
+zinb lspq_reverse_apt mci_status_pt `m2_ptr', inflate(mci_status_pt `m2_ptr') zip vce(robust);
+matrix x = r(table);
+*TABLE;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 6") modify; 
+putexcel A1 = "Table 6. Demographic-adjusted analysis of partner-reported LSPQ* score, by MCI status.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:G3 = "Zero-inflated negative binomial model", merge bold top left border(top, thin, black);
+putexcel B4:D4 = "Negative binomial component", merge bold top left;
+putexcel E4:G4 = "Zero-inflated component", merge bold top left;
+putexcel B5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel C5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel E5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel F5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel G5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "MCI status";
+putexcel A7 = "Partner age";
+putexcel A8 = "Partner race";
+putexcel A9 = "Partner gender";
+putexcel A10 = "Partner education";
+foreach l in `letter'{;
+putexcel `l'11 = " ", border(bottom, thin, black);
+};
+putexcel A11 = "Patient education";
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+local C`i' = string(exp(x[2,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+putexcel C`row' = "`C`i''";
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local cell = `e(df_m)'+1+`i';
+local E`row' = string(exp(x[1,`cell']), "%9.2f");
+local F`row' = string(exp(x[2,`cell']), "%9.2f");
+putexcel E`row' = "`E`row''";
+putexcel F`row' = "`F`row''";
+local p = x[4,`cell'];
+if `p'>0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`row' = "0.99", left; };
+if `p'==0.049 {; putexcel G`row' = "0.049", left; };
+if `p'<0.001 {; putexcel G`row' = "<0.001", left; };
+};
+};
+
+*** M3 HEALTH EXPERIENCE;
+quietly{;
+zinb lspq_reverse_apt mci_status_pt `m2_ptr' `m3_ptr', inflate(mci_status_pt `m2_ptr' `m3_ptr') zip vce(robust);
+matrix x = r(table);
+*TABLE;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 7") modify; 
+putexcel A1 = "Table 7. Health experience-adjusted analysis of partner-reported LSPQ* score, by MCI status.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:G3 = "Zero-inflated negative binomial model", merge bold top left border(top, thin, black);
+putexcel B4:D4 = "Negative binomial component", merge bold top left;
+putexcel E4:G4 = "Zero-inflated component", merge bold top left;
+putexcel B5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel C5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel E5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel F5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel G5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "MCI status";
+putexcel A7 = "Partner age";
+putexcel A8 = "Partner race";
+putexcel A9 = "Partner gender";
+putexcel A10 = "Partner education";
+putexcel A11 = "Patient education";
+putexcel A12 = "Partner health";
+foreach l in `letter'{;
+putexcel `l'13 = " ", border(bottom, thin, black);
+};
+putexcel A13 = "Partner stroke history";
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+local C`i' = string(exp(x[2,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+putexcel C`row' = "`C`i''";
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local cell = `e(df_m)'+1+`i';
+local E`row' = string(exp(x[1,`cell']), "%9.2f");
+local F`row' = string(exp(x[2,`cell']), "%9.2f");
+putexcel E`row' = "`E`row''";
+putexcel F`row' = "`F`row''";
+local p = x[4,`cell'];
+if `p'>0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`row' = "0.99", left; };
+if `p'==0.049 {; putexcel G`row' = "0.049", left; };
+if `p'<0.001 {; putexcel G`row' = "<0.001", left; };
+};
+};
+
+*** M4 SOCIAL SUPPORT;
+quietly{;
+zinb lspq_reverse_apt mci_status_pt `m2_ptr' `m3_ptr' `m4_ptr', inflate(mci_status_pt `m2_ptr' `m3_ptr' `m4_ptr') zip vce(robust);
+matrix x = r(table);
+*TABLE;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 8") modify; 
+putexcel A1 = "Table 8. Social support-adjusted analysis of partner-reported LSPQ* score, by MCI status.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:G3 = "Zero-inflated negative binomial model", merge bold top left border(top, thin, black);
+putexcel B4:D4 = "Negative binomial component", merge bold top left;
+putexcel E4:G4 = "Zero-inflated component", merge bold top left;
+putexcel B5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel C5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel E5 = "Exp(B)", left border(bottom, thin, black); 
+putexcel F5 = "Exp(SE)", left border(bottom, thin, black); 
+putexcel G5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "MCI status";
+putexcel A7 = "Partner age";
+putexcel A8 = "Partner race";
+putexcel A9 = "Partner gender";
+putexcel A10 = "Partner education";
+putexcel A11 = "Patient education";
+putexcel A12 = "Partner health";
+putexcel A13 = "Partner stroke history";
+putexcel A14 = "Patient lives with child";
+foreach l in `letter'{;
+putexcel `l'15 = " ", border(bottom, thin, black);
+};
+putexcel A15 = "Dyad relationship";
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+local C`i' = string(exp(x[2,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+putexcel C`row' = "`C`i''";
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local cell = `e(df_m)'+1+`i';
+local E`row' = string(exp(x[1,`cell']), "%9.2f");
+local F`row' = string(exp(x[2,`cell']), "%9.2f");
+putexcel E`row' = "`E`row''";
+putexcel F`row' = "`F`row''";
+local p = x[4,`cell'];
+if `p'>0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`row' = x[4,`cell'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`row' = "0.99", left; };
+if `p'==0.049 {; putexcel G`row' = "0.049", left; };
+if `p'<0.001 {; putexcel G`row' = "<0.001", left; }; 
+};
+};
+
+*** VISUALIZATION;
+*OLD FIGURE;
+mata;
+B=xl();
+B.load_book("`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF");
+B.delete_sheet("Partner LSPQ");
+end;
+
+*NEW FIGURE;
+quietly{;
+tab race_pt, matcell(x);
+local black = x[2,1];
+local white = x[1,1];
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Partner LSPQ") modify;
+hist lspq_reverse_apt, xtitle("LSPQ score") ytitle("Percentage") title("Black (n=`black')") xlabel(0(4)24) ylabel(0(20)80) percent, if race_pt==1;
+graph save "black.png", replace;
+hist lspq_reverse_apt, xtitle("LSPQ score") ytitle("Percentage") title("White (n=`white')") xlabel(0(4)24) ylabel(0(20)80) percent, if race_pt==0;
+graph save "white.png", replace;
+graph combine "black.png" "white.png", title("Distribution of partner LSPQ scores, by race");
+graph export apt-lspq.png, replace width(1441) height(1048);
+putexcel A1 = picture(apt-lspq.png);
+};
+
+capture log close;
