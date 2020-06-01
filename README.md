@@ -10,15 +10,21 @@ This repository contains files pertaining to Aim 2, Study 3 of MCI DeM.
 
 ## .DO Files
 
-1. `MASTER.do` generates the MCI DeM Aim 2, Study 3 master dataset. This dataset contains patient-partner survey data, frozen in February 2020. This file was created by Rachael Whitney.
+1. `00MCIDEMPatientSurveys-ExportForAnalysis.do` imports REDCap data and assigns labels.
 
-2. `/LSPQ/00LSPQ_DATASET.do` generates the dataset for analyses outlined in `ANALYTIC-PLAN.md'.
+2. 
 
-3. `/LSPQ/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN.md'.   
+3. 
 
-4. `/LSPQ/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN.md'.   
+generates the MCI DeM Aim 2, Study 3 master dataset. This dataset contains patient-partner survey data, frozen in February 2020. This file was created by Rachael Whitney.
 
-5. `/LSPQ/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN.md'.   
+4. `/LSPQ/00LSPQ_DATASET.do` generates the dataset for analyses outlined in `ANALYTIC-PLAN.md'.
+
+5. `/LSPQ/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN.md'.   
+
+6. `/LSPQ/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN.md'.   
+
+7. `/LSPQ/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN.md'.   
 
 ## Documentation
 
