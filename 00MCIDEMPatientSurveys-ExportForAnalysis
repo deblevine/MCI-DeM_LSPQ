@@ -1,0 +1,499 @@
+version 13
+clear
+
+local cd "S:\Intmed_Rsrch2\GenMed\Restricted\BP COG\atg_tests\Data_archive_test\MCI-DEM-TEST-RTW-prj\00_S3_Master-Data\stata_aux"
+
+import delimited mci_dem_dyadsubject_id redcap_data_access_group patientsurvey a_1_ch_antibiotics a_2_ch_cpr a_3_ch_gallbladder a_4_ch_artificial_fd a_5_emph_antibiotics a_6_emph_cpr a_7_emph_gallbladder a_8_emph_artificial_fd a_9_stroke_antibiotics a_10_stroke_cpr a_11_stroke_gallbladder a_12_stroke_artificial_fd a_13_cancer_antibiotics a_14_cancer_cpr a_15_cancer_gallbladder a_16_cancer_artificial_fd a_17_hattack_antibiotics a_18_hattack_cpr a_19_hattack_gallbladder a_20_hattack_artificial_fd a_21_ad_antibiotics a_22_ad_cpr a_23_ad_gallbladder a_24_ad_artificial_fd b_1_decision c_1_angioplasty c_2_surgery c_3_heart_rehab c_4_cholesterol_med c_5_clotbusting_med c_6_sx_on_neck_artery c_7_stroke_rehab c_8_blood_thinning_med d_1_fall d_2_heart_attack d_3_stroke d_4_dementia e_1_health e_2_stroke e_3_heart_disease e_4_lung_disease e_5_cancer e_6_arthritis e_7_little_interest e_8_depressed e_9_walking e_10_dressing e_11_bathing e_12_eating e_13_out_of_bed e_14_toileting f_1_age f_2_gender f_3_hispanic f_4_race___1 f_4_race___2 f_4_race___3 f_4_race___4 f_4_race___5 f_4_race___6 sec_f_4a_other_race f_5_marital_status f_6_children f_7_children_lives_with f_8_children_30_mi f_9_education f_10_dementia f_11_stroke f_12_heart_attack additional_notes patient_survey_respo_v_0 studypartnersurvey a_1_ch_antibiotics_v2 a_2_ch_cpr_v2 a_3_ch_gallbladder_v2 a_4_ch_artificial_fd_v2 a_5_emph_antibiotics_v2 a_6_emph_cpr_v2 a_7_emph_gallbladder_v2 a_8_emph_artificial_fd_v2 a_9_stroke_antibiotics_v2 a_10_stroke_cpr_v2 a_11_stroke_gallbladder_v2 a_12_stroke_art_fd_v2 a_13_cancer_antibiotics_v2 a_14_cancer_cpr_v2 a_15_cancer_gallbladder_v2 a_16_cancer_art_fd_v2 a_17_hattack_antib_v2 a_18_hattack_cpr_v2 a_19_hattack_gallbla_v2 a_20_hattack_art_fd_v2 a_21_ad_antibiotics_v2 a_22_ad_cpr_v2 a_23_ad_gallbladder_v2 a_24_ad_artificial_fd_v2 b_1_decision_v2 c_1_angioplasty_v2 c_2_surgery_v2 c_3_heart_rehab_v2 c_4_cholesterol_med_v2 c_5_clotbusting_med_v2 c_6_sx_on_neck_art_v2 c_7_stroke_rehab_v2 c_8_blood_thinning_med_v2 d_1_fall_v2 d_2_heart_attack_v2 d_3_stroke_v2 d_4_dementia_v2 e_1_memory e_2_speech_and_language e_3_reg_of_fam_members e_4_orientation_to_time e_5_orientation_to_place e_6_decisions e_7_social_and_community e_8_activities_and_respons e9_personal_care e10_eating e11_urination_and_bowels e12_place_to_place f1_health f2_stroke f3_heart_disease f4_lung_disease f5_cancer f6_arthritis f7_little_interest f8_depressed f_9_walking_v2 f_10_dressing_v2 f_11_bathing_v2 f_12_eating_v2 f_13_out_of_bed_v2 f_14_toileting_v2 g_1_age_v2 g_2_gender_v2 g_3_hispanic_v2 g_4_race_v2___1 g_4_race_v2___2 g_4_race_v2___3 g_4_race_v2___4 g_4_race_v2___5 g_4_race_v2___6 sec_g_4a_other_race_v2 g_5_marital_status_v2 g_6_relationship g6a_other_relationship g_7_relationship_yrs g_8_frequency_seen other_freq g_9_speak_with g9a_freq_spoken_to g_10_education_v2 g_11_dementia_v2 g_12_stroke_v2 g_13_heart_attack_v2 additional_notes_v2 study_partner_survey_v_1 new_date new_studypartnersurvey new_c7 new_c8 new_c7_c8_study_part_v_2 using "`cd'\datain\redcap_csv\data\MCIDEMPatientSurveys-ExportForAnalysis_DATA_NOHDRS_2020-01-08_0937.csv", varnames(nonames)
+
+label data "`cd'\datain\redcap_csv\data\MCIDEMPatientSurveys-ExportForAnalysis_DATA_NOHDRS_2020-01-08_0937.csv"
+
+label define patientsurvey_ 1 "Yes" 0 "No" 
+label define a_1_ch_antibiotics_ 1 "1. I definitely want antibiotics" 2 "2. I probably want antibiotics" 3 "3. I am unsure" 4 "4. I probably do not want antibiotics" 5 "5. I definitely do not want antibiotics" 
+label define a_2_ch_cpr_ 1 "1. I definitely want CPR" 2 "2. I probably want CPR" 3 "3. I am unsure" 4 "4. I probably do not want CPR" 5 "5. I definitely do not want CPR" 
+label define a_3_ch_gallbladder_ 1 "1. I definitely want surgery" 2 "2. I probably want surgery" 3 "3. I am unsure" 4 "4. I probably do not want surgery" 5 "5. I definitely do not want surgery" 
+label define a_4_ch_artificial_fd_ 1 "1. I definitely want artificial feeding and fluids" 2 "2. I probably want artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably do not want artificial feeding and fluids" 5 "5. I definitely do not want artificial feeding and fluids" 
+label define a_5_emph_antibiotics_ 1 "1. I definitely want antibiotics" 2 "2. I probably want antibiotics" 3 "3. I am unsure" 4 "4. I probably do not want antibiotics" 5 "5. I definitely do not want antibiotics" 
+label define a_6_emph_cpr_ 1 "1. I definitely want CPR" 2 "2. I probably want CPR" 3 "3. I am unsure" 4 "4. I probably do not want CPR" 5 "5. I definitely do not want CPR" 
+label define a_7_emph_gallbladder_ 1 "1. I definitely want surgery" 2 "2. I probably want surgery" 3 "3. I am unsure" 4 "4. I probably do not want surgery" 5 "5. I definitely do not want surgery" 
+label define a_8_emph_artificial_fd_ 1 "1. I definitely want artificial feeding and fluids" 2 "2. I probably want artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably do not want artificial feeding and fluids" 5 "5. I definitely do not want artificial feeding and fluids" 
+label define a_9_stroke_antibiotics_ 1 "1. I definitely want antibiotics" 2 "2. I probably want antibiotics" 3 "3. I am unsure" 4 "4. I probably do not want antibiotics" 5 "5. I definitely do not want antibiotics" 
+label define a_10_stroke_cpr_ 1 "1. I definitely want CPR" 2 "2. I probably want CPR" 3 "3. I am unsure" 4 "4. I probably do not want CPR" 5 "5. I definitely do not want CPR" 
+label define a_11_stroke_gallbladder_ 1 "1. I definitely want surgery" 2 "2. I probably want surgery" 3 "3. I am unsure" 4 "4. I probably do not want surgery" 5 "5. I definitely do not want surgery" 
+label define a_12_stroke_artificial_fd_ 1 "1. I definitely want artificial feeding and fluids" 2 "2. I probably want artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably do not want artificial feeding and fluids" 5 "5. I definitely do not want artificial feeding and fluids" 
+label define a_13_cancer_antibiotics_ 1 "1. I definitely want antibiotics" 2 "2. I probably want antibiotics" 3 "3. I am unsure" 4 "4. I probably do not want antibiotics" 5 "5. I definitely do not want antibiotics" 
+label define a_14_cancer_cpr_ 1 "1. I definitely want CPR" 2 "2. I probably want CPR" 3 "3. I am unsure" 4 "4. I probably do not want CPR" 5 "5. I definitely do not want CPR" 
+label define a_15_cancer_gallbladder_ 1 "1. I definitely want surgery" 2 "2. I probably want surgery" 3 "3. I am unsure" 4 "4. I probably do not want surgery" 5 "5. I definitely do not want surgery" 
+label define a_16_cancer_artificial_fd_ 1 "1. I definitely want artificial feeding and fluids" 2 "2. I probably want artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably do not want artificial feeding and fluids" 5 "5. I definitely do not want artificial feeding and fluids" 
+label define a_17_hattack_antibiotics_ 1 "1. I definitely want antibiotics" 2 "2. I probably want antibiotics" 3 "3. I am unsure" 4 "4. I probably do not want antibiotics" 5 "5. I definitely do not want antibiotics" 
+label define a_18_hattack_cpr_ 1 "1. I definitely want CPR" 2 "2. I probably want CPR" 3 "3. I am unsure" 4 "4. I probably do not want CPR" 5 "5. I definitely do not want CPR" 
+label define a_19_hattack_gallbladder_ 1 "1. I definitely want surgery" 2 "2. I probably want surgery" 3 "3. I am unsure" 4 "4. I probably do not want surgery" 5 "5. I definitely do not want surgery" 
+label define a_20_hattack_artificial_fd_ 1 "1. I definitely want artificial feeding and fluids" 2 "2. I probably want artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably do not want artificial feeding and fluids" 5 "5. I definitely do not want artificial feeding and fluids" 
+label define a_21_ad_antibiotics_ 1 "1. I definitely want antibiotics" 2 "2. I probably want antibiotics" 3 "3. I am unsure" 4 "4. I probably do not want antibiotics" 5 "5. I definitely do not want antibiotics" 
+label define a_22_ad_cpr_ 1 "1. I definitely want CPR" 2 "2. I probably want CPR" 3 "3. I am unsure" 4 "4. I probably do not want CPR" 5 "5. I definitely do not want CPR" 
+label define a_23_ad_gallbladder_ 1 "1. I definitely want surgery" 2 "2. I probably want surgery" 3 "3. I am unsure" 4 "4. I probably do not want surgery" 5 "5. I definitely do not want surgery" 
+label define a_24_ad_artificial_fd_ 1 "1. I definitely want artificial feeding and fluids" 2 "2. I probably want artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably do not want artificial feeding and fluids" 5 "5. I definitely do not want artificial feeding and fluids" 
+label define b_1_decision_ 1 "1. I prefer to make the decision about which treatment I will receive." 2 "2. I prefer to make the final decision about my treatment after seriously considering my doctors opinion." 3 "3. I prefer that my doctor and I share responsibility for deciding which treatment is best for me." 4 "4. I prefer that my doctor makes that final decision about which treatment will be used but seriously considers my opinion." 5 "5. I prefer to leave all decisions regarding treatment to my doctor." 
+label define c_1_angioplasty_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_2_surgery_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_3_heart_rehab_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_4_cholesterol_med_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_5_clotbusting_med_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_6_sx_on_neck_artery_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_7_stroke_rehab_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_8_blood_thinning_med_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define d_1_fall_ 1 "1. Disagree strongly" 2 "2. Disagree" 3 "3. Neither agree nor disagree" 4 "4. Agree" 5 "5. Agree strongly" 
+label define d_2_heart_attack_ 1 "1. Disagree strongly" 2 "2. Disagree" 3 "3. Neither agree nor disagree" 4 "4. Agree" 5 "5. Agree strongly" 
+label define d_3_stroke_ 1 "1. Disagree strongly" 2 "2. Disagree" 3 "3. Neither agree nor disagree" 4 "4. Agree" 5 "5. Agree strongly" 
+label define d_4_dementia_ 1 "1. Disagree strongly" 2 "2. Disagree" 3 "3. Neither agree nor disagree" 4 "4. Agree" 5 "5. Agree strongly" 
+label define e_1_health_ 1 "1. Excellent" 2 "2. Very good" 3 "3. Good" 4 "4. Fair" 5 "5. Poor" 
+label define e_2_stroke_ 1 "1. Yes" 2 "2. No" 
+label define e_3_heart_disease_ 1 "1. Yes" 2 "2. No" 
+label define e_4_lung_disease_ 1 "1. Yes" 2 "2. No" 
+label define e_5_cancer_ 1 "1. Yes" 2 "2. No" 
+label define e_6_arthritis_ 1 "1. Yes" 2 "2. No" 
+label define e_7_little_interest_ 1 "1. Not at all" 2 "2. Several days" 3 "3. More than half the days" 4 "4. Nearly every day" 
+label define e_8_depressed_ 1 "1. Not at all" 2 "2. Several days" 3 "3. More than half the days" 4 "4. Nearly every day" 
+label define e_9_walking_ 1 "Yes" 2 "No" 
+label define e_10_dressing_ 1 "Yes" 2 "No" 
+label define e_11_bathing_ 1 "Yes" 2 "No" 
+label define e_12_eating_ 1 "Yes" 2 "No" 
+label define e_13_out_of_bed_ 1 "Yes" 2 "No" 
+label define e_14_toileting_ 1 "Yes" 2 "No" 
+label define f_2_gender_ 1 "1. Male" 2 "2. Female" 
+label define f_3_hispanic_ 1 "1. Yes" 2 "2. No" 
+label define f_4_race___1_ 0 "Unchecked" 1 "Checked" 
+label define f_4_race___2_ 0 "Unchecked" 1 "Checked" 
+label define f_4_race___3_ 0 "Unchecked" 1 "Checked" 
+label define f_4_race___4_ 0 "Unchecked" 1 "Checked" 
+label define f_4_race___5_ 0 "Unchecked" 1 "Checked" 
+label define f_4_race___6_ 0 "Unchecked" 1 "Checked" 
+label define f_5_marital_status_ 1 "1. Married" 2 "2. Living with someone as a couple, but not married" 3 "3. Divorced or separated" 4 "4. Widowed" 5 "5. Never married" 
+label define f_6_children_ 1 "1. Yes" 2 "2. No" 
+label define f_7_children_lives_with_ 1 "1. Yes" 2 "2. No" 
+label define f_8_children_30_mi_ 1 "1. Yes" 2 "2. No" 
+label define f_9_education_ 1 "1. 8th grade or less" 2 "2. Some high school, but did not graduate" 3 "3. High school graduate or GED" 4 "4. Trade school" 5 "5. Some college or 2-year college degree" 6 "6. 4-year college degree" 7 "7. More than 4-year college degree" 
+label define f_10_dementia_ 1 "1. Yes" 2 "2. No" 
+label define f_11_stroke_ 1 "1. Yes" 2 "2. No" 
+label define f_12_heart_attack_ 1 "1. Yes" 2 "2. No" 
+label define patient_survey_respo_v_0_ 0 "Incomplete" 1 "Unverified" 2 "Complete" 
+label define studypartnersurvey_ 1 "Yes" 0 "No" 
+label define a_1_ch_antibiotics_v2_ 1 "1. I definitely would want them to use antibiotics" 2 "2. I probably would want them to use antibiotics" 3 "3. I am unsure" 4 "4. I probably would not want them to use antibiotics" 5 "5. I definitely would not want them to use antibiotics" 
+label define a_2_ch_cpr_v2_ 1 "1. I definitely would want them to receive CPR" 2 "2. I probably would want them to receive CPR" 3 "3. I am unsure" 4 "4. I probably would not want them to receive CPR" 5 "5. I definitely would not want them to receive CPR" 
+label define a_3_ch_gallbladder_v2_ 1 "1. I definitely would want them to have surgery" 2 "2. I probably would want them to have surgery" 3 "3. I am unsure" 4 "4. I probably would not want them to have surgery" 5 "5. I definitely would not want them to have surgery" 
+label define a_4_ch_artificial_fd_v2_ 1 "1. I definitely would want them to get artificial feeding and fluids" 2 "2. I probably would want them to get artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably would not want them to get artificial feeding and fluids" 5 "5. I definitely would not want them to get artificial feeding and fluids" 
+label define a_5_emph_antibiotics_v2_ 1 "1. I definitely would want them to use antibiotics" 2 "2. I probably would want them to use antibiotics" 3 "3. I am unsure" 4 "4. I probably would not want them to use antibiotics" 5 "5. I definitely would not want them to use antibiotics" 
+label define a_6_emph_cpr_v2_ 1 "1. I definitely would want them to receive CPR" 2 "2. I probably would want them to receive CPR" 3 "3. I am unsure" 4 "4. I probably would not want them to receive CPR" 5 "5. I definitely would not want them to receive CPR" 
+label define a_7_emph_gallbladder_v2_ 1 "1. I definitely would want them to have surgery" 2 "2. I probably would want them to have surgery" 3 "3. I am unsure" 4 "4. I probably would not want them to have surgery" 5 "5. I definitely would not want them to have surgery" 
+label define a_8_emph_artificial_fd_v2_ 1 "1. I definitely would want them to get artificial feeding and fluids" 2 "2. I probably would want them to get artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably would not want them to get artificial feeding and fluids" 5 "5. I definitely would not want them to get artificial feeding and fluids" 
+label define a_9_stroke_antibiotics_v2_ 1 "1. I definitely would want them to use antibiotics" 2 "2. I probably would want them to use antibiotics" 3 "3. I am unsure" 4 "4. I probably would not want them to use antibiotics" 5 "5. I definitely would not want them to use antibiotics" 
+label define a_10_stroke_cpr_v2_ 1 "1. I definitely would want them to receive CPR" 2 "2. I probably would want them to receive CPR" 3 "3. I am unsure" 4 "4. I probably would not want them to receive CPR" 5 "5. I definitely would not want them to receive CPR" 
+label define a_11_stroke_gallbladder_v2_ 1 "1. I definitely would want them to have surgery" 2 "2. I probably would want them to have surgery" 3 "3. I am unsure" 4 "4. I probably would not want them to have surgery" 5 "5. I definitely would not want them to have surgery" 
+label define a_12_stroke_art_fd_v2_ 1 "1. I definitely would want them to get artificial feeding and fluids" 2 "2. I probably would want them to get artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably would not want them to get artificial feeding and fluids" 5 "5. I definitely would not want them to get artificial feeding and fluids" 
+label define a_13_cancer_antibiotics_v2_ 1 "1. I definitely would want them to use antibiotics" 2 "2. I probably would want them to use antibiotics" 3 "3. I am unsure" 4 "4. I probably would not want them to use antibiotics" 5 "5. I definitely would not want them to use antibiotics" 
+label define a_14_cancer_cpr_v2_ 1 "1. I definitely would want them to receive CPR" 2 "2. I probably would want them to receive CPR" 3 "3. I am unsure" 4 "4. I probably would not want them to receive CPR" 5 "5. I definitely would not want them to receive CPR" 
+label define a_15_cancer_gallbladder_v2_ 1 "1. I definitely would want them to have surgery" 2 "2. I probably would want them to have surgery" 3 "3. I am unsure" 4 "4. I probably would not want them to have surgery" 5 "5. I definitely would not want them to have surgery" 
+label define a_16_cancer_art_fd_v2_ 1 "1. I definitely would want them to get artificial feeding and fluids" 2 "2. I probably would want them to get artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably would not want them to get artificial feeding and fluids" 5 "5. I definitely would not want them to get artificial feeding and fluids" 
+label define a_17_hattack_antib_v2_ 1 "1. I definitely would want them to use antibiotics" 2 "2. I probably would want them to use antibiotics" 3 "3. I am unsure" 4 "4. I probably would not want them to use antibiotics" 5 "5. I definitely would not want them to use antibiotics" 
+label define a_18_hattack_cpr_v2_ 1 "1. I definitely would want them to receive CPR" 2 "2. I probably would want them to receive CPR" 3 "3. I am unsure" 4 "4. I probably would not want them to receive CPR" 5 "5. I definitely would not want them to receive CPR" 
+label define a_19_hattack_gallbla_v2_ 1 "1. I definitely would want them to have surgery" 2 "2. I probably would want them to have surgery" 3 "3. I am unsure" 4 "4. I probably would not want them to have surgery" 5 "5. I definitely would not want them to have surgery" 
+label define a_20_hattack_art_fd_v2_ 1 "1. I definitely would want them to get artificial feeding and fluids" 2 "2. I probably would want them to get artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably would not want them to get artificial feeding and fluids" 5 "5. I definitely would not want them to get artificial feeding and fluids" 
+label define a_21_ad_antibiotics_v2_ 1 "1. I definitely would want them to use antibiotics" 2 "2. I probably would want them to use antibiotics" 3 "3. I am unsure" 4 "4. I probably would not want them to use antibiotics" 5 "5. I definitely would not want them to use antibiotics" 
+label define a_22_ad_cpr_v2_ 1 "1. I definitely would want them to receive CPR" 2 "2. I probably would want them to receive CPR" 3 "3. I am unsure" 4 "4. I probably would not want them to receive CPR" 5 "5. I definitely would not want them to receive CPR" 
+label define a_23_ad_gallbladder_v2_ 1 "1. I definitely would want them to have surgery" 2 "2. I probably would want them to have surgery" 3 "3. I am unsure" 4 "4. I probably would not want them to have surgery" 5 "5. I definitely would not want them to have surgery" 
+label define a_24_ad_artificial_fd_v2_ 1 "1. I definitely would want them to get artificial feeding and fluids" 2 "2. I probably would want them to get artificial feeding and fluids" 3 "3. I am unsure" 4 "4. I probably would not want them to get artificial feeding and fluids" 5 "5. I definitely would not want them to get artificial feeding and fluids" 
+label define b_1_decision_v2_ 1 "1. I prefer to make the decision about which treatment I will receive." 2 "2. I prefer to make the final decision about my treatment after seriously considering my doctors opinion." 3 "3. I prefer that my doctor and I share responsibility for deciding which treatment is best for me." 4 "4. I prefer that my doctor makes that final decision about which treatment will be used but seriously considers my opinion." 5 "5. I prefer to leave all decisions regarding treatment to my doctor." 
+label define c_1_angioplasty_v2_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_2_surgery_v2_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_3_heart_rehab_v2_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_4_cholesterol_med_v2_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_5_clotbusting_med_v2_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_6_sx_on_neck_art_v2_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_7_stroke_rehab_v2_ 0 "0. *****DO NOT ENTER DATA HERE. ENTER DATA IN NEW C7 & C8 Study Partner Responses FORM*****" 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define c_8_blood_thinning_med_v2_ 0 "0. *****DO NOT ENTER DATA HERE. ENTER DATA IN NEW C7 & C8 Study Partner Responses FORM*****" 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define d_1_fall_v2_ 1 "1. Disagree strongly" 2 "2. Disagree" 3 "3. Neither agree nor disagree" 4 "4. Agree" 5 "5. Agree strongly" 
+label define d_2_heart_attack_v2_ 1 "1. Disagree strongly" 2 "2. Disagree" 3 "3. Neither agree nor disagree" 4 "4. Agree" 5 "5. Agree strongly" 
+label define d_3_stroke_v2_ 1 "1. Disagree strongly" 2 "2. Disagree" 3 "3. Neither agree nor disagree" 4 "4. Agree" 5 "5. Agree strongly" 
+label define d_4_dementia_v2_ 1 "1. Disagree strongly" 2 "2. Disagree" 3 "3. Neither agree nor disagree" 4 "4. Agree" 5 "5. Agree strongly" 
+label define e_1_memory_ 1 "1. Normal memory" 2 "2. Occasionally forget things that they were told recently. Does not cause many problems." 3 "3. Mild consistent forgetfulness. Remembers recent events but often forgets parts." 4 "4. Moderate memory loss. Worse for recent events. May not remember something they were just told. Causes problems with everyday activities." 5 "5. Substantial memory loss. Quickly forgets recent or newly learned things. Can only remember things that they have known for a long time." 6 "6. Does not remember basic facts like the day of the week, when last meal was eaten, or what the next meal will be." 7 "7. Does not remember even the most basic things." 
+label define e_2_speech_and_language_ 1 "1. Normal ability to talk and to understand others." 2 "2. Sometimes cannot find a word but able to carry on conversations." 3 "3. Often forgets words. May use the wrong word in its place. Some trouble expressing thoughts and giving answers." 4 "4. Usually answers questions using sentences but rarely starts a conversation." 5 "5. Answers questions but responses are often hard to understand or dont make sense. Usually able to follow simply instructions." 6 "6. Speech often does not make sense. Cannot answer questions or follow instructions." 7 "7. Does not respond most of the time." 
+label define e_3_reg_of_fam_members_ 1 "1. Normal. Recognizes people and generally knows who they are." 2 "2. Usually recognizes grandchildren, cousins, or relatives who are not seen frequently but may not recall how they are related." 3 "3.Usually does not recognize family members who are not seen frequently. Is often confused about how family members such as grandchildren, nieces, or nephews are related to them." 4 "4. Sometimes does not recognize close family members or others whom they frequently see. May not recognize their children, brothers, or sisters who are not seen on a regular basis." 5 "5. Frequently does not recognize spouse or caregiver." 6 "6. No recognition or awareness of the presence of others." 
+label define e_4_orientation_to_time_ 1 "1. Normal awareness of time of day and day of week." 2 "2. Some confusion about what time it is or what day of the week but not severe enough to interfere with everyday activities." 3 "3. Frequently confused about time of day." 4 "4. Almost always confused about time of day." 5 "5. Seems completely unaware of time." 
+label define e_5_orientation_to_place_ 1 "1. Normal awareness of where they are, even in new places." 2 "2. Sometimes disoriented in new places." 3 "3. Frequently disoriented in new places." 4 "4. Usually disoriented, even in familiar places. May forget that they are already at home." 5 "5. Almost always confused about place." 
+label define e_6_decisions_ 1 "1. Normal. As able to make decisions as before." 2 "2. Only some difficulty making decisions that arise in day-to-day life." 3 "3. Moderate difficulty. Gets confused when things get complicated or plans change." 4 "4. Rarely makes any important decisions. Gets confused easily." 5 "5. Not able to understand what is happening most of the time." 
+label define e_7_social_and_community_ 1 "1. Normal. Acts the same as before with people." 2 "2. Only mild problems that are not really important but clearly acts differently from previous years." 3 "3. Can still take part in community activities without help. May appear normal to people who dont know them." 4 "4. Often has trouble dealing with people outside the home without help from caregiver. Usually can participate in quiet home activities with friends. The problem is clear to anyone who sees them." 5 "5. No longer takes part in any real way in activities at home involving other people. Can only deal with the primary caregiver." 6 "6. Little or no response even to primary caregiver." 
+label define e_8_activities_and_respons_ 1 "1. Normal. No decline in ability to do things around the house." 2 "2. Some problems with home activities. May have more trouble with money management (paying bills) and fixing things. Can still go to a store, cook, or clean. Still watches TV or reads a newspaper with interest and understanding." 3 "3. Makes mistakes with easy tasks like going to a store, cooking, or cleaning. Losing interest in the newspaper, TV, or radio. Often cant follow a long conversation on a single topic." 4 "4. Not able to shop, cook, or clean without a lot of help. Does not understand the newspaper or the TV. Cannot follow a conversation." 5 "5. No longer does any home-based activities." 
+label define e9_personal_care_ 1 "1. Normal. Takes care of self as well as they used to." 2 "2. Sometimes forgets to wash, shave, comb hair, or may dress in wrong type of clothes. Not as neat as they used to be." 3 "3. Requires help with dressing, washing, and personal grooming." 4 "4. Totally dependent on help for personal care." 
+label define e10_eating_ 1 "1. Normal. Does not need help in eating food that is served to them." 2 "2. May need help cutting food or have trouble with some foods but basically able to eat by themselves." 3 "3. Generally able to geed themselves but may require some help. May lose interest during the meal." 4 "4. Need to be fed. May have trouble swallowing." 
+label define e11_urination_and_bowels_ 1 "1. Normal. Does not have problems controlling urination or bowels except for physical problems." 2 "2. Rarely fails to control urination (generally less than one accident per month)." 3 "3. Occasional failure to control urination (about once a week or less)." 4 "4. Frequently fails to control urination (about once a week or less)." 5 "5. Generally fails to control urination and frequently cannot control bowels." 
+label define e12_place_to_place_ 1 "1. Normal. Able to get around on their own. (May have physical problems that require a cane or walker.)" 2 "2. Sometimes gets confused when driving or taking public transportation, especially in new places. Able to walk places alone." 3 "3. Cannot drive or take public transportation alone, even in familiar places. Can walk alone outside for short distances. Might get lost if walking too far from home." 4 "4. Cannot be left outside alone. Can get around the house without getting lost of confused." 5 "5. Gets confused and needs help finding their way around the house." 6 "6. Almost always in a bed or chair. May be able to walk a few steps with help but lacks sense of direction." 7 "7. Always in bed. Unable to sit or stand." 
+label define f1_health_ 1 "1. Excellent" 2 "2. Very good" 3 "3. Good" 4 "4. Fair" 5 "5. Poor" 
+label define f2_stroke_ 1 "1. Yes" 2 "2. No" 
+label define f3_heart_disease_ 1 "Yes" 2 "No" 
+label define f4_lung_disease_ 1 "1. Yes" 2 "2. No" 
+label define f5_cancer_ 1 "1. Yes" 2 "2. No" 
+label define f6_arthritis_ 1 "1. Yes" 2 "2. No" 
+label define f7_little_interest_ 1 "1. Not at all" 2 "2. Several days" 3 "3. More than half the days" 4 "4. Nearly every day" 
+label define f8_depressed_ 1 "1. Not at all" 2 "2. Several days" 3 "3. More than half the days" 4 "4. Nearly every day" 
+label define f_9_walking_v2_ 1 "Yes" 2 "No" 
+label define f_10_dressing_v2_ 1 "Yes" 2 "No" 
+label define f_11_bathing_v2_ 1 "Yes" 2 "No" 
+label define f_12_eating_v2_ 1 "Yes" 2 "No" 
+label define f_13_out_of_bed_v2_ 1 "Yes" 2 "No" 
+label define f_14_toileting_v2_ 1 "Yes" 2 "No" 
+label define g_2_gender_v2_ 1 "1. Male" 2 "2. Female" 
+label define g_3_hispanic_v2_ 1 "1. Yes" 2 "2. No" 
+label define g_4_race_v2___1_ 0 "Unchecked" 1 "Checked" 
+label define g_4_race_v2___2_ 0 "Unchecked" 1 "Checked" 
+label define g_4_race_v2___3_ 0 "Unchecked" 1 "Checked" 
+label define g_4_race_v2___4_ 0 "Unchecked" 1 "Checked" 
+label define g_4_race_v2___5_ 0 "Unchecked" 1 "Checked" 
+label define g_4_race_v2___6_ 0 "Unchecked" 1 "Checked" 
+label define g_5_marital_status_v2_ 1 "1. Married" 2 "2. Living with someone as a couple, but not married" 3 "3. Divorced or separated" 4 "4. Widowed" 5 "5. Never married" 
+label define g_6_relationship_ 9 "1. Spouse" 10 "2. Child" 11 "3. Sibling" 12 "4. Parent" 13 "5. Friend" 14 "6. Guardian" 15 "7. Neighbor" 8 "Live-in companion" 16 "9. Other (Specify)" 
+label define g_8_frequency_seen_ 1 "1. I live with the person" 2 "2. Daily" 3 "3. Several times a week" 4 "4. Once a week" 5 "5. One to three times a month" 6 "6. Less than once a month" 7 "7. Never" 8 "8. Other (Specify):" 
+label define g_9_speak_with_ 1 "1. Daily" 2 "2. Several times a week" 3 "3. Once a week" 4 "4. One to three times a month" 5 "5. Less than once a month" 6 "6. Never" 7 "7. Other (Specify):" 8 "8. Not applicable. I see them once a week or more" 
+label define g_10_education_v2_ 1 "1. 8th grade or less" 2 "2. Some high school, but did not graduate" 3 "3. High school graduate or GED" 4 "4. Trade school" 5 "5. Some college or 2-year college degree" 6 "6. 4-year college degree" 7 "7. More than 4-year college degree" 
+label define g_11_dementia_v2_ 1 "1. Yes" 2 "2. No" 
+label define g_12_stroke_v2_ 1 "1. Yes" 2 "2. No" 
+label define g_13_heart_attack_v2_ 1 "1. Yes" 2 "2. No" 
+label define study_partner_survey_v_1_ 0 "Incomplete" 1 "Unverified" 2 "Complete" 
+label define new_studypartnersurvey_ 1 "Yes" 0 "No" 
+label define new_c7_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define new_c8_ 1 "1. I definitely want to be involved in making the decision." 2 "2. I probably want to be involved in making the decision." 3 "3. I am unsure." 4 "4. I probably do not want to be involved in making the decision." 5 "5. I definitely do not want to be involved in making the decision." 
+label define new_c7_c8_study_part_v_2_ 0 "Incomplete" 1 "Unverified" 2 "Complete" 
+label values patientsurvey patientsurvey_
+label values a_1_ch_antibiotics a_1_ch_antibiotics_
+label values a_2_ch_cpr a_2_ch_cpr_
+label values a_3_ch_gallbladder a_3_ch_gallbladder_
+label values a_4_ch_artificial_fd a_4_ch_artificial_fd_
+label values a_5_emph_antibiotics a_5_emph_antibiotics_
+label values a_6_emph_cpr a_6_emph_cpr_
+label values a_7_emph_gallbladder a_7_emph_gallbladder_
+label values a_8_emph_artificial_fd a_8_emph_artificial_fd_
+label values a_9_stroke_antibiotics a_9_stroke_antibiotics_
+label values a_10_stroke_cpr a_10_stroke_cpr_
+label values a_11_stroke_gallbladder a_11_stroke_gallbladder_
+label values a_12_stroke_artificial_fd a_12_stroke_artificial_fd_
+label values a_13_cancer_antibiotics a_13_cancer_antibiotics_
+label values a_14_cancer_cpr a_14_cancer_cpr_
+label values a_15_cancer_gallbladder a_15_cancer_gallbladder_
+label values a_16_cancer_artificial_fd a_16_cancer_artificial_fd_
+label values a_17_hattack_antibiotics a_17_hattack_antibiotics_
+label values a_18_hattack_cpr a_18_hattack_cpr_
+label values a_19_hattack_gallbladder a_19_hattack_gallbladder_
+label values a_20_hattack_artificial_fd a_20_hattack_artificial_fd_
+label values a_21_ad_antibiotics a_21_ad_antibiotics_
+label values a_22_ad_cpr a_22_ad_cpr_
+label values a_23_ad_gallbladder a_23_ad_gallbladder_
+label values a_24_ad_artificial_fd a_24_ad_artificial_fd_
+label values b_1_decision b_1_decision_
+label values c_1_angioplasty c_1_angioplasty_
+label values c_2_surgery c_2_surgery_
+label values c_3_heart_rehab c_3_heart_rehab_
+label values c_4_cholesterol_med c_4_cholesterol_med_
+label values c_5_clotbusting_med c_5_clotbusting_med_
+label values c_6_sx_on_neck_artery c_6_sx_on_neck_artery_
+label values c_7_stroke_rehab c_7_stroke_rehab_
+label values c_8_blood_thinning_med c_8_blood_thinning_med_
+label values d_1_fall d_1_fall_
+label values d_2_heart_attack d_2_heart_attack_
+label values d_3_stroke d_3_stroke_
+label values d_4_dementia d_4_dementia_
+label values e_1_health e_1_health_
+label values e_2_stroke e_2_stroke_
+label values e_3_heart_disease e_3_heart_disease_
+label values e_4_lung_disease e_4_lung_disease_
+label values e_5_cancer e_5_cancer_
+label values e_6_arthritis e_6_arthritis_
+label values e_7_little_interest e_7_little_interest_
+label values e_8_depressed e_8_depressed_
+label values e_9_walking e_9_walking_
+label values e_10_dressing e_10_dressing_
+label values e_11_bathing e_11_bathing_
+label values e_12_eating e_12_eating_
+label values e_13_out_of_bed e_13_out_of_bed_
+label values e_14_toileting e_14_toileting_
+label values f_2_gender f_2_gender_
+label values f_3_hispanic f_3_hispanic_
+label values f_4_race___1 f_4_race___1_
+label values f_4_race___2 f_4_race___2_
+label values f_4_race___3 f_4_race___3_
+label values f_4_race___4 f_4_race___4_
+label values f_4_race___5 f_4_race___5_
+label values f_4_race___6 f_4_race___6_
+label values f_5_marital_status f_5_marital_status_
+label values f_6_children f_6_children_
+label values f_7_children_lives_with f_7_children_lives_with_
+label values f_8_children_30_mi f_8_children_30_mi_
+label values f_9_education f_9_education_
+label values f_10_dementia f_10_dementia_
+label values f_11_stroke f_11_stroke_
+label values f_12_heart_attack f_12_heart_attack_
+label values patient_survey_respo_v_0 patient_survey_respo_v_0_
+label values studypartnersurvey studypartnersurvey_
+label values a_1_ch_antibiotics_v2 a_1_ch_antibiotics_v2_
+label values a_2_ch_cpr_v2 a_2_ch_cpr_v2_
+label values a_3_ch_gallbladder_v2 a_3_ch_gallbladder_v2_
+label values a_4_ch_artificial_fd_v2 a_4_ch_artificial_fd_v2_
+label values a_5_emph_antibiotics_v2 a_5_emph_antibiotics_v2_
+label values a_6_emph_cpr_v2 a_6_emph_cpr_v2_
+label values a_7_emph_gallbladder_v2 a_7_emph_gallbladder_v2_
+label values a_8_emph_artificial_fd_v2 a_8_emph_artificial_fd_v2_
+label values a_9_stroke_antibiotics_v2 a_9_stroke_antibiotics_v2_
+label values a_10_stroke_cpr_v2 a_10_stroke_cpr_v2_
+label values a_11_stroke_gallbladder_v2 a_11_stroke_gallbladder_v2_
+label values a_12_stroke_art_fd_v2 a_12_stroke_art_fd_v2_
+label values a_13_cancer_antibiotics_v2 a_13_cancer_antibiotics_v2_
+label values a_14_cancer_cpr_v2 a_14_cancer_cpr_v2_
+label values a_15_cancer_gallbladder_v2 a_15_cancer_gallbladder_v2_
+label values a_16_cancer_art_fd_v2 a_16_cancer_art_fd_v2_
+label values a_17_hattack_antib_v2 a_17_hattack_antib_v2_
+label values a_18_hattack_cpr_v2 a_18_hattack_cpr_v2_
+label values a_19_hattack_gallbla_v2 a_19_hattack_gallbla_v2_
+label values a_20_hattack_art_fd_v2 a_20_hattack_art_fd_v2_
+label values a_21_ad_antibiotics_v2 a_21_ad_antibiotics_v2_
+label values a_22_ad_cpr_v2 a_22_ad_cpr_v2_
+label values a_23_ad_gallbladder_v2 a_23_ad_gallbladder_v2_
+label values a_24_ad_artificial_fd_v2 a_24_ad_artificial_fd_v2_
+label values b_1_decision_v2 b_1_decision_v2_
+label values c_1_angioplasty_v2 c_1_angioplasty_v2_
+label values c_2_surgery_v2 c_2_surgery_v2_
+label values c_3_heart_rehab_v2 c_3_heart_rehab_v2_
+label values c_4_cholesterol_med_v2 c_4_cholesterol_med_v2_
+label values c_5_clotbusting_med_v2 c_5_clotbusting_med_v2_
+label values c_6_sx_on_neck_art_v2 c_6_sx_on_neck_art_v2_
+label values c_7_stroke_rehab_v2 c_7_stroke_rehab_v2_
+label values c_8_blood_thinning_med_v2 c_8_blood_thinning_med_v2_
+label values d_1_fall_v2 d_1_fall_v2_
+label values d_2_heart_attack_v2 d_2_heart_attack_v2_
+label values d_3_stroke_v2 d_3_stroke_v2_
+label values d_4_dementia_v2 d_4_dementia_v2_
+label values e_1_memory e_1_memory_
+label values e_2_speech_and_language e_2_speech_and_language_
+label values e_3_reg_of_fam_members e_3_reg_of_fam_members_
+label values e_4_orientation_to_time e_4_orientation_to_time_
+label values e_5_orientation_to_place e_5_orientation_to_place_
+label values e_6_decisions e_6_decisions_
+label values e_7_social_and_community e_7_social_and_community_
+label values e_8_activities_and_respons e_8_activities_and_respons_
+label values e9_personal_care e9_personal_care_
+label values e10_eating e10_eating_
+label values e11_urination_and_bowels e11_urination_and_bowels_
+label values e12_place_to_place e12_place_to_place_
+label values f1_health f1_health_
+label values f2_stroke f2_stroke_
+label values f3_heart_disease f3_heart_disease_
+label values f4_lung_disease f4_lung_disease_
+label values f5_cancer f5_cancer_
+label values f6_arthritis f6_arthritis_
+label values f7_little_interest f7_little_interest_
+label values f8_depressed f8_depressed_
+label values f_9_walking_v2 f_9_walking_v2_
+label values f_10_dressing_v2 f_10_dressing_v2_
+label values f_11_bathing_v2 f_11_bathing_v2_
+label values f_12_eating_v2 f_12_eating_v2_
+label values f_13_out_of_bed_v2 f_13_out_of_bed_v2_
+label values f_14_toileting_v2 f_14_toileting_v2_
+label values g_2_gender_v2 g_2_gender_v2_
+label values g_3_hispanic_v2 g_3_hispanic_v2_
+label values g_4_race_v2___1 g_4_race_v2___1_
+label values g_4_race_v2___2 g_4_race_v2___2_
+label values g_4_race_v2___3 g_4_race_v2___3_
+label values g_4_race_v2___4 g_4_race_v2___4_
+label values g_4_race_v2___5 g_4_race_v2___5_
+label values g_4_race_v2___6 g_4_race_v2___6_
+label values g_5_marital_status_v2 g_5_marital_status_v2_
+label values g_6_relationship g_6_relationship_
+label values g_8_frequency_seen g_8_frequency_seen_
+label values g_9_speak_with g_9_speak_with_
+label values g_10_education_v2 g_10_education_v2_
+label values g_11_dementia_v2 g_11_dementia_v2_
+label values g_12_stroke_v2 g_12_stroke_v2_
+label values g_13_heart_attack_v2 g_13_heart_attack_v2_
+label values study_partner_survey_v_1 study_partner_survey_v_1_
+label values new_studypartnersurvey new_studypartnersurvey_
+label values new_c7 new_c7_
+label values new_c8 new_c8_
+label values new_c7_c8_study_part_v_2 new_c7_c8_study_part_v_2_
+
+
+
+tostring new_date, replace
+gen _date_ = date(new_date,"YMD")
+drop new_date
+rename _date_ new_date
+format new_date %dM_d,_CY
+
+label variable mci_dem_dyadsubject_id "MCI DeM StudyDyadID  "
+label variable redcap_data_access_group "Data Access Group"
+label variable patientsurvey "Is this a Patient survey?"
+label variable a_1_ch_antibiotics "A1. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?"
+label variable a_2_ch_cpr "A2. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation?"
+label variable a_3_ch_gallbladder "A3. If your gallbladder became inflamed and infected, would you want surgery to remove it?"
+label variable a_4_ch_artificial_fd "A4. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?"
+label variable a_5_emph_antibiotics "A5. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?"
+label variable a_6_emph_cpr "A6. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation?"
+label variable a_7_emph_gallbladder "A7. If your gallbladder became inflamed and infected, would you want surgery to remove it?"
+label variable a_8_emph_artificial_fd "A8. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?"
+label variable a_9_stroke_antibiotics "A9. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?"
+label variable a_10_stroke_cpr "A10. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation?"
+label variable a_11_stroke_gallbladder "A11. If your gallbladder became inflamed and infected, would you want surgery to remove it?"
+label variable a_12_stroke_artificial_fd "A12. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?"
+label variable a_13_cancer_antibiotics "A13. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?"
+label variable a_14_cancer_cpr "A14. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation? "
+label variable a_15_cancer_gallbladder "A15. If your gallbladder became inflamed and infected, would you want surgery to remove it?"
+label variable a_16_cancer_artificial_fd "A16. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?"
+label variable a_17_hattack_antibiotics "A17. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?"
+label variable a_18_hattack_cpr "A18. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation?"
+label variable a_19_hattack_gallbladder "A19. If your gallbladder became inflamed and infected, would you want surgery to remove it?"
+label variable a_20_hattack_artificial_fd "A20. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?"
+label variable a_21_ad_antibiotics "A21. If you developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?"
+label variable a_22_ad_cpr "A22. If your heart stopped beating or you stopped breathing, would you want to receive CPR or cardiopulmonary resuscitation?"
+label variable a_23_ad_gallbladder "A23. If your gallbladder became inflamed and infected, would you want surgery to remove it?"
+label variable a_24_ad_artificial_fd "A24. If your condition becomes such that you lose the ability to take in food or water by mouth, would you want artificial feeding and fluids?"
+label variable b_1_decision "B1. Please check the one statement that best describes what you believe would be ideal:"
+label variable c_1_angioplasty "C1. How involved would you want to be in the decision on whether or not to have a medical procedure (called an angioplasty) to treat the heart attack?"
+label variable c_2_surgery "C2. How involved would you want to be in the decision on whether or not to have open-heart surgery (called bypass surgery) to improve blood flow to the heart after you had a heart attack?"
+label variable c_3_heart_rehab "C3. How involved would you want to be in the decision on whether or not to do a heart rehabilitation program in a clinic to improve your health and well-being after you had a heart attack?"
+label variable c_4_cholesterol_med "C4. How involved would you want to be in the decision on whether or not to start a cholesterol medicine to reduce the chance of having another heart attack?"
+label variable c_5_clotbusting_med "C5. How involved would you want to be in the decision on whether or not to have clot-busting medicine injected into a vein to treat the stroke?"
+label variable c_6_sx_on_neck_artery "C6. How involved would you want to be in the decision on whether or not to have surgery on a neck artery to improve blood flow to the brain after you had a stroke?"
+label variable c_7_stroke_rehab "C7. How involved would you want to be in the decision on whether or not to do stroke rehabilitation in a hospital or facility to improve your walking and balance after you had a stroke?"
+label variable c_8_blood_thinning_med "C8. How involved would you want to be in the decision on whether or not to start blood-thinning medicine to reduce the chance of having another stroke?"
+label variable d_1_fall "D1. I feel that Im going to have a FALL in the next 2 years. "
+label variable d_2_heart_attack "D2. I feel that Im going to have a HEART ATTACK in the next 2 years. "
+label variable d_3_stroke "D3. I feel that Im going to have a STROKE in the next 2 years. "
+label variable d_4_dementia "D4. I feel that Im going to develop DEMENTIA in the next 2 years. "
+label variable e_1_health "E1. In general, how is your health?"
+label variable e_2_stroke "E2. Has a doctor ever told you that you had a stroke?"
+label variable e_3_heart_disease "E3. Has a doctor ever told you that you had a heart attack, coronary heart disease, angina, congestive health failure, or other heart problems?"
+label variable e_4_lung_disease "E4. Has a doctor ever told you that you have chronic lung disease such as chronic bronchitis, COPD, or emphysema?"
+label variable e_5_cancer "E5. Has a doctor ever told you that you have cancer or a malignant tumor, excluding minor skin cancer?"
+label variable e_6_arthritis "E6. Has a doctor ever told you that you have arthritis or rheumatism?"
+label variable e_7_little_interest "E7. Over the past 2 weeks, how often have you been bothered by little interest or pleasure in doing things?"
+label variable e_8_depressed "E8. Over the past 2 weeks, how often have you been bothered by feeling down, depressed, or hopeless?"
+label variable e_9_walking "E9. Walking several blocks"
+label variable e_10_dressing "E10. Dressing, including putting on shoes and socks"
+label variable e_11_bathing "E11. Bathing or showering"
+label variable e_12_eating "E12. Eating, such as cutting up food"
+label variable e_13_out_of_bed "E13. Getting in or out of bed"
+label variable e_14_toileting "E14. Using the toilet, including getting up and down"
+label variable f_1_age "F1. What is your age?"
+label variable f_2_gender "F2. What is your gender"
+label variable f_3_hispanic "F3. Are you Hispanic or Latino?"
+label variable f_4_race___1 "F4. What is your race? (select all that apply) (choice=American Indian or Alaska Native)"
+label variable f_4_race___2 "F4. What is your race? (select all that apply) (choice=Asian)"
+label variable f_4_race___3 "F4. What is your race? (select all that apply) (choice=Black or African American)"
+label variable f_4_race___4 "F4. What is your race? (select all that apply) (choice=Native Hawaiian or Other Pacific Islander)"
+label variable f_4_race___5 "F4. What is your race? (select all that apply) (choice=White)"
+label variable f_4_race___6 "F4. What is your race? (select all that apply) (choice=Other)"
+label variable sec_f_4a_other_race "Specify other race"
+label variable f_5_marital_status "F5. What is your current marital status? Check one box."
+label variable f_6_children "F6. Do you have any children -- please include biological, stepchildren, and adopted children?"
+label variable f_7_children_lives_with "F7. Do you have at least one adult child that lives with you?"
+label variable f_8_children_30_mi "F8. Do any of your adult children who do not live with you live within 30 miles of you?"
+label variable f_9_education "F9. What is the highest grade of school that you completed? Check one box."
+label variable f_10_dementia "F10. Has a close family member or friend had DEMENTIA?  "
+label variable f_11_stroke "F11. Has a close family member or friend had a STROKE?"
+label variable f_12_heart_attack "F12. Has a close family member or friend had a HEART ATTACK?"
+label variable additional_notes "Notes"
+label variable patient_survey_respo_v_0 "Complete?"
+label variable studypartnersurvey "Is this a Study Partner survey?"
+label variable a_1_ch_antibiotics_v2 "A1. If your study partner developed a serious infection, like pneumonia, would you want to use antibiotics to treat the infection?"
+label variable a_2_ch_cpr_v2 "A2. If your study partners heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?"
+label variable a_3_ch_gallbladder_v2 "A3. If your study partners gallbladder became inflamed and infected, would you want them to have surgery to remove it?"
+label variable a_4_ch_artificial_fd_v2 "A4. If your study partners condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?"
+label variable a_5_emph_antibiotics_v2 "A5. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?"
+label variable a_6_emph_cpr_v2 "A6. If your study partners heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?"
+label variable a_7_emph_gallbladder_v2 "A7. If your study partners gallbladder became inflamed and infected, would you want them to have surgery to remove it?"
+label variable a_8_emph_artificial_fd_v2 "A8. If your study partners condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?"
+label variable a_9_stroke_antibiotics_v2 "A9. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?"
+label variable a_10_stroke_cpr_v2 "A10. If your study partners heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?"
+label variable a_11_stroke_gallbladder_v2 "A11. If your study partners gallbladder became inflamed and infected, would you want them to have surgery to remove it?"
+label variable a_12_stroke_art_fd_v2 "A12. If your study partners condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?"
+label variable a_13_cancer_antibiotics_v2 "A13. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?"
+label variable a_14_cancer_cpr_v2 "A14. If your study partners heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation? "
+label variable a_15_cancer_gallbladder_v2 "A15. If your study partners gallbladder became inflamed and infected, would you want them to have surgery to remove it?"
+label variable a_16_cancer_art_fd_v2 "A16. If your study partners condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?"
+label variable a_17_hattack_antib_v2 "A17. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?"
+label variable a_18_hattack_cpr_v2 "A18. If your study partners heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?"
+label variable a_19_hattack_gallbla_v2 "A19. If your study partners gallbladder became inflamed and infected, would you want them to have surgery to remove it?"
+label variable a_20_hattack_art_fd_v2 "A20. If your study partners condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?"
+label variable a_21_ad_antibiotics_v2 "A21. If your study partner developed a serious infection, like pneumonia, would you want them to use antibiotics to treat the infection?"
+label variable a_22_ad_cpr_v2 "A22. If your study partners heart stopped beating or they stopped breathing, would you want them to receive CPR or cardiopulmonary resuscitation?"
+label variable a_23_ad_gallbladder_v2 "A23. If your study partners gallbladder became inflamed and infected, would you want them to have surgery to remove it?"
+label variable a_24_ad_artificial_fd_v2 "A24. If your study partners condition becomes such that they lose the ability to take in food or water by mouth, would you want them to get artificial feeding and fluids?"
+label variable b_1_decision_v2 "B1. Please check the one statement that best describes what you believe would be ideal:"
+label variable c_1_angioplasty_v2 "C1. How involved would you want to be in the decision on whether or not they have a medical procedure (called an angioplasty) to treat the heart attack?"
+label variable c_2_surgery_v2 "C2. How involved would you want to be in the decision on whether or not they have open-heart surgery (called bypass surgery) to improve blood flow to the heart after they had a heart attack?"
+label variable c_3_heart_rehab_v2 "C3. How involved would you want to be in the decision on whether or not they do a heart rehabilitation program in a clinic to improve your health and well-being after a heart attack?"
+label variable c_4_cholesterol_med_v2 "C4. How involved would you want to be in the decision on whether or not they start a cholesterol medicine to reduce the chance of them having another heart attack?"
+label variable c_5_clotbusting_med_v2 "C5. How involved would you want to be in the decision on whether or not they have clot-busting medicine injected into a vein to treat the stroke?"
+label variable c_6_sx_on_neck_art_v2 "C6. How involved would you want to be in the decision on whether or not they have surgery on a neck artery to improve blood flow to the brain after you had a stroke?"
+label variable c_7_stroke_rehab_v2 "C7. *****DO NOT ENTER DATA HERE. ENTER DATA IN NEW C7 & C8 Study Partner Responses FORM*****"
+label variable c_8_blood_thinning_med_v2 "C8. *****DO NOT ENTER DATA HERE. ENTER DATA IN NEW C7 & C8 Study Partner Responses FORM*****"
+label variable d_1_fall_v2 "D1. I feel that my study partner is going to have a FALL in the next 2 years. "
+label variable d_2_heart_attack_v2 "D2. I feel that my study partner is going to have a HEART ATTACK in the next 2 years. "
+label variable d_3_stroke_v2 "D3. I feel that my study partner is going to have a STROKE in the next 2 years. "
+label variable d_4_dementia_v2 "D4. I feel that my study partner is going to develop DEMENTIA in the next 2 years. "
+label variable e_1_memory "E1. Memory"
+label variable e_2_speech_and_language "E2. Speech and Language"
+label variable e_3_reg_of_fam_members "E3. Recognition of Family Members"
+label variable e_4_orientation_to_time "E4. Orientation to Time"
+label variable e_5_orientation_to_place "E5. Orientation to Place"
+label variable e_6_decisions "E6. Ability to Make Decisions"
+label variable e_7_social_and_community "E7. Social and Community Activities"
+label variable e_8_activities_and_respons "E8. Home Activities and Responsibilities"
+label variable e9_personal_care "E9. Personal Care - Cleanliness"
+label variable e10_eating "E10. Eating"
+label variable e11_urination_and_bowels "E11. Control of Urination and Bowels"
+label variable e12_place_to_place "E12. Ability to Get from Place to Place"
+label variable f1_health "F1. In general, how is your health?"
+label variable f2_stroke "F2. Has a doctor ever told you that you had a stroke?"
+label variable f3_heart_disease "F3. Has a doctor ever told you that you had a heart attack, coronary heart disease, angina, congestive heart failure, or other heart problems?"
+label variable f4_lung_disease "F4. Has a doctor ever told you that you have chronic lung disease such as chronic bronchitis, COPD, or emphysema?"
+label variable f5_cancer "F5. Has a doctor ever told you that you have cancer or a malignant tumor, excluding minor skin cancer?"
+label variable f6_arthritis "F6. Has a doctor ever told you that you have arthritis or rheumatism?"
+label variable f7_little_interest "F7. Over the past 2 weeks, how often have you been bothered by little interest or pleasure in doing things?"
+label variable f8_depressed "F8. Over the past 2 weeks, how often have you been bothered by feeling down, depressed, or hopeless?"
+label variable f_9_walking_v2 "F9. Walking several blocks"
+label variable f_10_dressing_v2 "F10. Dressing, including putting on shoes and socks"
+label variable f_11_bathing_v2 "F11. Bathing or showering"
+label variable f_12_eating_v2 "F12. Eating, such as cutting up food"
+label variable f_13_out_of_bed_v2 "F13. Getting in or out of bed"
+label variable f_14_toileting_v2 "F14. Using the toilet, including getting up and down"
+label variable g_1_age_v2 "G1. What is your age?"
+label variable g_2_gender_v2 "G2. What is your gender"
+label variable g_3_hispanic_v2 "G3. Are you Hispanic or Latino?"
+label variable g_4_race_v2___1 "G4. What is your race? (select all that apply) (choice=American Indian or Alaska Native)"
+label variable g_4_race_v2___2 "G4. What is your race? (select all that apply) (choice=Asian)"
+label variable g_4_race_v2___3 "G4. What is your race? (select all that apply) (choice=Black or African American)"
+label variable g_4_race_v2___4 "G4. What is your race? (select all that apply) (choice=Native Hawaiian or Other Pacific Islander)"
+label variable g_4_race_v2___5 "G4. What is your race? (select all that apply) (choice=White)"
+label variable g_4_race_v2___6 "G4. What is your race? (select all that apply) (choice=Other)"
+label variable sec_g_4a_other_race_v2 "G4a. Specify other race"
+label variable g_5_marital_status_v2 "G5. What is your current marital status? Check one box."
+label variable g_6_relationship "G6. What is your relationship to the study partner? (Mark one box.)"
+label variable g6a_other_relationship "G6a. Specify other relationship"
+label variable g_7_relationship_yrs "G7. How long have you known the study partner? (Write the number of years.)"
+label variable g_8_frequency_seen "G8. On average, in the past year, how often did you see the study partner? (Mark one box.)"
+label variable other_freq "G8a. Specify other frequency seen study partner"
+label variable g_9_speak_with "G9. If you see the study partner less than once a week, how often do you speak with them? (Mark one box.)"
+label variable g9a_freq_spoken_to "G9a. Specify other frequency spoken to"
+label variable g_10_education_v2 "G10. What is the highest grade of school that you completed? Check one box."
+label variable g_11_dementia_v2 "G11. Has a close family member or friend had DEMENTIA?  "
+label variable g_12_stroke_v2 "G12. Has a close family member or friend had a STROKE?"
+label variable g_13_heart_attack_v2 "G13. Has a close family member or friend had a HEART ATTACK?"
+label variable additional_notes_v2 "Notes"
+label variable study_partner_survey_v_1 "Complete?"
+label variable new_date "Date NEW C7 & C8 data recorded"
+label variable new_studypartnersurvey "Is this a Study Partner survey (NEW C7 & C8)?"
+label variable new_c7 "NEW C7. How involved would you want to be in the decision on whether or not they do stroke rehabilitation in a hospital or facility to improve their walking and balance after they had a stroke?"
+label variable new_c8 "NEW C8. How involved would you want to be in the decision on whether or not they start blood-thinning medicine to reduce their chance of having another stroke?"
+label variable new_c7_c8_study_part_v_2 "Complete?"
+
+order mci_dem_dyadsubject_id redcap_data_access_group patientsurvey a_1_ch_antibiotics a_2_ch_cpr a_3_ch_gallbladder a_4_ch_artificial_fd a_5_emph_antibiotics a_6_emph_cpr a_7_emph_gallbladder a_8_emph_artificial_fd a_9_stroke_antibiotics a_10_stroke_cpr a_11_stroke_gallbladder a_12_stroke_artificial_fd a_13_cancer_antibiotics a_14_cancer_cpr a_15_cancer_gallbladder a_16_cancer_artificial_fd a_17_hattack_antibiotics a_18_hattack_cpr a_19_hattack_gallbladder a_20_hattack_artificial_fd a_21_ad_antibiotics a_22_ad_cpr a_23_ad_gallbladder a_24_ad_artificial_fd b_1_decision c_1_angioplasty c_2_surgery c_3_heart_rehab c_4_cholesterol_med c_5_clotbusting_med c_6_sx_on_neck_artery c_7_stroke_rehab c_8_blood_thinning_med d_1_fall d_2_heart_attack d_3_stroke d_4_dementia e_1_health e_2_stroke e_3_heart_disease e_4_lung_disease e_5_cancer e_6_arthritis e_7_little_interest e_8_depressed e_9_walking e_10_dressing e_11_bathing e_12_eating e_13_out_of_bed e_14_toileting f_1_age f_2_gender f_3_hispanic f_4_race___1 f_4_race___2 f_4_race___3 f_4_race___4 f_4_race___5 f_4_race___6 sec_f_4a_other_race f_5_marital_status f_6_children f_7_children_lives_with f_8_children_30_mi f_9_education f_10_dementia f_11_stroke f_12_heart_attack additional_notes patient_survey_respo_v_0 studypartnersurvey a_1_ch_antibiotics_v2 a_2_ch_cpr_v2 a_3_ch_gallbladder_v2 a_4_ch_artificial_fd_v2 a_5_emph_antibiotics_v2 a_6_emph_cpr_v2 a_7_emph_gallbladder_v2 a_8_emph_artificial_fd_v2 a_9_stroke_antibiotics_v2 a_10_stroke_cpr_v2 a_11_stroke_gallbladder_v2 a_12_stroke_art_fd_v2 a_13_cancer_antibiotics_v2 a_14_cancer_cpr_v2 a_15_cancer_gallbladder_v2 a_16_cancer_art_fd_v2 a_17_hattack_antib_v2 a_18_hattack_cpr_v2 a_19_hattack_gallbla_v2 a_20_hattack_art_fd_v2 a_21_ad_antibiotics_v2 a_22_ad_cpr_v2 a_23_ad_gallbladder_v2 a_24_ad_artificial_fd_v2 b_1_decision_v2 c_1_angioplasty_v2 c_2_surgery_v2 c_3_heart_rehab_v2 c_4_cholesterol_med_v2 c_5_clotbusting_med_v2 c_6_sx_on_neck_art_v2 c_7_stroke_rehab_v2 c_8_blood_thinning_med_v2 d_1_fall_v2 d_2_heart_attack_v2 d_3_stroke_v2 d_4_dementia_v2 e_1_memory e_2_speech_and_language e_3_reg_of_fam_members e_4_orientation_to_time e_5_orientation_to_place e_6_decisions e_7_social_and_community e_8_activities_and_respons e9_personal_care e10_eating e11_urination_and_bowels e12_place_to_place f1_health f2_stroke f3_heart_disease f4_lung_disease f5_cancer f6_arthritis f7_little_interest f8_depressed f_9_walking_v2 f_10_dressing_v2 f_11_bathing_v2 f_12_eating_v2 f_13_out_of_bed_v2 f_14_toileting_v2 g_1_age_v2 g_2_gender_v2 g_3_hispanic_v2 g_4_race_v2___1 g_4_race_v2___2 g_4_race_v2___3 g_4_race_v2___4 g_4_race_v2___5 g_4_race_v2___6 sec_g_4a_other_race_v2 g_5_marital_status_v2 g_6_relationship g6a_other_relationship g_7_relationship_yrs g_8_frequency_seen other_freq g_9_speak_with g9a_freq_spoken_to g_10_education_v2 g_11_dementia_v2 g_12_stroke_v2 g_13_heart_attack_v2 additional_notes_v2 study_partner_survey_v_1 new_date new_studypartnersurvey new_c7 new_c8 new_c7_c8_study_part_v_2 
+set more off
+describe
+
+save "`cd'\datain\MCIDEMPatientSurveys_STATA_200108.dta", replace
