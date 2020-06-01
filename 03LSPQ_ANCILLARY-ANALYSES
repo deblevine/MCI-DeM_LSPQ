@@ -1,0 +1,335 @@
+# delimit; 
+clear all; 
+set more off; 
+set maxvar 32767;
+capture log close;
+set seed 378297;
+
+/* 
+////////////////////////////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+***************************** ANALYTIC INFORMATION *****************************
+MCI DeM Aim 2, Study 3: Tx preferences 
+Deb Levine, MD MPH, University of Michigan
+Created by Rachael Whitney, PhD: 02/06/2020
+Updated by Rachael Whitney, PhD: 04/16/2020
+
+STUDY AIM. Determine the influence of MCI on patient and study partner preferences 
+for AMI and ischemic stroke treatment. STUDY HYPOTHESIS. MCI patients and study 
+partners prefer less intensive treatment than patients with no MCI. 
+
+Analyses in this syntax file employ the data from the 2020 master file freeze and 
+follow the plan outlined in "MCI DeM_Study 3_Analytic Plan_RTW200102.docx". Variables
+used in these analyses are detailed in the analytic plan. General note: variables 
+end in suffixes that provide information about respondent type (patient or partner) 
+and the person being referenced (self or dyad-mate):
+
+	Variable contains patient information provided by the patient: _pt
+	Variable contains patient information provided by the partner: _apt		
+	Variable contains partner information provided by the partner: _ptr
+	Variable contains dyad information provided by the partner: _dyad
+
+---FILES IN USE---
+INPUT, 2020 MASTER:	    MCIDeM_AIM2_STUDY3_MASTER_200206.dta
+OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
+********************************************************************************
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+**************************************************************** PROGRAM MACROS;
+*** DIRECTORY;
+local cd "S:\Intmed_Rsrch2\GenMed\Restricted\BP COG\atg_tests\Data_archive_test\MCI-DEM-TEST-RTW-prj";
+*** DATE;
+local date "200521";
+*** LOG;
+local log "`cd'\01_S3_LSPQ-Study\stata_aux\reports\LSPQ_ANCILLARY-ANALYSES_RTW`date'.log";
+*** OUT PATH;
+local inpath = "`cd'\01_S3_LSPQ-Study\stata_aux\dataout\MCIDeM_AIM2_STUDY3_LSPQ_RTW`date'.dta";
+*** OTHER;
+local letter "A B C D";
+
+*************************************************************** DATA MANAGEMENT;
+***** DATA FILES;
+*MASTER;
+log using "`log'", replace;
+use "`inpath'", clear;
+
+******************************************* ANCILLARY ANALYSES: SDM PREFERENCES;
+***** MACROS;
+quietly{;
+local decision_pt "decision_pt";
+local decision_ptr "decision_ptr";
+local participant "Patient Partner";
+local parvar = "pt ptr";
+local parvar2 = "pt apt";
+local letter "A B E F";
+};
+
+***** SET TEXT;
+quietly{;
+local numpar : word count `participant';
+forvalues i=1/`numpar' {;
+local par : word `i' of `participant';
+local tnum = `i';
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_ANCILLARY", sheet("Table `tnum'") modify; 
+putexcel A1 = "Table `tnum'. `par'-reported decisions about medical treatment, by MCI status.", top left underline;
+*Lines;
+foreach l in `letter'{;
+putexcel `l'3:`l'4 = " ", merge bold top left border(top, thin, black); 
+putexcel `l'10:`l'10 = " ", border(bottom, thin, black); 
+};
+putexcel C10 = " ", border(bottom, thin, black); 
+putexcel D10 = " ", border(bottom, thin, black);  
+*Top;
+putexcel A3:A4 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:B4 = "Response", merge bold top left border(bottom, thin, black);
+putexcel C3:D3 = "Patient MCI status", merge bold top left border(top, thin, black); 
+putexcel C4 = "No MCI (n=61)", bold top left border(bottom, thin, black);
+putexcel D4 = "MCI (n=66)", bold top left border(bottom, thin, black);
+putexcel E3:E4 = "Gamma", merge bold top left border(bottom, thin, black);
+putexcel F3:F4 = "ASE", merge bold top left border(bottom, thin, black);
+*Middle;
+putexcel A5:A10 = "Medical decisions", merge top left border(bottom, thin, black);
+
+putexcel B6 = "I prefer to make all decisions"; 
+putexcel B7 = "I prefer to make the final decision"; 
+putexcel B8 = "I prefer to make decisions with my doctor"; 
+putexcel B9 = "I prefer that my doctor makes the final decision"; 
+putexcel B10 = "I prefer that my doctor makes all decisions"; 
+
+putexcel A11:F11 = "Note: `par's were asked how they prefer decisions about medical treatment to be made. 
+Responses are reported as count (%) and compared using Goodman and Kruskal's gamma.", merge top left;  
+};
+};
+
+***** ANALYSES;
+local pv : word count `parvar';
+forvalues p=1/`pv'{;
+local par : word `p' of `parvar';
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_ANCILLARY", sheet("Table `p'") modify;
+local dec : word count "`decision_`par''";
+forvalues i=1/`dec' {;
+local d : word `i' of "`decision_`par''";
+tab `d' mci_status_pt, matcell(decision) gamma;
+forvalues x = 1/5 {;
+local cell = `x'+5;
+local count = string(decision[`x',1]);
+local percent = string(((decision[`x',1]/61)*100),"%9.1f");
+putexcel C`cell' = "`count' (`percent')";
+local count = string(decision[`x',2]);
+local percent = string(((decision[`x',2]/66)*100),"%9.1f");
+putexcel D`cell' = "`count' (`percent')";
+};
+putexcel E5 = (r(gamma)), nformat(0.00) left;
+putexcel F5 = (r(ase_gam)), nformat(0.00) left;
+};
+};
+
+************************* ANCILLARY ANALYSES: SDM PREFERENCES IN STROKE AND AMI;
+***** MACROS;
+quietly{;
+local pref_pt1 "angioplasty_pt surgery_pt heart_rehab_pt cholesterol_med_pt";
+local pref_pt2 "clotbusting_med_pt sx_on_neck_artery_pt stroke_rehab_pt blood_thinning_med_pt";
+local pref_apt1 "angioplasty_apt surgery_apt heart_rehab_apt cholesterol_med_apt";
+local pref_apt2 "clotbusting_med_apt sx_on_neck_artery_apt stroke_rehab_apt blood_thinning_med_apt";
+local participant "Patient Partner";
+local letter "A B E F";
+};
+
+***** SET TEXT;
+quietly{;
+local numpar : word count `participant';
+forvalues i=1/`numpar' {;
+local par : word `i' of `participant';
+local tnum = `i'+2;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_ANCILLARY", sheet("Table `tnum'") modify; 
+putexcel A1 = "Table `tnum'. `par'-reported decisions about medical treatment after acute MI and stroke, by MCI status.", top left underline;
+*Lines;
+foreach l in `letter'{;
+putexcel `l'3:`l'4 = " ", merge bold top left border(top, thin, black); 
+putexcel `l'54:`l'54 = " ", border(bottom, thin, black); 
+};
+putexcel C54 = " ", border(bottom, thin, black); 
+putexcel D54 = " ", border(bottom, thin, black);
+*Top;
+putexcel A3:A4 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:B4 = "Response", merge bold top left border(bottom, thin, black);
+putexcel C3:D3 = "Patient MCI status", merge bold top left border(top, thin, black); 
+putexcel C4 = "No MCI (n=61)", bold top left border(bottom, thin, black);
+putexcel D4 = "MCI (n=66)", bold top left border(bottom, thin, black);
+putexcel E3:E4 = "Gamma", merge bold top left border(bottom, thin, black);
+putexcel F3:F4 = "ASE", merge bold top left border(bottom, thin, black);
+*Middle;
+putexcel A5:F5 = "Scenario: Acute MI", merge italic top left;
+putexcel A6:A11 = "Angioplasty", merge top left;
+putexcel A12:A17 = "Bypass surgery", merge top left;
+putexcel A18:A23 = "Rehabilitation program", merge top left;
+putexcel A24:A29 = "Cholesterol medication", merge top left;
+putexcel A30:F30 = "Scenario: Stroke", merge italic top left;
+putexcel A31:A36 = "Clot-busting medication", merge top left;
+putexcel A37:A42 = "Carotid artery surgery", merge top left;
+putexcel A43:A48 = "Rehabilitation program", merge top left;
+putexcel A49:A54 = "Blood-thinning medication", merge top left border(bottom, thin, black);
+
+forvalues r=1/5{;
+local cell = `r'*6+1;
+putexcel B`cell' = "I definitely want to be involved "; 
+local cell = `r'*6+2;
+putexcel B`cell' = "I probably want to be involved"; 
+local cell = `r'*6+3;
+putexcel B`cell' = "I am unsure"; 
+local cell = `r'*6+4;
+putexcel B`cell' = "I probably do not want to be involved "; 
+local cell = `r'*6+5;
+putexcel B`cell' = "I definitely want to be involved"; 
+};
+
+forvalues r=5/8{;
+local cell = `r'*6+2;
+putexcel B`cell' = "I definitely want to be involved "; 
+local cell = `r'*6+3;
+putexcel B`cell' = "I probably want to be involved "; 
+local cell = `r'*6+4;
+putexcel B`cell' = "I am unsure"; 
+local cell = `r'*6+5;
+putexcel B`cell' = "I probably do not want to be involved"; 
+local cell = `r'*6+6;
+putexcel B`cell' = "I definitely want to be involved "; 
+};
+
+putexcel A55:F55 = "Note: `par's were asked how involved they would want to be in a variety of medical decisions after having an acute MI or stroke. 
+Responses are reported as count (%) and compared using Goodman and Kruskal's gamma.", merge top left;  
+};
+};
+
+***** ANALYSES;
+local pv : word count `parvar2';
+forvalues p=1/`pv'{;
+local par : word `p' of `parvar2';
+local table = `p'+2;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_ANCILLARY", sheet("Table `table'") modify;
+
+*** SCENARIO: AMI;
+local pref : word count `pref_`par'1';
+forvalues i=1/`pref' {;
+local pr : word `i' of `pref_`par'1';
+tab `pr' mci_status_pt, matcell(decision) gamma;
+forvalues x = 1/5 {;
+local cell = `i'*6+`x';
+local count = string(decision[`x',1]);
+local percent = string(((decision[`x',1]/61)*100),"%9.1f");
+putexcel C`cell' = "`count' (`percent')";
+local count = string(decision[`x',2]);
+local percent = string(((decision[`x',2]/66)*100),"%9.1f");
+putexcel D`cell' = "`count' (`percent')";
+};
+local cell = `i'*6;
+putexcel E`cell' = (r(gamma)), nformat(0.00) left;
+putexcel F`cell' = (r(ase_gam)), nformat(0.00) left;
+};
+
+*** SCENARIO: STROKE;
+local pref : word count `pref_`par'2';
+forvalues i=1/`pref' {;
+local pr : word `i' of `pref_`par'2';
+tab `pr' mci_status_pt, matcell(decision) gamma;
+forvalues x = 1/5 {;
+local cell = `i'*6+25+`x';
+local count = string(decision[`x',1]);
+local percent = string(((decision[`x',1]/61)*100),"%9.1f");
+putexcel C`cell' = "`count' (`percent')";
+local count = string(decision[`x',2]);
+local percent = string(((decision[`x',2]/66)*100),"%9.1f");
+putexcel D`cell' = "`count' (`percent')";
+};
+local cell = `i'*6+25;
+putexcel E`cell' = (r(gamma)), nformat(0.00) left;
+putexcel F`cell' = (r(ase_gam)), nformat(0.00) left;
+};
+};
+
+******************************************* ANCILLARY ANALYSES: RISK PERCEPTION;
+***** MACROS;
+quietly{;
+local risk_pt "falls_f2yrs_pt heart_attack_f2yrs_pt stroke_f2yrs_pt dementia_f2yrs_pt";
+local risk_apt "falls_f2yrs_apt heart_attack_f2yrs_apt stroke_f2yrs_apt dementia_f2yrs_apt";
+local participant "Patient Partner";
+local letter "A B E F";
+};
+
+***** SET TEXT;
+quietly{;
+local numpar : word count `participant';
+forvalues i=1/`numpar' {;
+local par : word `i' of `participant';
+local tnum = `i'+4;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_ANCILLARY", sheet("Table `tnum'") modify; 
+putexcel A1 = "Table `tnum'. `par'-reported 2-year health risk, by MCI status.", top left underline;
+*Lines;
+foreach l in `letter'{;
+putexcel `l'3:`l'4 = " ", merge bold top left border(top, thin, black); 
+putexcel `l'28:`l'28 = " ", border(bottom, thin, black); 
+};
+putexcel C28 = " ", border(bottom, thin, black); 
+putexcel D28 = " ", border(bottom, thin, black);  
+*Top;
+putexcel A3:A4 = "Variable", merge bold top left border(bottom, thin, black); 
+putexcel B3:B4 = "Response", merge bold top left border(bottom, thin, black);
+putexcel C3:D3 = "Patient MCI status", merge bold top left border(top, thin, black); 
+putexcel C4 = "No MCI (n=61)", bold top left border(bottom, thin, black);
+putexcel D4 = "MCI (n=66)", bold top left border(bottom, thin, black);
+putexcel E3:E4 = "Gamma", merge bold top left border(bottom, thin, black);
+putexcel F3:F4 = "ASE", merge bold top left border(bottom, thin, black);
+*Middle;
+putexcel A5:A10 = "2-Year fall risk", merge top left;
+putexcel A11:A16 = "2-Year MI risk", merge top left;
+putexcel A17:A22 = "2-Year stroke risk", merge top left;
+putexcel A23:A28 = "2-Year dementia risk", merge top left border(bottom, thin, black);
+forvalues r=1/4{;
+local cell = `r'*6;
+putexcel B`cell' = "Disagree strongly"; 
+local cell = `r'*6+1;
+putexcel B`cell' = "Disagree"; 
+local cell = `r'*6+2;
+putexcel B`cell' = "Neither agree nor disagree"; 
+local cell = `r'*6+3;
+putexcel B`cell' = "Agree"; 
+local cell = `r'*6+4;
+putexcel B`cell' = "Agree strongly"; 
+};
+putexcel A29:F29 = "Note: `par's were asked if they felt they would have an  adverse health event in the next 2 years. 
+Responses are reported as count (%) and compared using Goodman and Kruskal's gamma."
+, merge top left;  
+};
+};
+
+***** ANALYSES;
+local pv : word count `parvar2';
+forvalues p=1/`pv'{;
+local par : word `p' of `parvar2';
+local table = `p'+4;
+putexcel set "`cd'\01_S3_LSPQ-Study\stata_aux\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_ANCILLARY", sheet("Table `table'") modify;
+local risk : word count `risk_`par'';
+forvalues i=1/`risk' {;
+local ri : word `i' of `risk_`par'';
+tab `ri' mci_status_pt, matcell(decision) gamma;
+forvalues x = 1/5 {;
+local cell = `i'*6-1+`x';
+local count = string(decision[`x',1]);
+local percent = string(((decision[`x',1]/61)*100),"%9.1f");
+putexcel C`cell' = "`count' (`percent')";
+local count = string(decision[`x',2]);
+local percent = string(((decision[`x',2]/66)*100),"%9.1f");
+putexcel D`cell' = "`count' (`percent')";
+};
+local cell = `i'*6-1;
+putexcel E`cell' = (r(gamma)), nformat(0.00) left;
+putexcel F`cell' = (r(ase_gam)), nformat(0.00) left;
+};
+};
+
+/* NOTES
+Variables containing less than the full range of responses could potentially be an 
+issue. Make sure tables are recorded correctly for all variables. 
+*/
