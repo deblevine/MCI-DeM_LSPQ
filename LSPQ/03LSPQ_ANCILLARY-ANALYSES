@@ -1,0 +1,317 @@
+# delimit; 
+clear all; 
+set more off; 
+set maxvar 32767;
+capture log close;
+set seed 378297;
+
+/* 
+////////////////////////////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+***************************** ANALYTIC INFORMATION *****************************
+MCI DeM Aim 2, Study 3: Tx preferences 
+Deb Levine, MD MPH, University of Michigan
+Created by Rachael Whitney, PhD: 02/06/2020
+Updated by Rachael Whitney, PhD: 04/16/2020
+
+STUDY AIM. Determine the influence of MCI on patient and study partner preferences 
+for AMI and ischemic stroke treatment. STUDY HYPOTHESIS. MCI patients and study 
+partners prefer less intensive treatment than patients with no MCI. 
+
+Analyses in this syntax file employ the data from the 2020 master file freeze and 
+follow the plan outlined in "MCI DeM_Study 3_Analytic Plan_RTW200102.docx". Variables
+used in these analyses are detailed in the analytic plan. General note: variables 
+end in suffixes that provide information about respondent type (patient or partner) 
+and the person being referenced (self or dyad-mate):
+
+	Variable contains patient information provided by the patient: _pt
+	Variable contains patient information provided by the partner: _apt		
+	Variable contains partner information provided by the partner: _ptr
+	Variable contains dyad information provided by the partner: _dyad
+
+---FILES IN USE---
+INPUT, 2020 MASTER:	    MCIDeM_AIM2_STUDY3_MASTER_200206.dta
+OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
+********************************************************************************
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+**************************************************************** PROGRAM MACROS;
+*** DIRECTORY;
+local cd "S:\Intmed_Rsrch2\GenMed\Restricted\COG-HSR PROJECTS\2020-MCIDeM-PROJECTS\AIM2_S3-SURVEY\RW_LSPQ-2020_prj";
+*** DATE;
+local date "200831";
+*** LOG;
+local log "`cd'\reports\LSPQ_ANCILLARY-ANALYSES_RTW`date'.log";
+*** OUT PATH;
+local inpath = "`cd'\dataout\MCIDeM_AIM2_STUDY3_LSPQ_RTW`date'.dta";
+*** OTHER;
+local letter "A B C D";
+
+*************************************************************** DATA MANAGEMENT;
+***** DATA FILES;
+*MASTER;
+*log using "`log'", replace;
+use "`inpath'", clear;
+
+******************************************* ANCILLARY ANALYSES: SDM PREFERENCES;
+***** MACROS;
+quietly{;
+local decision_pt "decision_pt";
+local decision_ptr "decision_ptr";
+local participant "Patient Partner";
+local parvar = "pt ptr";
+local parvar2 = "pt apt";
+local letter "A B C D E F G";
+};
+
+***** SET TEXT;
+putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TABLE2", sheet("Table 2") modify; 
+putexcel A1 = "Table 2. Medical decision making preferences, by patient's MCI status (n=127).", top left underline;
+*Lines;
+foreach l in `letter'{;
+putexcel `l'3 = " ", border(top, thin, black); 
+putexcel `l'5 = " ", border(bottom, thin, black); 
+putexcel `l'22 = " ", border(bottom, thin, black); 
+};
+*Headers;
+putexcel A3:A5 = "Variable", merge bold top left; 
+putexcel B3:D3 = "Patient responses", merge bold top left; 
+putexcel B4:D4 = "Patient MCI status", merge bold top left; 
+putexcel B5 = "No MCI (n=61)", bold top left; 
+putexcel C5 = "MCI (n=66)", bold top left; 
+putexcel D5 = "P", bold italic left;
+putexcel E3:G3 = "Study partner responsesᵃ", merge bold top left; 
+putexcel E4:G4 = "Patient MCI status", merge bold top left; 
+putexcel E5 = "No MCI (n=61)", bold top left; 
+putexcel F5 = "MCI (n=66)", bold top left; 
+putexcel G5 = "P", bold italic left;
+*Variables;
+putexcel A6 = "Reverse LSPQ, points: median (IQR)", top left;
+putexcel A7 = "Control preferences: no. (%)", top left;
+putexcel A8 = "    I make all medical decisions", top left;
+putexcel A9 = "    I make final medical decisions", top left;
+putexcel A10 = "    My doctor and I make joint medical decisions", top left;
+putexcel A11 = "    My doctor makes final medical decisions", top left;
+putexcel A12 = "    My doctor makes all medical decisions", top left;
+putexcel A13 = "Scenario: Acute MI: no. (%)ᵇ", top left;
+putexcel A14 = "    Angioplasty", top left;
+putexcel A15 = "    Bypass surgery", top left;
+putexcel A16 = "    Rehabilitation program", top left;
+putexcel A17 = "    Cholesterol medication", top left;
+putexcel A18 = "Scenario: Stroke: no. (%)ᵇ", top left;
+putexcel A19 = "    Clot-busting medication", top left;
+putexcel A20 = "    Carotid artery surgery", top left;
+putexcel A21 = "    Rehabilitation program", top left;
+putexcel A22 = "    Blood-thinning medication", top left;
+putexcel A23:G23 = "ᵃ All study partner responses are provided in reference to the patient's treatment, with the exception of control prferences. 
+ᵇ Representing participants who prefer to make medical decisions, compared with those who do not.", merge top left;
+
+*** PT Cell;
+** Median (IQR);
+*LSPQ;
+tabstat lspq_reverse_pt, by(mci_status_pt) columns(statistics) statistics(median p25 p75) save, if race_1_pt!=.;
+matrix x1 = r(Stat1);
+matrix x2 = r(Stat2);
+forvalues i=1/2{;
+local med`i' = string(x`i'[1,1], "%9.1f");
+local p25`i' = string(x`i'[2,1], "%9.1f");
+local p75`i' = string(x`i'[3,1], "%9.1f");
+local mi`i' = "`med`i'' (`p25`i'', `p75`i'')";
+};
+putexcel B6 = "`mi1'";
+putexcel C6 = "`mi2'"; 
+median lspq_reverse_pt, by(mci_status_pt);
+local p = r(p);
+if `p'>0.01 {; putexcel D6 = (r(p)), nformat(0.00) left; };
+if `p'<0.01 {; putexcel D6 = (r(p)), nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D6 = "0.99", left; };
+if `p'==0.049 {; putexcel D6 = "0.049", left; };
+if `p'<0.001 {; putexcel D6 = "<0.001", left; };
+
+** Count (%);
+*Medical decisions;
+tab decision_pt mci_status_pt, matcell(decision) chi2;
+local p = r(p);
+if `p'>0.01 {; putexcel D7 = (r(p)), nformat(0.00) left; };
+if `p'<0.01 {; putexcel D7 = (r(p)), nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D7 = "0.99", left; };
+if `p'==0.049 {; putexcel D7 = "0.049", left; };
+if `p'<0.001 {; putexcel D7 = "<0.001", left; };
+local count = string(decision[1,1]);
+local percent = string(((decision[1,1]/61)*100),"%9.1f");
+putexcel B8 = "`count' (`percent')";
+local count = string(decision[2,1]);
+local percent = string(((decision[2,1]/61)*100),"%9.1f");
+putexcel B9 = "`count' (`percent')";
+local count = string(decision[3,1]);
+local percent = string(((decision[3,1]/61)*100),"%9.1f");
+putexcel B10 = "`count' (`percent')";
+local count = string(decision[4,1]);
+local percent = string(((decision[4,1]/61)*100),"%9.1f");
+putexcel B11 = "`count' (`percent')";
+local count = string(decision[5,1]);
+local percent = string(((decision[5,1]/61)*100),"%9.1f");
+putexcel B12 = "`count' (`percent')";
+local count = string(decision[1,2]);
+local percent = string(((decision[1,2]/66)*100),"%9.1f");
+putexcel C8 = "`count' (`percent')";
+local count = string(decision[2,2]);
+local percent = string(((decision[2,2]/66)*100),"%9.1f");
+putexcel C9 = "`count' (`percent')";
+local count = string(decision[3,2]);
+local percent = string(((decision[3,2]/66)*100),"%9.1f");
+putexcel C10 = "`count' (`percent')";
+local count = string(decision[4,2]);
+local percent = string(((decision[4,2]/66)*100),"%9.1f");
+putexcel C11 = "`count' (`percent')";
+local count = string(decision[5,2]);
+local percent = string(((decision[5,2]/66)*100),"%9.1f");
+putexcel C12 = "`count' (`percent')";
+
+*Scenario: AMI; 
+local ami "angioplasty_pt2 surgery_pt2 heart_rehab_pt2 cholesterol_med_pt2";
+local am : word count `ami';
+forvalues a=1/`am'{;
+local var : word `a' of `ami';
+tab `var' mci_status_pt, matcell(decision) chi2;
+local cell = `a'+13;
+local p = r(p);
+if `p'>0.01 {; putexcel D`cell' = (r(p)), nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`cell' = (r(p)), nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`cell' = "0.99", left; };
+if `p'==0.049 {; putexcel D`cell' = "0.049", left; };
+if `p'<0.001 {; putexcel D`cell' = "<0.001", left; };
+local count = string(decision[2,1]);
+local percent = string(((decision[2,1]/61)*100),"%9.1f");
+putexcel B`cell' = "`count' (`percent')";
+local count = string(decision[2,2]);
+local percent = string(((decision[2,2]/66)*100),"%9.1f");
+putexcel C`cell' = "`count' (`percent')";
+};
+
+*Scenario: STROKE; 
+local ami "clotbusting_med_pt2 sx_on_neck_artery_pt2 stroke_rehab_pt2 blood_thinning_med_pt2";
+local am : word count `ami';
+forvalues a=1/`am'{;
+local var : word `a' of `ami';
+tab `var' mci_status_pt, matcell(decision) chi2;
+local cell = `a'+18;
+local p = r(p);
+if `p'>0.01 {; putexcel D`cell' = (r(p)), nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`cell' = (r(p)), nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`cell' = "0.99", left; };
+if `p'==0.049 {; putexcel D`cell' = "0.049", left; };
+if `p'<0.001 {; putexcel D`cell' = "<0.001", left; };
+local count = string(decision[2,1]);
+local percent = string(((decision[2,1]/61)*100),"%9.1f");
+putexcel B`cell' = "`count' (`percent')";
+local count = string(decision[2,2]);
+local percent = string(((decision[2,2]/66)*100),"%9.1f");
+putexcel C`cell' = "`count' (`percent')";
+};
+
+*** PTR Cell;
+** Median (IQR);
+*LSPQ;
+tabstat lspq_reverse_apt, by(mci_status_pt) columns(statistics) statistics(median p25 p75) save, if race_1_pt!=.;
+matrix x1 = r(Stat1);
+matrix x2 = r(Stat2);
+forvalues i=1/2{;
+local med`i' = string(x`i'[1,1], "%9.1f");
+local p25`i' = string(x`i'[2,1], "%9.1f");
+local p75`i' = string(x`i'[3,1], "%9.1f");
+local mi`i' = "`med`i'' (`p25`i'', `p75`i'')";
+};
+putexcel E6 = "`mi1'";
+putexcel F6 = "`mi2'"; 
+median lspq_reverse_apt, by(mci_status_pt);
+local p = r(p);
+if `p'>0.01 {; putexcel G6 = (r(p)), nformat(0.00) left; };
+if `p'<0.01 {; putexcel G6 = (r(p)), nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G6 = "0.99", left; };
+if `p'==0.049 {; putexcel G6 = "0.049", left; };
+if `p'<0.001 {; putexcel G6 = "<0.001", left; };
+
+** Count (%);
+*Medical decisions;
+tab decision_ptr mci_status_pt, matcell(decision) chi2;
+local p = r(p);
+if `p'>0.01 {; putexcel G7 = (r(p)), nformat(0.00) left; };
+if `p'<0.01 {; putexcel G7 = (r(p)), nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G7 = "0.99", left; };
+if `p'==0.049 {; putexcel G7 = "0.049", left; };
+if `p'<0.001 {; putexcel G7 = "<0.001", left; };
+local count = string(decision[1,1]);
+local percent = string(((decision[1,1]/61)*100),"%9.1f");
+putexcel E8 = "`count' (`percent')";
+local count = string(decision[2,1]);
+local percent = string(((decision[2,1]/61)*100),"%9.1f");
+putexcel E9 = "`count' (`percent')";
+local count = string(decision[3,1]);
+local percent = string(((decision[3,1]/61)*100),"%9.1f");
+putexcel E10 = "`count' (`percent')";
+local count = string(decision[4,1]);
+local percent = string(((decision[4,1]/61)*100),"%9.1f");
+putexcel E11 = "`count' (`percent')";
+local count = string(decision[5,1]);
+local percent = string(((decision[5,1]/61)*100),"%9.1f");
+putexcel E12 = "`count' (`percent')";
+local count = string(decision[1,2]);
+local percent = string(((decision[1,2]/66)*100),"%9.1f");
+putexcel F8 = "`count' (`percent')";
+local count = string(decision[2,2]);
+local percent = string(((decision[2,2]/66)*100),"%9.1f");
+putexcel F9 = "`count' (`percent')";
+local count = string(decision[3,2]);
+local percent = string(((decision[3,2]/66)*100),"%9.1f");
+putexcel F10 = "`count' (`percent')";
+local count = string(decision[4,2]);
+local percent = string(((decision[4,2]/66)*100),"%9.1f");
+putexcel F11 = "`count' (`percent')";
+local count = string(decision[5,2]);
+local percent = string(((decision[5,2]/66)*100),"%9.1f");
+putexcel F12 = "`count' (`percent')";
+
+*Scenario: AMI; 
+local ami "angioplasty_apt2 surgery_apt2 heart_rehab_apt2 cholesterol_med_apt2";
+local am : word count `ami';
+forvalues a=1/`am'{;
+local var : word `a' of `ami';
+tab `var' mci_status_pt, matcell(decision) chi2;
+local cell = `a'+13;
+local p = r(p);
+if `p'>0.01 {; putexcel G`cell' = (r(p)), nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`cell' = (r(p)), nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`cell' = "0.99", left; };
+if `p'==0.049 {; putexcel G`cell' = "0.049", left; };
+if `p'<0.001 {; putexcel G`cell' = "<0.001", left; };
+local count = string(decision[2,1]);
+local percent = string(((decision[2,1]/61)*100),"%9.1f");
+putexcel E`cell' = "`count' (`percent')";
+local count = string(decision[2,2]);
+local percent = string(((decision[2,2]/66)*100),"%9.1f");
+putexcel F`cell' = "`count' (`percent')";
+};
+
+*Scenario: STROKE; 
+local ami "clotbusting_med_apt2 sx_on_neck_artery_apt2 stroke_rehab_apt2 blood_thinning_med_apt2";
+local am : word count `ami';
+forvalues a=1/`am'{;
+local var : word `a' of `ami';
+tab `var' mci_status_pt, matcell(decision) chi2;
+local cell = `a'+18;
+local p = r(p);
+if `p'>0.01 {; putexcel G`cell' = (r(p)), nformat(0.00) left; };
+if `p'<0.01 {; putexcel G`cell' = (r(p)), nformat(0.000) left; };
+if `p'>=0.99 {; putexcel G`cell' = "0.99", left; };
+if `p'==0.049 {; putexcel G`cell' = "0.049", left; };
+if `p'<0.001 {; putexcel G`cell' = "<0.001", left; };
+local count = string(decision[2,1]);
+local percent = string(((decision[2,1]/61)*100),"%9.1f");
+putexcel E`cell' = "`count' (`percent')";
+local count = string(decision[2,2]);
+local percent = string(((decision[2,2]/66)*100),"%9.1f");
+putexcel F`cell' = "`count' (`percent')";
+};
