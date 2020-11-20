@@ -1,0 +1,377 @@
+# delimit; 
+clear all; 
+set more off; 
+set maxvar 32767;
+capture log close;
+set seed 378297;
+
+/* 
+////////////////////////////////////////////////////////////////////////////////
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+***************************** ANALYTIC INFORMATION *****************************
+MCI DeM Aim 2, Study 3: Tx preferences 
+Deb Levine, MD MPH, University of Michigan
+Created by Rachael Whitney, PhD: 02/06/2020
+Updated by Rachael Whitney, PhD: 04/16/2020
+
+STUDY AIM. Determine the influence of MCI on patient and study partner preferences 
+for AMI and ischemic stroke treatment. STUDY HYPOTHESIS. MCI patients and study 
+partners prefer less intensive treatment than patients with no MCI. 
+
+Analyses in this syntax file employ the data from the 2020 master file freeze and 
+follow the plan outlined in "MCI DeM_Study 3_Analytic Plan_RTW200102.docx". Variables
+used in these analyses are detailed in the analytic plan. General note: variables 
+end in suffixes that provide information about respondent type (patient or partner) 
+and the person being referenced (self or dyad-mate):
+
+	Variable contains patient information provided by the patient: _pt
+	Variable contains patient information provided by the partner: _apt		
+	Variable contains partner information provided by the partner: _ptr
+	Variable contains dyad information provided by the partner: _dyad
+
+---FILES IN USE---
+INPUT, 2020 MASTER:	    MCIDeM_AIM2_STUDY3_MASTER_200206.dta
+OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
+********************************************************************************
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+**************************************************************** PROGRAM MACROS;
+*** DIRECTORY;
+local cd "S:\Intmed_Rsrch2\GenMed\Restricted\COG-HSR PROJECTS\2020-MCIDeM-PROJECTS\AIM2_S3-SURVEY\RW_LSPQ-2020_prj";
+*** DATE;
+local date "200831";
+*** LOG;
+local log "`cd'\reports\LSPQ_MAIN-ANALYSES_RTW`date'.log";
+*** PATH;
+local inpath = "`cd'\dataout\MCIDeM_AIM2_STUDY3_LSPQ_RTW`date'.dta";
+*** OTHER;
+local letter "A B C D";
+
+*************************************************************** DATA MANAGEMENT;
+***** DATA FILES;
+*MASTER;
+*log using "`log'", replace;
+use "`inpath'", clear;
+
+**************************************************************** MODEL BUILDING;
+/***** METHOD: STEPWISE REGRESSION;
+quietly{;
+*** MACROS;
+local dems_pt "age_pt gender_pt education_pt";
+local dems_ptr "age_ptr gender_ptr education_ptr";
+local health_pt "phq2_pt adl_pt health_pt moca_pt stroke_pt heart_disease_pt lung_disease_pt cancer_pt arthritis_pt";
+local health_ptr "phq2_ptr adl_ptr health_ptr stroke_ptr heart_disease_ptr lung_disease_ptr cancer_ptr arthritis_ptr";
+local experience_pt "dementia_cfamily_pt stroke_cfamily_pt heart_attack_cfamily_pt";
+local experience_ptr "dementia_cfamily_ptr stroke_cfamily_ptr heart_attack_cfamily_ptr";
+local social_pt "marital_statu_pt children_pt children_lives_with_pt children_30_mi_pt";
+local dyad "relationship_dyad2 relationship_yrs_dyad freq_see_dyad2 freq_speak_dyad2";
+
+*** ANALYSES;
+*M2 DEMOGRAPHIC;
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_pt (mci_status_pt race_pt `dems_pt') `dems_ptr'  site;
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_apt (mci_status_pt race_ptr `dems_ptr') `dems_pt'  site;
+*M3 HEALTH EXPERIENCE;
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_pt (mci_status_pt) `health_pt' `health_ptr' dsrs_apt `experience_pt' `experience_ptr';
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_apt (mci_status_pt) `health_pt' `health_ptr' dsrs_apt `experience_pt' `experience_ptr';
+*M4 SOCIAL SUPPORT;
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_pt (mci_status_pt) `social_pt' marital_statu_ptr `dyad';
+sw, lockterm1 pr(0.10) pe(0.05): nbreg lspq_reverse_apt (mci_status_pt) `social_pt' marital_statu_ptr `dyad';
+
+/* NOTES 
+FINAL MODEL PT
+	M1 ZERO ORDER:			mci_status_pt 
+	M2 PARSIMONIOUS:        M1 + race_pt age_pt gender_pt education_pt gender_ptr stroke_cfamily_pt	
+	M3 FULL:                M1 + race_pt age_pt gender_pt education_pt gender_ptr stroke_cfamily_pt health_ptr children_lives_with_pt
+FINAL MODEL PTR
+	M1 ZERO ORDER:			mci_status_pt 
+	M2 PARSIMONIOUS:        M1 + race_ptr age_ptr gender_ptr education_ptr stroke_ptr	
+	M3 FULL:                M1 + race_ptr age_ptr gender_ptr education_ptr education_pt stroke_ptr health_ptr children_lives_with_pt
+ 
+*/
+};
+*/
+
+*********************************************** ANALYSIS: TREATMENT PREFERENCES;
+***** PRIMARY 1;
+*** MACROS;
+local m2_pt "age_pt race_pt i.education_pt gender_pt gender_ptr";
+local m3_pt "i.health_ptr stroke_cfamily_pt";
+local m4_pt "children_lives_with_pt";
+
+*** M1 ZERO ORDER;
+quietly{;
+zinb lspq_reverse_pt mci_status_pt, inflate(_cons) zip vce(robust);
+matrix x = r(table);
+
+*TABLE;
+putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 1") modify; 
+putexcel A1 = "Table 1. Zero order analysis of patient-reported reverse LSPQ score.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
+putexcel B3:D4 = "Ratio of average counts of rejecting treatment across illness scenarios among those with LSPQ<24", merge bold top txtwrap border(top, thin, black);
+putexcel B5 = "Mean count", left bold border(bottom, thin, black); 
+putexcel C5 = "95% CI", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+foreach l in `letter'{;
+putexcel `l'6 = " ", border(bottom, thin, black);
+};
+putexcel A6 = "Patient: MCI vs no MCI";
+
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+local lci = string(exp(x[5,`i']), "%9.2f");
+local uci = string(exp(x[6,`i']), "%9.2f");
+local ci = "`lci', `uci'" ;
+putexcel C`row' = "`ci'", nformat(0.00) left;
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+};
+
+*** M2 PARSIMONIOUS;
+quietly{;
+zinb lspq_reverse_pt mci_status_pt age_pt race_pt i.education_pt gender_pt gender_ptr stroke_cfamily_pt, inflate(_cons) zip vce(robust);
+matrix x = r(table);
+
+*TABLE;
+putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 2") modify; 
+putexcel A1 = "Table 2. Parsimonious analysis of patient-reported reverse LSPQ score.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
+putexcel B3:D4 = "Ratio of average counts of rejecting treatment across illness scenarios among those with LSPQ<24", merge bold top txtwrap border(top, thin, black);
+putexcel B5 = "Mean count", left bold border(bottom, thin, black); 
+putexcel C5 = "95% CI", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "Patient: MCI vs no MCI";
+putexcel A7 = "Patient: Age, years";
+putexcel A8 = "Patient: Black vs White";
+putexcel A9 = "Patient: Education";
+putexcel A10 = "    Some college vs no college";
+putexcel A11 = "    4-Year degree vs no college";
+putexcel A12 = "    Graduate degree vs no college";
+putexcel A13 = "Patient: Male vs female";
+putexcel A14 = "Partner: Male vs female";
+foreach l in `letter'{;
+putexcel `l'15 = " ", border(bottom, thin, black);
+};
+putexcel A15 = "Patient: Contact vs no contact with stroke";
+
+local df = (`e(df_m)'+1);
+forvalues i=1/`df' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+local lci = string(exp(x[5,`i']), "%9.2f");
+local uci = string(exp(x[6,`i']), "%9.2f");
+local ci = "`lci', `uci'" ;
+putexcel C`row' = "`ci'", nformat(0.00) left;
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+};
+
+*** M3 FULL;
+quietly{;
+zinb lspq_reverse_pt mci_status_pt `m2_pt' `m3_pt' `m4_pt', inflate(_cons) zip vce(robust);
+matrix x = r(table);
+
+*TABLE;
+putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 3") modify; 
+putexcel A1 = "Table 3. Fully-adjusted analysis of patient-reported reverse LSPQ score.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
+putexcel B3:D4 = "Ratio of average counts of rejecting treatment across illness scenarios among those with LSPQ<24", merge bold top txtwrap border(top, thin, black);
+putexcel B5 = "Mean count", left bold border(bottom, thin, black); 
+putexcel C5 = "95% CI", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black);
+putexcel A6 = "Patient: MCI vs no MCI";
+putexcel A7 = "Patient: Age, years";
+putexcel A8 = "Patient: Black vs White";
+putexcel A9 = "Patient: Education";
+putexcel A10 = "    Some college vs no college";
+putexcel A11 = "    4-Year degree vs no college";
+putexcel A12 = "    Graduate degree vs no college";
+putexcel A13 = "Patient: Male vs female";
+putexcel A14 = "Partner: Male vs female";
+putexcel A15 = "Partner: Health"; 
+putexcel A16 = "    Good vs fair";
+putexcel A17 = "    Very good vs fair";
+putexcel A18 = "    Excellent vs fair";
+putexcel A19 = "Patient: Contact vs no contact with stroke";
+foreach l in `letter'{;
+putexcel `l'20 = " ", border(bottom, thin, black);
+};
+putexcel A20 = "Patient: Lives vs doesn't live with child";
+
+local df = (`e(df_m)'+2);
+forvalues i=1/`df' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+local lci = string(exp(x[5,`i']), "%9.2f");
+local uci = string(exp(x[6,`i']), "%9.2f");
+local ci = "`lci', `uci'" ;
+putexcel C`row' = "`ci'", nformat(0.00) left;
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+};
+
+***** SECONDARY 1;
+*** MACROS;
+local m2_ptr "age_ptr race_ptr gender_ptr i.education_ptr i.education_pt";
+local m3_ptr "i.health_ptr stroke_ptr";
+local m4_ptr "children_lives_with_pt";
+
+*** M4 ZERO ORDER;
+quietly{;
+zinb lspq_reverse_apt mci_status_pt, inflate(_cons) zip vce(robust);
+matrix x = r(table);
+*TABLE;
+putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 4") modify; 
+putexcel A1 = "Table 4. Zero order analysis of partner-reported reverse LSPQ score.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
+putexcel B3:D4 = "Ratio of average counts of rejecting treatment across illness scenarios among those with LSPQ<24", merge bold top txtwrap border(top, thin, black);
+putexcel B5 = "Mean count", left bold border(bottom, thin, black); 
+putexcel C5 = "95% CI", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+foreach l in `letter'{;
+putexcel `l'6 = " ", border(bottom, thin, black);
+};
+putexcel A6 = "Patient: MCI vs no MCI";
+
+forvalues i=1/`e(df_m)' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+local lci = string(exp(x[5,`i']), "%9.2f");
+local uci = string(exp(x[6,`i']), "%9.2f");
+local ci = "`lci', `uci'" ;
+putexcel C`row' = "`ci'", nformat(0.00) left;
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+};
+
+*** M5 PARSIMONIOUS;
+quietly{;
+zinb lspq_reverse_apt mci_status_pt age_ptr race_ptr gender_ptr i.education_ptr stroke_ptr, inflate(_cons) zip vce(robust);
+matrix x = r(table);
+
+*TABLE;
+putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 5") modify; 
+putexcel A1 = "Table 5. Parsimonious analysis of partner-reported reverse LSPQ score.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
+putexcel B3:D4 = "Ratio of average counts of rejecting treatment across illness scenarios among those with LSPQ<24", merge bold top txtwrap border(top, thin, black);
+putexcel B5 = "Mean count", left bold border(bottom, thin, black); 
+putexcel C5 = "95% CI", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "Patient: MCI vs no MCI";
+putexcel A7 = "Partner: Age, years";
+putexcel A8 = "Partner: Black vs White";
+putexcel A9 = "Partner: Male vs female";
+putexcel A10 = "Partner: Education";
+putexcel A11 = "    Some college vs no college";
+putexcel A12 = "    4-Year degree vs no college";
+putexcel A13 = "    Graduate degree vs no college";
+foreach l in `letter'{;
+putexcel `l'14 = " ", border(bottom, thin, black);
+};
+putexcel A14 = "Partner: History vs no history of stroke";
+
+local df = (`e(df_m)'+1);
+forvalues i=1/`df' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+local lci = string(exp(x[5,`i']), "%9.2f");
+local uci = string(exp(x[6,`i']), "%9.2f");
+local ci = "`lci', `uci'" ;
+putexcel C`row' = "`ci'", nformat(0.00) left;
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+};
+
+*** M6 FULL;
+quietly{;
+zinb lspq_reverse_apt mci_status_pt `m2_ptr' `m3_ptr' `m4_ptr', inflate(_cons) zip vce(robust);
+matrix x = r(table);
+
+*TABLE;
+putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 6") modify; 
+putexcel A1 = "Table 6. Fully-adjusted analysis of partner-reported reverse LSPQ score.", top left underline;
+putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
+putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
+putexcel B3:D4 = "Ratio of average counts of rejecting treatment across illness scenarios among those with LSPQ<24", merge bold top txtwrap border(top, thin, black);
+putexcel B5 = "Mean count", left bold border(bottom, thin, black); 
+putexcel C5 = "95% CI", left border(bottom, thin, black); 
+putexcel D5 = "P", italic left border(bottom, thin, black); 
+putexcel A6 = "Patient: MCI vs no MCI";
+putexcel A7 = "Partner: Age, years";
+putexcel A8 = "Partner: Black vs White";
+putexcel A9 = "Partner: Male vs female";
+putexcel A10 = "Partner: Education";
+putexcel A11 = "    Some college vs no college";
+putexcel A12 = "    4-Year degree vs no college";
+putexcel A13 = "    Graduate degree vs no college";
+putexcel A14 = "Patient: Education";
+putexcel A15 = "    Some college vs no college";
+putexcel A16 = "    4-Year degree vs no college";
+putexcel A17 = "    Graduate degree vs no college";
+putexcel A18 = "Partner: Health"; 
+putexcel A19 = "    Good vs fair";
+putexcel A20 = "    Very good vs fair";
+putexcel A21 = "    Excellent vs fair";
+putexcel A22 = "Partner: History vs no history of stroke";
+
+foreach l in `letter'{;
+putexcel `l'23 = " ", border(bottom, thin, black);
+};
+putexcel A23 = "Patient: Lives vs doesn't live with child";
+
+local df = (`e(df_m)'+3);
+forvalues i=1/`df' {;
+local row = `i'+5; 
+local B`i' = string(exp(x[1,`i']), "%9.2f");
+putexcel B`row' = "`B`i''";
+local lci = string(exp(x[5,`i']), "%9.2f");
+local uci = string(exp(x[6,`i']), "%9.2f");
+local ci = "`lci', `uci'" ;
+putexcel C`row' = "`ci'", nformat(0.00) left;
+local p = x[4,`i'];
+if `p'>0.01 {; putexcel D`row' = x[4,`i'], nformat(0.00) left; };
+if `p'<0.01 {; putexcel D`row' = x[4,`i'], nformat(0.000) left; };
+if `p'>=0.99 {; putexcel D`row' = "0.99", left; };
+if `p'==0.049 {; putexcel D`row' = "0.049", left; };
+if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
+};
+};
+
+capture log close;
