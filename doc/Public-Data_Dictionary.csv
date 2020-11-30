@@ -1,0 +1,67 @@
+VARIABLE,PROVIDED BY,ABOUT,SCENARIO,QUESTION,VALUES
+dyad_number,N/A,Dyad,N/A,N/A,Continuous
+site,N/A,Dyad,N/A,N/A,0. Duke University | 1. University of Michigan
+relationship_dyad2,Partner,Dyad,N/A,G6. What is your relationship to the study partner? (Mark one box.),1. Spouse | 2. Child | 3. Friend | 4. Other
+relationship_yrs_dyad,Partner,Dyad,N/A,G7. How long have you known the study partner?,Years
+freq_see_dyad2,Partner,Dyad,N/A,"G8. On average, in the past year, how often did you see the study partner? ",1. Daily | 2. Several times a week | 3. Once a week or less
+freq_speak_dyad2,Partner,Dyad,N/A,"G9. If you see the study partner less than once a week, how often do you speak with them? ",1. Daily | 2. Several times a week | 3. Once a week or less
+moca_pt,N/A,Patient,N/A,N/A,Continuous
+mci_status_pt,N/A,Patient,N/A,N/A,0. No MCI (normal cognition) | 1. MCI
+lspq_reverse_pt,Patient,Patient,N/A,N/A,Continuous
+decision_pt,Patient,Patient,N/A,B1. Please check the one statement that best describes what you believe would be ideal.,1. I make decision | 2. I make final decision | 3. My doctor and I make decision | 4. My doctor makes final decision | 5. My doctor makes decision
+angioplasty_pt2,Patient,Patient,Heart attack,C1. How involved would you want to be in the decision on whether or not to have a medical procedure (called an angioplasty) to treat the heart attack?,0. Don't want to be involved | 1. Want to be involved
+surgery_pt2,Patient,Patient,Heart attack,C2. How involved would you want to be in the decision on whether or not to have open-heart surgery (called bypass surgery) to improve blood flow to the heart after you had a heart attack?,0. Don't want to be involved | 1. Want to be involved
+heart_rehab_pt2,Patient,Patient,Heart attack,C3. How involved would you want to be in the decision on whether or not to do a heart rehabilitation program in a clinic to improve your health and well-being after you had a heart attack?,0. Don't want to be involved | 1. Want to be involved
+cholesterol_med_pt2,Patient,Patient,Heart attack,C4. How involved would you want to be in the decision on whether or not to start a cholesterol medicine to reduce the chance of having another heart attack?,0. Don't want to be involved | 1. Want to be involved
+clotbusting_med_pt2,Patient,Patient,Stroke,C5. How involved would you want to be in the decision on whether or not to have clot-busting medicine injected into a vein to treat the stroke?,0. Don't want to be involved | 1. Want to be involved
+sx_on_neck_artery_pt2,Patient,Patient,Stroke,C6. How involved would you want to be in the decision on whether or not to have surgery on a neck artery to improve blood flow to the brain after you had a stroke?,0. Don't want to be involved | 1. Want to be involved
+stroke_rehab_pt2,Patient,Patient,Stroke,C7. How involved would you want to be in the decision on whether or not to do stroke rehabilitation in a hospital or facility to improve your walking and balance after you had a stroke?,0. Don't want to be involved | 1. Want to be involved
+blood_thinning_med_pt2,Patient,Patient,Stroke,C8. How involved would you want to be in the decision on whether or not to start blood-thinning medicine to reduce the chance of having another stroke?,0. Don't want to be involved | 1. Want to be involved
+health_pt,Patient,Patient,N/A,"E1. In general, how is your health?",0. Poor | 1. Fair | 2. Good | 3. Very Good | 4. Excellent
+stroke_pt,Patient,Patient,N/A,E2. Has a doctor ever told you that you had a stroke?,0. No | 1. Yes
+heart_disease_pt,Patient,Patient,N/A,E3. Has a doctor ever told you that you have heart disease? ,0. No | 1. Yes
+lung_disease_pt,Patient,Patient,N/A,E4. Has a doctor ever told you that you have lung disease?,0. No | 1. Yes
+cancer_pt,Patient,Patient,N/A,"E5. Has a doctor ever told you that you have cancer or a malignant tumor, excluding minor skin cancer?",0. No | 1. Yes
+arthritis_pt,Patient,Patient,N/A,E6. Has a doctor ever told you that you have arthritis or rheumatism?,0. No | 1. Yes
+phq2_pt,Patient,Patient,N/A,N/A,0. No indication of depression | 1. Some indication of depression
+adl_pt,Patient,Patient,N/A,N/A,0. No difficulty with activities of daily living | 1. Difficulty with activities of daily living
+age_pt,Patient,Patient,N/A,F1. What is your age?,Continuous
+gender_pt,Patient,Patient,N/A,F2. What is your gender,0. Female | 1. Male
+race_pt,Patient,Patient,N/A,N/A,0. White | 1. Black
+race_1_pt,Patient,Patient,N/A,F4. What is your race? American Indian/Alaska Native (select all that apply),0. No | 1. Yes
+marital_statu2_pt,Patient,Patient,N/A,F5. What is your current marital status? Check one box.,0. Single | 1. Married/partner
+children_pt,Patient,Patient,N/A,"F6. Do you have any children -- please include biological, stepchildren, and adopted children?",0. No | 1. Yes
+children_lives_with_pt,Patient,Patient,N/A,F7. Do you have at least one adult child that lives with you?,0. No | 1. Yes
+children_30_mi_pt,Patient,Patient,N/A,F8. Do any of your adult children who do not live with you live within 30 miles of you?,0. No | 1. Yes
+education_pt,Patient,Patient,N/A,F9. What is the highest grade of school that you completed? Check one box.,1. No college | 2. Some college | 3. 4-Year degree | 4. Graduate degree
+dementia_cfamily_pt,Patient,Patient,N/A,F10. Has a close family member or friend had dementia?  ,0. No | 1. Yes
+stroke_cfamily_pt,Patient,Patient,N/A,F11. Has a close family member or friend had a stroke?,0. No | 1. Yes
+heart_attack_cfamily_pt,Patient,Patient,N/A,F12. Has a close family member or friend had a heart attack?,0. No | 1. Yes
+lspq_reverse_apt,Partner,Patient,N/A,N/A,Continuous
+decision_ptr,Partner,Partner,N/A,B1. Please check the one statement that best describes what you believe would be ideal.,1. I make decision | 2. I make final decision | 3. My doctor and I make decision | 4. My doctor makes final decision | 5. My doctor makes decision
+angioplasty_apt2,Partner,Patient,Heart attack,C1. How involved would you want to be in the decision on whether or not they have a medical procedure (called an angioplasty) to treat the heart attack?,0. Don't want to be involved | 1. Want to be involved
+surgery_apt2,Partner,Patient,Heart attack,C2. How involved would you want to be in the decision on whether or not they have open-heart surgery (called bypass surgery) to improve blood flow to the heart after they had a heart attack?,0. Don't want to be involved | 1. Want to be involved
+heart_rehab_apt2,Partner,Patient,Heart attack,C3. How involved would you want to be in the decision on whether or not they do a heart rehabilitation program in a clinic to improve your health and well-being after a heart attack?,0. Don't want to be involved | 1. Want to be involved
+cholesterol_med_apt2,Partner,Patient,Heart attack,C4. How involved would you want to be in the decision on whether or not they start a cholesterol medicine to reduce the chance of them having another heart attack?,0. Don't want to be involved | 1. Want to be involved
+clotbusting_med_apt2,Partner,Patient,Stroke,C5. How involved would you want to be in the decision on whether or not they have clot-busting medicine injected into a vein to treat the stroke?,0. Don't want to be involved | 1. Want to be involved
+sx_on_neck_artery_apt2,Partner,Patient,Stroke,C6. How involved would you want to be in the decision on whether or not they have surgery on a neck artery to improve blood flow to the brain after you had a stroke?,0. Don't want to be involved | 1. Want to be involved
+stroke_rehab_apt2,Partner,Patient,Stroke,C7. How involved would you want to be in the decision on whether or not they do stroke rehabilitation in a hospital or facility to improve their walking and balance after they had a stroke?,0. Don't want to be involved | 1. Want to be involved
+blood_thinning_med_apt2,Partner,Patient,Stroke,C8. How involved would you want to be in the decision on whether or not they start blood-thinning medicine to reduce their chances of having another stroke?,0. Don't want to be involved | 1. Want to be involved
+dsrs_apt,Partner,Patient,N/A,N/A,Continuous
+health_ptr,Partner,Partner,N/A,"F1. In general, how is your health?",0. Poor | 1. Fair | 2. Good | 3. Very Good | 4. Excellent
+stroke_ptr,Partner,Partner,N/A,F2. Has a doctor ever told you that you had a stroke?,0. No | 1. Yes
+heart_disease_ptr,Partner,Partner,N/A,F3. Has a doctor ever told you that you have heart disease? ,0. No | 1. Yes
+lung_disease_ptr,Partner,Partner,N/A,F4. Has a doctor ever told you that you have lung disease?,0. No | 1. Yes
+cancer_ptr,Partner,Partner,N/A,"F5. Has a doctor ever told you that you have cancer or a malignant tumor, excluding minor skin cancer?",0. No | 1. Yes
+arthritis_ptr,Partner,Partner,N/A,F6. Has a doctor ever told you that you have arthritis or rheumatism?,0. No | 1. Yes
+phq2_ptr,Partner,Partner,N/A,NEW. PHQ-2 (depressed mood),0. No indication of depression | 1. Some indication of depression
+adl_ptr,Partner,Partner,N/A,N/A,0. No difficulty with activities of daily living | 1. Difficulty with activities of daily living
+age_ptr,Partner,Partner,N/A,G1. What is your age?,Continuous
+gender_ptr,Partner,Partner,N/A,G2. What is your gender,0. Female | 1. Male
+race_ptr,Partner,Partner,N/A,N/A,0. White | 1. Black
+race_1_ptr,Partner,Partner,N/A,G4. What is your race? American Indian/Alaska Native (select all that apply),0. No | 1. Yes
+marital_statu2_ptr,Partner,Partner,N/A,G5. What is your current marital status? Check one box.,0. Single | 1. Married/partner
+education_ptr,Partner,Partner,N/A,G10. What is the highest grade of school that you completed? Check one box.,1. No college | 2. Some college | 3. 4-Year degree | 4. Graduate degree
+dementia_cfamily_ptr,Partner,Partner,N/A,G11. Has a close family member or friend had dementia?  ,0. No | 1. Yes
+stroke_cfamily_ptr,Partner,Partner,N/A,G12. Has a close family member or friend had a stroke?,0. No | 1. Yes
+heart_attack_cfamily_ptr,Partner,Partner,N/A,G13. Has a close family member or friend had a heart attack?,0. No | 1. Yes
