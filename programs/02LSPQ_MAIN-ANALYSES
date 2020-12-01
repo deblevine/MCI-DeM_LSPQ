@@ -11,18 +11,17 @@ set seed 378297;
 ***************************** ANALYTIC INFORMATION *****************************
 MCI DeM Aim 2, Study 3: Tx preferences 
 Deb Levine, MD MPH, University of Michigan
-Created by Rachael Whitney, PhD: 02/06/2020
-Updated by Rachael Whitney, PhD: 04/16/2020
+Created by Rachael Whitney, PhD: 11/24/2020
 
 STUDY AIM. Determine the influence of MCI on patient and study partner preferences 
 for AMI and ischemic stroke treatment. STUDY HYPOTHESIS. MCI patients and study 
 partners prefer less intensive treatment than patients with no MCI. 
 
 Analyses in this syntax file employ the data from the 2020 master file freeze and 
-follow the plan outlined in "MCI DeM_Study 3_Analytic Plan_RTW200102.docx". Variables
-used in these analyses are detailed in the analytic plan. General note: variables 
-end in suffixes that provide information about respondent type (patient or partner) 
-and the person being referenced (self or dyad-mate):
+follow the plan outlined in "ANALYTIC-PLAN_LSPQ.docx". Variables used in these 
+analyses are detailed in the analytic plan. General note: variables end in suffixes 
+that provide information about respondent type (patient or partner) and the person 
+being referenced (self or dyad-mate):
 
 	Variable contains patient information provided by the patient: _pt
 	Variable contains patient information provided by the partner: _apt		
@@ -30,8 +29,7 @@ and the person being referenced (self or dyad-mate):
 	Variable contains dyad information provided by the partner: _dyad
 
 ---FILES IN USE---
-INPUT, 2020 MASTER:	    MCIDeM_AIM2_STUDY3_MASTER_200206.dta
-OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
+INPUT, 2020 MASTER:	    MCIDeM_De-identified_LSPQ_RTW201130.dta
 ********************************************************************************
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,20 +37,16 @@ OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
 
 **************************************************************** PROGRAM MACROS;
 *** DIRECTORY;
-local cd "S:\Intmed_Rsrch2\GenMed\Restricted\COG-HSR PROJECTS\2020-MCIDeM-PROJECTS\AIM2_S3-SURVEY\RW_LSPQ-2020_prj";
-*** DATE;
-local date "200831";
-*** LOG;
-local log "`cd'\reports\LSPQ_MAIN-ANALYSES_RTW`date'.log";
+local cd "S:\Intmed_Rsrch2\GenMed\Restricted\COG-HSR PROJECTS\2020-MCIDeM-PROJECTS\AIM2_S3-SURVEY\RW_LSPQ-2020_prj\public"; /* Location where the data is saved */
 *** PATH;
-local inpath = "`cd'\dataout\MCIDeM_AIM2_STUDY3_LSPQ_RTW`date'.dta";
+local inpath = "MCIDeM_De-identified_LSPQ_RTW201130.dta";
 *** OTHER;
 local letter "A B C D";
+
 
 *************************************************************** DATA MANAGEMENT;
 ***** DATA FILES;
 *MASTER;
-*log using "`log'", replace;
 use "`inpath'", clear;
 
 **************************************************************** MODEL BUILDING;
@@ -106,7 +100,7 @@ zinb lspq_reverse_pt mci_status_pt, inflate(_cons) zip vce(robust);
 matrix x = r(table);
 
 *TABLE;
-putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 1") modify; 
+putexcel set "`cd'\LSPQ_TX-PREF", sheet("Table 1") modify; 
 putexcel A1 = "Table 1. Zero order analysis of patient-reported reverse LSPQ score.", top left underline;
 putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
 putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
@@ -142,7 +136,7 @@ zinb lspq_reverse_pt mci_status_pt age_pt race_pt i.education_pt gender_pt gende
 matrix x = r(table);
 
 *TABLE;
-putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 2") modify; 
+putexcel set "`cd'\LSPQ_TX-PREF", sheet("Table 2") modify; 
 putexcel A1 = "Table 2. Parsimonious analysis of patient-reported reverse LSPQ score.", top left underline;
 putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
 putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
@@ -188,7 +182,7 @@ zinb lspq_reverse_pt mci_status_pt `m2_pt' `m3_pt' `m4_pt', inflate(_cons) zip v
 matrix x = r(table);
 
 *TABLE;
-putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 3") modify; 
+putexcel set "`cd'\LSPQ_TX-PREF", sheet("Table 3") modify; 
 putexcel A1 = "Table 3. Fully-adjusted analysis of patient-reported reverse LSPQ score.", top left underline;
 putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
 putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
@@ -244,7 +238,7 @@ quietly{;
 zinb lspq_reverse_apt mci_status_pt, inflate(_cons) zip vce(robust);
 matrix x = r(table);
 *TABLE;
-putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 4") modify; 
+putexcel set "`cd'\LSPQ_TX-PREF", sheet("Table 4") modify; 
 putexcel A1 = "Table 4. Zero order analysis of partner-reported reverse LSPQ score.", top left underline;
 putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
 putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
@@ -280,7 +274,7 @@ zinb lspq_reverse_apt mci_status_pt age_ptr race_ptr gender_ptr i.education_ptr 
 matrix x = r(table);
 
 *TABLE;
-putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 5") modify; 
+putexcel set "`cd'\LSPQ_TX-PREF", sheet("Table 5") modify; 
 putexcel A1 = "Table 5. Parsimonious analysis of partner-reported reverse LSPQ score.", top left underline;
 putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
 putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
@@ -325,7 +319,7 @@ zinb lspq_reverse_apt mci_status_pt `m2_ptr' `m3_ptr' `m4_ptr', inflate(_cons) z
 matrix x = r(table);
 
 *TABLE;
-putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TX-PREF", sheet("Table 6") modify; 
+putexcel set "`cd'\LSPQ_TX-PREF", sheet("Table 6") modify; 
 putexcel A1 = "Table 6. Fully-adjusted analysis of partner-reported reverse LSPQ score.", top left underline;
 putexcel A3:A5 = " ", merge bold top left border(top, thin, black); 
 putexcel A3:A5 = "Covariate", merge bold top left border(bottom, thin, black); 
@@ -373,5 +367,3 @@ if `p'==0.049 {; putexcel D`row' = "0.049", left; };
 if `p'<0.001 {; putexcel D`row' = "<0.001", left; };
 };
 };
-
-capture log close;
