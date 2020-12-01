@@ -11,18 +11,17 @@ set seed 378297;
 ***************************** ANALYTIC INFORMATION *****************************
 MCI DeM Aim 2, Study 3: Tx preferences 
 Deb Levine, MD MPH, University of Michigan
-Created by Rachael Whitney, PhD: 02/06/2020
-Updated by Rachael Whitney, PhD: 04/16/2020
+Created by Rachael Whitney, PhD: 11/24/2020
 
 STUDY AIM. Determine the influence of MCI on patient and study partner preferences 
 for AMI and ischemic stroke treatment. STUDY HYPOTHESIS. MCI patients and study 
 partners prefer less intensive treatment than patients with no MCI. 
 
 Analyses in this syntax file employ the data from the 2020 master file freeze and 
-follow the plan outlined in "MCI DeM_Study 3_Analytic Plan_RTW200102.docx". Variables
-used in these analyses are detailed in the analytic plan. General note: variables 
-end in suffixes that provide information about respondent type (patient or partner) 
-and the person being referenced (self or dyad-mate):
+follow the plan outlined in "ANALYTIC-PLAN_LSPQ.docx". Variables used in these 
+analyses are detailed in the analytic plan. General note: variables end in suffixes 
+that provide information about respondent type (patient or partner) and the person 
+being referenced (self or dyad-mate):
 
 	Variable contains patient information provided by the patient: _pt
 	Variable contains patient information provided by the partner: _apt		
@@ -30,8 +29,7 @@ and the person being referenced (self or dyad-mate):
 	Variable contains dyad information provided by the partner: _dyad
 
 ---FILES IN USE---
-INPUT, 2020 MASTER:	    MCIDeM_AIM2_STUDY3_MASTER_200206.dta
-OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
+INPUT, 2020 MASTER:	    MCIDeM_De-identified_LSPQ_RTW201130.dta
 ********************************************************************************
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,28 +37,16 @@ OUTPUT, LSPQ ANALYTIC:	MCIDeM_AIM2_STUDY3_LSPQ_`date'.dta
 
 **************************************************************** PROGRAM MACROS;
 *** DIRECTORY;
-local cd "\\corefs.med.umich.edu\Shared1\Intmed_Rsrch2\GenMed\Restricted\COG-HSR PROJECTS\2020-MCIDeM-PROJECTS\AIM2_S3-SURVEY\LSPQ_prj";
-*** DATE;
-local date "200831";
-*** LOG;
-local log "`cd'\reports\LSPQ_PRELIM-ANALYSES_RTW`date'.log";
+local cd "S:\Intmed_Rsrch2\GenMed\Restricted\COG-HSR PROJECTS\2020-MCIDeM-PROJECTS\AIM2_S3-SURVEY\RW_LSPQ-2020_prj\public"; /* Location where the data is saved */
 *** PATH;
-local inpath = "`cd'\dataout\MCIDeM_AIM2_STUDY3_LSPQ_RTW`date'.dta";
+local inpath = "MCIDeM_De-identified_LSPQ_RTW201130.dta";
 *** OTHER;
 local letter "A B C D";
 
 *************************************************************** DATA MANAGEMENT;
 ***** DATA FILES;
 *MASTER;
-*log using "`log'", replace;
 use "`inpath'", clear;
-
-/***** NORMALITY ASSESSMENT;
-local cvars "age_pt moca_pt lspq_reverse_pt age_ptr lspq_reverse_apt dsrs_apt relationship_yrs_dyad";
-foreach v in `cvars' {;
-swilk `v';
-};
-*/
 
 *********************************************************************** TABLE 1;
 quietly {;
@@ -69,8 +55,7 @@ tab mci_status_pt, matcell(dyad), if race_1_pt!=.;
 local ntot = dyad[1,1]+dyad[2,1];
 local nnmci = dyad[1,1];
 local nmci = dyad[2,1];
-putexcel set "`cd'\reports\tables\MCIDeM_AIM2_STUDY3_LSPQ_TABLE1", sheet("Table 1") modify;
-
+putexcel set "`cd'\LSPQ_TABLE1", sheet("Table 1") modify;
 putexcel A1 = "Table 1. Patient, study partner and dyad characteristics, by patient's MCI status (n=`ntot').", top left underline;
 putexcel A3:A4 = "Variable", merge bold top left border(top, thin, black); 
 putexcel B3:C3 = "Patient MCI Status", merge bold top left border(top, thin, black); 
@@ -797,5 +782,3 @@ putexcel `var'`num' = "`x`j''";
 };
 };
 };
-
-*capture log close;
