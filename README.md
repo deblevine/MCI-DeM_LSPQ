@@ -9,11 +9,11 @@ This repository contains files pertaining to the Levine et al. project entitled 
 
 2. Determine how mild cognitive impairment influences patient-partner preferences (Aim 2, Study 3) and physician recommendations (Aim 2, Study 4) for acute myocardial infarction and ischemic stroke treatment.  
 
-## Data Files
+## Data
 
-1. 
+1. `/data/MCIDeM_De-identified_LSPQ_RTW201130.csv` contains a limited, de-identified dataset compatible with the programs listed below. 
 
-## .DO Files
+## Programs
 
 1. `/programs/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
 
