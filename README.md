@@ -1,6 +1,7 @@
-# MCI-DeM_Aim2_Study3
+# MCI-DeM_LSPQ
 
-This repository contains files pertaining to Aim 2, Study 3 of MCI DeM. 
+This repository contains files pertaining to the Levine et al. project entitled "The Association between Mild Cognitive Impairment Diagnosis and Patient Treatment Preferences: A Survey of Older Adults."
+
 
 ## MCI DeM Objectives
 
@@ -10,26 +11,16 @@ This repository contains files pertaining to Aim 2, Study 3 of MCI DeM.
 
 ## .DO Files
 
-1. `/MASTER/00MCIDEMPatientSurveys-ExportForAnalysis.do` imports REDCap data and assigns labels.
+1. `/LSPQ/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN.md'.   
 
-2. `/MASTER/01MCIDEMPatientSurveys` imports REDCap data and assigns labels.
+2. `/LSPQ/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN.md'.   
 
-3. `/MASTER/02MCIDeM_Study3_Master` generates the MCI DeM Aim 2, Study 3 master dataset. This dataset contains patient-partner survey data, frozen in February 2020. This file was created by Rachael Whitney.
-
-4. `/LSPQ/00LSPQ_DATASET.do` generates the dataset for analyses outlined in `ANALYTIC-PLAN.md'.
-
-5. `/LSPQ/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN.md'.   
-
-6. `/LSPQ/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN.md'.   
-
-7. `/LSPQ/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN.md'.   
+3. `/LSPQ/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN.md'.   
 
 ## Documentation
 
-1. `ANALYTIC-PLAN_LSPQ.docx` details the analytic plan for the MCI DeM Aim 2, Study 3, LSPQ manuscript. This file was created by Rachael Whitney with input from Deborah Levine, Andrzej Galecki and Mohammed Kabeto. 
+1. `ANALYTIC-PLAN_LSPQ.docx` details the analytic plan for the project. This file was created by Rachael Whitney with input from Deborah Levine, Andrzej Galecki and Mohammed Kabeto. 
 
    * `ANALYTIC-PLAN_LSPQ.md` Analysis plan converted to .md format (see https://word2md.com/).
 
-2. `VARIABLE_DETAILS.xlsx` details the variables included in the MCI DeM Aim 2, Study 3 master dataset. Survey sections are saved as seperate sheets within the Excel file. This file was created by Rachael Whitney. 
-
-3. `DATA-DICTIONARY.csv` details the variables included in the MCI DeM Aim 2, Study 3 master dataset. This file was created by Rachael Whitney. 
+2. `DATA-DICTIONARY.csv` details the variables included in the project. This file was created by Rachael Whitney. 
