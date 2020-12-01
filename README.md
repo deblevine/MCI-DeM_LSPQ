@@ -1,7 +1,6 @@
 # MCI-DeM_LSPQ
 
-This repository contains files pertaining to the Levine et al. project entitled "The Association between Mild Cognitive Impairment Diagnosis and Patient Treatment Preferences: A Survey of Older Adults."
-
+This repository contains files pertaining to the Levine et al. project entitled "The Association between Mild Cognitive Impairment Diagnosis and Patient Treatment Preferences: A Survey of Older Adults." Questions can be directed to Rachael Whitney at whitnera@med.umich.edu.
 
 ## MCI DeM Objectives
 
@@ -27,4 +26,4 @@ This repository contains files pertaining to the Levine et al. project entitled 
 
    * `/doc/ANALYTIC-PLAN_LSPQ.md` Analysis plan converted to .md format (see https://word2md.com/).
 
-2. `/doc/Public-Data_Dictionary.csv` details the variables included in the project. This file was created by Rachael Whitney. 
+2. `/doc/Public-Data_Dictionary.csv` details the variables included in the project. This file was created by Rachael Whitney.
