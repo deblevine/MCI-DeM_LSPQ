@@ -9,18 +9,22 @@ This repository contains files pertaining to the Levine et al. project entitled 
 
 2. Determine how mild cognitive impairment influences patient-partner preferences (Aim 2, Study 3) and physician recommendations (Aim 2, Study 4) for acute myocardial infarction and ischemic stroke treatment.  
 
+## Data Files
+
+1. 
+
 ## .DO Files
 
-1. `/Programs/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
+1. `/programs/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
 
-2. `/Programs/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
+2. `/programs/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
 
-3. `/Programs/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
+3. `/programs/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
 
 ## Documentation
 
-1. `/Doc/ANALYTIC-PLAN_LSPQ.docx` details the analytic plan for the project. This file was created by Rachael Whitney with input from Deborah Levine, Andrzej Galecki and Mohammed Kabeto. 
+1. `/doc/ANALYTIC-PLAN_LSPQ.docx` details the analytic plan for the project. This file was created by Rachael Whitney with input from Deborah Levine, Andrzej Galecki and Mohammed Kabeto. 
 
-   * `/Doc/ANALYTIC-PLAN_LSPQ.md` Analysis plan converted to .md format (see https://word2md.com/).
+   * `/doc/ANALYTIC-PLAN_LSPQ.md` Analysis plan converted to .md format (see https://word2md.com/).
 
-2. `/Doc/Public-Data_Dictionary.csv` details the variables included in the project. This file was created by Rachael Whitney. 
+2. `/doc/Public-Data_Dictionary.csv` details the variables included in the project. This file was created by Rachael Whitney. 
