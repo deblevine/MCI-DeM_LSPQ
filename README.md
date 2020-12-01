@@ -11,11 +11,11 @@ This repository contains files pertaining to the Levine et al. project entitled 
 
 ## .DO Files
 
-1. `/LSPQ/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN.md'.   
+1. `/LSPQ/01LSPQ_PRELIM-ANALYSES.do` performs preliminary analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
 
-2. `/LSPQ/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN.md'.   
+2. `/LSPQ/02LSPQ_MAIN-ANALYSES.do` performs main analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
 
-3. `/LSPQ/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN.md'.   
+3. `/LSPQ/03LSPQ_ANCILLARY-ANALYSES.do` performs ancillary analyses outlined in `ANALYTIC-PLAN_LSPQ.md'.   
 
 ## Documentation
 
